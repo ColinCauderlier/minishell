@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 18:15:11 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/24 18:36:45 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/24 18:54:09 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ void	pwd(void)
 			ft_putstr_fd("Buffer size is too small.\n", 2);
 		else if (errno == EACCES)
 			ft_putstr_fd("You don't have permissions to access directory.\n",
-				2) else if (errno == EFAULT) ft_putstr_fd("Buffer pointer is invalid.\n",
 				2);
+		else if (errno == EFAULT)
+			ft_putstr_fd("Buffer pointer is invalid.\n", 2);
 		else if (errno == EINVAL)
 			ft_putstr_fd("Buffer size is invalid.\n", 2);
 		else if (errno == EIO)
