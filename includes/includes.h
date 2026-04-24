@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccauderl <ccauderl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:53:35 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/23 16:14:57 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/24 15:09:18 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef INCLUDES_H
 # define INCLUDES_H
@@ -17,12 +16,12 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
 # include <string.h>
+# include <unistd.h>
 
 /********READLINE*********/
-# include <readline/readline.h>
 # include <readline/history.h>
+# include <readline/readline.h>
 
 /**********WAIT***********/
 # include <sys/wait.h>
@@ -32,8 +31,8 @@
 
 /**********LIBFT***********/
 
-# include "../libft/libft.h"
 # include "../libft/ft_printf/ft_printf.h"
 # include "../libft/gnl/get_next_line.h"
+# include "../libft/libft.h"
 
 #endif

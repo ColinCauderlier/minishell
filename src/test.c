@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccauderl <ccauderl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/23 16:20:55 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/24 15:09:11 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/includes.h"
 #include "../includes/functions.h"
+#include "../includes/includes.h"
 
-int	main()
+int	main(void)
 {
 	char	*prompt;
 
