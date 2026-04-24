@@ -6,13 +6,11 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/24 17:13:39 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/24 18:17:07 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/functions.h"
 #include "../includes/includes.h"
-#include "../includes/struct.h"
 
 static void     free_res(char **res, int pos_res)
 {
