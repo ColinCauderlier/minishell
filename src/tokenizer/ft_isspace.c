@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   functions.h                                        :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ccauderl <ccauderl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/24 17:02:26 by ccauderl         ###   ########.fr       */
+/*   Created: 2026/04/24 14:45:05 by ccauderl          #+#    #+#             */
+/*   Updated: 2026/04/24 14:48:10 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FUNCTIONS_H
-# define FUNCTIONS_H
-
-void	tokenize(char *prompt);
-int		ft_isspace(char c);
-
-#endif
+int	ft_isspace(char c)
+{
+	if (c == 32 || (9 < c && c < 13))
+		return (1);
+	return (0);
+}
