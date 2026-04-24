@@ -6,15 +6,15 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 11:38:44 by lucinguy          #+#    #+#              #
-#    Updated: 2026/04/24 18:49:31 by lucinguy         ###   ########.fr        #
+#    Updated: 2026/04/24 18:57:43 by lucinguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:= minishell
-CC		:= cc
+CC			:= cc
 CFLAGS		:= -Wall -Wextra -Werror
 FLAGS		:= -lreadline
-RM		:= rm -f
+RM			:= rm -f
 INCS		:= -I ./includes -I ./libft -I ./libft/ft_printf -I ./libft/gnl
 LIBFT_DIR	:= libft
 SRCS_DIR	:= src
