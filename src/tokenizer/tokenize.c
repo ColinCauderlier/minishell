@@ -6,11 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/04/24 16:55:26 by ccauderl         ###   ########.fr       */
-=======
-/*   Updated: 2026/04/24 15:09:36 by lucinguy         ###   ########.fr       */
->>>>>>> aeb1928e3e868750c19b7e7ce9a3d8138436dddf
+/*   Updated: 2026/04/24 17:13:39 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +125,6 @@ static char    **get_content(char const *s)
 
 void	tokenize(char *prompt)
 {
-<<<<<<< HEAD
 	char	**token_content;
 	int	i;
 
@@ -141,7 +136,4 @@ void	tokenize(char *prompt)
 		printf("%s\n", token_content[i]);
 		i++;
 	}
-=======
-	printf("%s\n", prompt);
->>>>>>> aeb1928e3e868750c19b7e7ce9a3d8138436dddf
 }
