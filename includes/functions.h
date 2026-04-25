@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/24 17:02:26 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/25 23:42:41 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 
 void	tokenize(char *prompt);
 int		ft_isspace(char c);
+void	pwd(void);
 
 #endif

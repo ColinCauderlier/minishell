@@ -6,11 +6,10 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/24 17:17:14 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/25 23:44:25 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/functions.h"
 #include "../includes/includes.h"
 
 void	sig_handler(int sig)
@@ -25,7 +24,7 @@ char	*get_prompt(void)
 {
 	char	*prompt;
 
-	prompt = readline("Minishell>");
+	prompt = readline("Minishell >");
 	return (prompt);
 }
 
@@ -42,3 +41,9 @@ int	main(void)
 	}
 	return (0);
 }
+
+// int main(void) //test pwd
+// {
+// 	pwd();
+// 	return (0);
+// }
