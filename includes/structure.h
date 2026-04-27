@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/27 12:29:48 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/27 16:35:26 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef enum
 typedef struct s_token
 {
 	t_type			token_type;
-	t_state			token_state;
 	char			*content;
 	struct s_token	*next;
 }	t_token;

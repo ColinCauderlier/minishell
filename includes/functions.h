@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/27 14:28:03 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:31:13 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 /********TOKENIZER*********/
 void	tokenize(char *prompt);
-t_token	*get_content(char const *s);
+t_token	*get_content(char *s);
 int		ft_isspace(char c);
 void	free_res(t_token *res, int pos_res);
 
