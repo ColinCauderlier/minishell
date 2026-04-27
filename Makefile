@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 11:38:44 by lucinguy          #+#    #+#              #
-#    Updated: 2026/04/27 15:12:55 by ccauderl         ###   ########.fr        #
+#    Updated: 2026/04/27 15:55:16 by lucinguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS		:= 	tokenizer/tokenize.c \
 			tokenizer/get_content.c \
 			tokenizer/free_lst.c \
 			built-in/pwd/pwd.c \
+			built-in/cd/cd.c \
 			main.c
 
 SRCS_FILES	:= $(addprefix $(SRCS_DIR)/, $(SRCS))

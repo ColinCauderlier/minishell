@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/27 15:31:13 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:56:41 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ void	free_res(t_token *res, int pos_res);
 
 /********BUILT*IN**********/
 void	pwd(void);
+void	cd(char *path);
 
 #endif
