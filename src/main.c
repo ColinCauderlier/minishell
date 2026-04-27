@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/25 23:44:25 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/27 10:53:49 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	main(void)
 	while (ft_strncmp(prompt, "exit", 4) != 0)
 	{
 		prompt = get_prompt();
+		if (ft_strncmp(prompt, "pwd", 3) == 0)
+			pwd();
 		tokenize(prompt);
 	}
 	return (0);

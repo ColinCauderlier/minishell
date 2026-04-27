@@ -6,131 +6,63 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/25 23:13:28 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/27 14:08:59 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/includes.h"
+#include "../../includes/includes.h"
 
-static void	free_res(char **res, int pos_res)
+static void    get_type(t_token *lst)
 {
-	int	i;
-
-	i = 0;
-	while (i < pos_res)
-		free(res[i++]);
-	free(res);
-}
-
-static size_t	countwords(char const *s)
-{
-	size_t	count;
-	size_t	i;
-	char	c;
-
-	count = 0;
-	i = 0;
-	while (s[i])
+	if (!lst)
+		return ;
+	while (lst->next)
 	{
-		if (!ft_isspace(s[i]))
-		{
-			count++;
-			if (s[i] == '\'' || s[i] == '\"')
-			{
-				i++;
-				c = s[i];
-				while (s[i] != c && s[i])
-					i++;
-				i++;
-			}
-			else
-			{
-				while (!ft_isspace(s[i]) && s[i])
-					i++;
-			}
-			i--;
-		}
-		i++;
+		if (ft_strncmp(lst->content, "|\0", 2) == 0)
+			lst->token_type = PIPE;
+		else if (ft_strncmp(lst->content, "<\0", 2) == 0)
+			lst->token_type = REDIR_IN;
+		else if (ft_strncmp(lst->content, ">\0", 2) == 0)
+			lst->token_type = REDIR_OUT;
+		else if (ft_strncmp(lst->content, "<<\0", 3) == 0)
+			lst->token_type = HEREDOC;
+		else if (ft_strncmp(lst->content, ">>\0", 3) == 0)
+			lst->token_type = REDIR_OUT_APP_MODE;
+		else
+			lst->token_type = WORD;
+		lst = lst->next;
 	}
-	return (count);
-}
-
-static char	*res_fill(char **res, int pos_res, char *str)
-{
-	int	i;
-
-	i = 0;
-	while (ft_isspace(str[i]) && str[i] != '\0')
-		i++;
-	str = &str[i];
-	i = 0;
-	if (str[i] == '\"')
-	{
-		i++;
-		while (str[i] != '\"' && str[i] != '\0')
-			i++;
-		if (str[i] == '\"')
-			i++;
-	}
-	else if (str[i] == '\'')
-	{
-		i++;
-		while (str[i] != '\'' && str[i] != '\0')
-			i++;
-		if (str[i] == '\'')
-			i++;
-	}
-	else
-	{
-		while (!ft_isspace(str[i]) && str[i] != '\0')
-			i++;
-	}
-	res[pos_res] = ft_substr(str, 0, i);
-	if (!res[pos_res])
-	{
-		free_res(res, pos_res);
-		return (NULL);
-	}
-	if (str[i] == '\'' || str[i] == '\"')
-		i++;
-	return (&str[i]);
-}
-
-static char	**get_content(char const *s)
-{
-	char	**res;
-	char	*str;
-	int		pos_res;
-	int		nb_words;
-
-	pos_res = 0;
-	str = (char *)s;
-	nb_words = countwords(s);
-	printf("countword: %d\n", nb_words);
-	res = ft_calloc((nb_words + 1), sizeof(char *));
-	if (!res || !s)
-		return (NULL);
-	while (pos_res < nb_words)
-	{
-		str = res_fill(res, pos_res, str);
-		if (!str)
-			return (NULL);
-		pos_res++;
-	}
-	res[pos_res] = NULL;
-	return (res);
 }
 
 void	tokenize(char *prompt)
 {
-	char	**token_content;
-	int		i;
+	t_token		*list;
+	char		*strstate;
+	char		*str;
 
-	i = 0;
-	token_content = get_content(prompt);
-	while (token_content[i])
+	list = get_content(prompt);
+	get_type(list);
+	while (list->next)
 	{
-		printf("%s\n", token_content[i]);
-		i++;
+		if (list->token_state == GENERAL)
+			strstate = "GENERAL";
+		if (list->token_state == SIMPLE_QUOTE)
+			strstate = "SIMPLE_QUOTE";
+		if (list->token_state == DOUBLE_QUOTE)
+			strstate = "DOUBLE_QUOTE";
+		if (list->token_type == PIPE)
+			 str = "PIPE";
+		else if (list->token_type == REDIR_IN)
+			str = "REDIR_IN";
+		else if (list->token_type == REDIR_OUT)
+			str = "REDIR_OUT";
+		else if (list->token_type == HEREDOC)
+			str = "HEREDOC";
+		else if (list->token_type == REDIR_OUT_APP_MODE)
+			str = "REDIR_OUT_APP_MODE";
+		else if (list->token_type == WORD)
+			str = "WORD";
+		printf("%s %s %s\n", list->content, strstate, str);
+		list = list->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:53:35 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/24 18:17:25 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/27 12:28:11 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 /********LOCAL_INCLUDES*********/
 # include "functions.h"
-# include "struct.h"
+# include "structure.h"
 
 /********READLINE*********/
 # include <readline/history.h>

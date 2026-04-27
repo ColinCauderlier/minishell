@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 11:38:44 by lucinguy          #+#    #+#              #
-#    Updated: 2026/04/25 22:51:11 by lucinguy         ###   ########.fr        #
+#    Updated: 2026/04/27 14:15:17 by ccauderl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,12 @@ SRCS_DIR	:= src
 OBJS_DIR	:= objs
 LIBFT_LIB	:= $(LIBFT_DIR)/libft.a
 
-SRCS		:= tokenizer/tokenize.c \
+SRCS		:= 	tokenizer/tokenize.c \
 			tokenizer/ft_isspace.c \
+			tokenizer/get_content.c \
+			tokenizer/free_lst.c \
 			built-in/pwd/pwd.c \
-			test.c
+			main.c
 
 SRCS_FILES	:= $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS		:= $(SRCS_FILES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
