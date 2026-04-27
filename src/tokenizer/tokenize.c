@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/27 14:08:59 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/27 14:28:11 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void    get_type(t_token *lst)
 {
 	if (!lst)
 		return ;
-	while (lst->next)
+	while (lt && t->next)
 	{
 		if (ft_strncmp(lst->content, "|\0", 2) == 0)
 			lst->token_type = PIPE;
@@ -42,7 +42,7 @@ void	tokenize(char *prompt)
 
 	list = get_content(prompt);
 	get_type(list);
-	while (list->next)
+	while (lst && list->next)
 	{
 		if (list->token_state == GENERAL)
 			strstate = "GENERAL";
