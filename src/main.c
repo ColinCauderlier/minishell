@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/27 17:37:36 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/28 19:57:37 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ int	main(void)
 
 // int main(void) //test cd
 // {
-// 	cd("home/lucinguy/cercle3");
+// 	cd("/home/Oswen/42/Devoirs/");
 // 	return (0);
 // }

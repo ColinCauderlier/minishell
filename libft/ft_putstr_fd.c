@@ -24,10 +24,8 @@
 
 void	ft_putstr_fd(char const *s, int fd)
 {
-	int		i;
 	size_t	len;
 
-	i = 0;
 	if (!s)
 		return ;
 	len = ft_strlen(s);

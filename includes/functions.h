@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/27 17:37:36 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/28 19:46:33 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_isspace(char c);
 void	free_res(t_token *res, int pos_res);
 
 /********BUILT*IN**********/
-void	pwd(void);
-void	cd(char *path);
+int		pwd(void);
+int		cd(char *path);
 
 #endif
