@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/27 17:11:18 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/27 17:50:12 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ static char	*res_fill(t_token *res, int pos_res, char *str)
 		{
 			c = str[i];
 			i++;
-			while (str[i] && str[i] != c)
+			while (str[i] != c && str[i])
 				i++;
-			i--;
 		}
 		i++;
 	}
