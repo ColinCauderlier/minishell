@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   max.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
+/*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 14:20:19 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/29 14:20:48 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/29 17:09:36 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int      max(int a, int b)
+int	max(int a, int b)
 {
-        if (a >= b)
-                return (a);
-        return (b);
+	if (a >= b)
+		return (a);
+	return (b);
 }
