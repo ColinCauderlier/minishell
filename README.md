@@ -29,5 +29,26 @@ It must contain the following features :
 
 ## Instructions
 
-## Resources
 
+
+## Resources
+A pretty precise description of Bash and Shell : Bash Reference Manual
+https://www.gnu.org/software/bash/manual/bash.html#What-is-Bash_003f
+
+A tutorial to start the tokenizer :
+https://mvsrgc.xyz/posts/Write-a-Shell-Tokenizer-in-C/
+
+GNU Readline Library :
+https://tiswww.cwru.edu/php/chet/readline/readline.html
+
+A tutorial about signals :
+https://www.geeksforgeeks.org/c/signals-c-language/
+
+Another tutorial about enumerations:
+https://www.w3schools.com/c/c_enums.php
+
+A project subject about writing a shell from the Northeatern University:
+https://course.ccs.neu.edu/cs3650sp23/p1.html
+
+A site used to have the manual to the authorized functions:
+https://man7.org/linux/man-pages/
