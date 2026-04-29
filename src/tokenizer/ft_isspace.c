@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 14:45:05 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/28 18:41:42 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/29 15:11:09 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ int	ft_isspace(char c)
 int	ft_isquote(char c)
 {
 	if (c == '\'' || c == '\"')
+		return (1);
+	return (0);
+}
+
+int	is_expand_lim(char c)
+{
+	if (ft_isquote(c) || ft_isspace(c) || c == '$')
 		return (1);
 	return (0);
 }

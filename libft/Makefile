@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/29 16:49:33 by lucinguy          #+#    #+#              #
-#    Updated: 2026/04/23 13:43:55 by ccauderl         ###   ########.fr        #
+#    Updated: 2026/04/29 15:18:08 by ccauderl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,9 @@ SRCS := \
 	ft_strmapi.c \
 	ft_strtrim.c \
 	ft_substr.c \
-	ft_strstr.c
+	ft_strstr.c \
+	ft_strappend.c \
+	max.c
 
 # ------ ft_printf sources ------ #
 PRINTF_SRCS := \

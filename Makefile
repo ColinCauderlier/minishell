@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 11:38:44 by lucinguy          #+#    #+#              #
-#    Updated: 2026/04/27 17:37:36 by lucinguy         ###   ########.fr        #
+#    Updated: 2026/04/29 15:59:49 by ccauderl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,9 @@ SRCS		:= 	tokenizer/tokenize.c \
 			tokenizer/ft_isspace.c \
 			tokenizer/get_content.c \
 			tokenizer/free_lst.c \
+			tokenizer/expander.c \
+			tokenizer/get_new_content.c \
+			tokenizer/temp.c \
 			built-in/pwd/pwd.c \
 			built-in/cd/cd.c \
 			main.c

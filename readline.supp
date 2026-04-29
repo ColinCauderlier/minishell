@@ -1,0 +1,13 @@
+#https://github.com/Oswen1623/minishell/blob/644d37d187d9aa2a77aa0120aeadc6fcc7264190
+{
+    leak readline
+    Memcheck:Leak
+    ...
+    fun:readline
+}
+{
+    leak add_history
+    Memcheck:Leak
+    ...
+    fun:add_history
+}

@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/27 17:37:36 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/29 13:29:28 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,13 @@ char	*get_prompt(void)
 	return (prompt);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*prompt;
 
+	(void)argv;
+	if (argc != 1)
+		return (1);
 	signal(SIGINT, sig_handler);
 	prompt = "";
 	while (ft_strncmp(prompt, "exit", 4) != 0)
@@ -39,7 +42,7 @@ int	main(void)
 		prompt = get_prompt();
 		if (ft_strncmp(prompt, "pwd", 3) == 0)
 			pwd();
-		tokenize(prompt);
+		tokenize(prompt, envp);
 	}
 	return (0);
 }

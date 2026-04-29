@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 17:17:08 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/27 15:02:44 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/29 14:21:56 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@
 
 void	ft_putstr_fd(char const *s, int fd)
 {
-	int		i;
 	size_t	len;
 
-	i = 0;
 	if (!s)
 		return ;
 	len = ft_strlen(s);
