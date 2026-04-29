@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strappend.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 23:46:49 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/29 14:02:08 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/29 15:36:40 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strappend(char *s1, char *s2)
 {
 	size_t	len1;
 	size_t	len2;
@@ -23,7 +23,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	len2 = ft_strlen(s2);
 	res = (char *)malloc(len1 + len2 + 1);
 	if (!res)
-		return (NULL);
+		return (free(s1), free(s2), NULL);
 	i = 0;
 	while (i < len1)
 	{
@@ -36,7 +36,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
 	res[i] = '\0';
-	return (res);
+	return (free(s1), free(s2), res);
 }
 
 /*

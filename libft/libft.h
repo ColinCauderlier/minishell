@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 18:23:38 by lucinguy          #+#    #+#             */
-/*   Updated: 2025/11/26 14:54:42 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/29 15:17:40 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,9 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
+/*Other*/
+
+int					max(int a, int b);
+char				*ft_strappend(char *s1, char *s2);
 
 #endif

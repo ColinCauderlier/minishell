@@ -6,17 +6,34 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/27 17:11:18 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/29 14:33:23 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
+static size_t	countwords_inword(char const *s, size_t i)
+{
+	char	c;
+
+	while (!ft_isspace(s[i]) && s[i])
+	{
+		if (s[i] == '\'' || s[i] == '\"')
+		{
+			c = s[i];
+			i++;
+			while (s[i] != c && s[i])
+				i++;
+		}
+		i++;
+	}
+	return (i);
+}
+
 static size_t	countwords(char const *s)
 {
 	size_t	count;
 	size_t	i;
-	char	c;
 
 	count = 0;
 	i = 0;
@@ -25,17 +42,7 @@ static size_t	countwords(char const *s)
 		if (!ft_isspace(s[i]))
 		{
 			count++;
-			while (!ft_isspace(s[i]) && s[i])
-			{
-				if (s[i] == '\'' || s[i] == '\"')
-				{
-					c = s[i];
-					i++;
-					while (s[i] != c && s[i])
-						i++;
-				}
-				i++;
-			}
+			i = countwords_inword(s, i);
 			i--;
 		}
 		i++;
@@ -59,9 +66,8 @@ static char	*res_fill(t_token *res, int pos_res, char *str)
 		{
 			c = str[i];
 			i++;
-			while (str[i] && str[i] != c)
+			while (str[i] != c && str[i])
 				i++;
-			i--;
 		}
 		i++;
 	}
@@ -79,7 +85,7 @@ t_token	*get_content(char *str)
 
 	pos_res = 0;
 	if (!str)
-			return (NULL);
+		return (NULL);
 	nb_words = countwords(str);
 	res = malloc((nb_words + 1) * sizeof(t_token));
 	if (!res)

@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   max.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/13 00:10:31 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/29 11:57:55 by ccauderl         ###   ########.fr       */
+/*   Created: 2026/04/29 14:20:19 by ccauderl          #+#    #+#             */
+/*   Updated: 2026/04/29 14:20:48 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+int      max(int a, int b)
 {
-	int	len;
-
-	if (!s)
-		return (0);
-	len = 0;
-	while (s[len] != '\0')
-		len++;
-	return (len);
+        if (a >= b)
+                return (a);
+        return (b);
 }
-/*
-#include <stdio.h>
-
-int	main(int argc, char **argv)
-{
-	if (argc == 2)
-		printf("Longueur de la chaine : %ld\n", ft_strlen(argv[1]));
-}
-*/
