@@ -6,12 +6,19 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/29 18:08:25 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/29 23:54:52 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURE_H
 # define STRUCTURE_H
+
+typedef struct s_shell
+{
+	char			**envp;
+	char			*user_input;
+	int				last_exit;
+}					t_shell;
 
 typedef enum
 {
