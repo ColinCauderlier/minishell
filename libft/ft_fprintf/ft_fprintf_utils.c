@@ -1,40 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structure.h                                        :+:      :+:    :+:   */
+/*   ft_fprintf_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/29 18:08:25 by lucinguy         ###   ########.fr       */
+/*   Created: 2026/04/29 18:15:00 by lucinguy          #+#    #+#             */
+/*   Updated: 2026/04/29 18:06:37 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTURE_H
-# define STRUCTURE_H
+#include "ft_fprintf.h"
 
-typedef enum
+size_t	ft_fprintf_putchar_fd_pf(char c, int fd)
 {
-	PIPE,
-	REDIR_IN,
-	REDIR_OUT,
-	HEREDOC,
-	REDIR_OUT_APP_MODE,
-	WORD,
-}					t_type;
+	write(fd, &c, 1);
+	return (1);
+}
 
-typedef enum
+size_t	ft_fprintf_putstr_fd_pf(char *s, int fd)
 {
-	GENERAL,
-	SIMPLE_QUOTE,
-	DOUBLE_QUOTE,
-}					t_state;
+	size_t	i;
 
-typedef struct s_token
-{
-	t_type			token_type;
-	char			*content;
-	struct s_token	*next;
-}					t_token;
-
-#endif
+	i = 0;
+	if (!s)
+	{
+		return (ft_fprintf_putstr_fd_pf("(null)", fd));
+	}
+	while (s[i])
+	{
+		ft_fprintf_putchar_fd_pf(s[i], fd);
+		i++;
+	}
+	return (i);
+}

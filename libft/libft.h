@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 18:23:38 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/29 15:17:40 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/29 18:07:24 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
+
+/*Print functions*/
+
+int					ft_fprintf(int fd, const char *format, ...);
 
 /*List*/
 

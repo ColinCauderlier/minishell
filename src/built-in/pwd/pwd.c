@@ -6,15 +6,14 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 18:15:11 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/28 19:46:06 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/29 18:15:00 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/includes.h"
 
-// get the path, store it in buffer, size of buffer is 4096 (max path length on linux)
-// if buffer is NULL (= error), enter the condition and error is stocked in errno
-// depending on the error message in errno, display different error message
+// Print current working directory into a 4096-byte buffer; on error
+// print strerror(errno) to stderr
 
 int	pwd(void)
 {

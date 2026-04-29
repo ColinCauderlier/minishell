@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_bonus.c                                      :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccauderl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:52:11 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/02/23 17:00:13 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/29 17:17:43 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "pipex.h"
 
 static void	free_and_exit(t_proc_args *args, int code)
 {
@@ -54,7 +54,7 @@ void	init_args(t_proc_args *args, char **envp, char **argv, int argc)
 			error(args, -1, NULL);
 			free_all_pipes(args);
 			exit(1);
-		}	
+		}
 		i++;
 	}
 	args->pipes[i] = NULL;
