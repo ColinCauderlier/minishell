@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 15:29:15 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/28 20:06:07 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/29 12:09:09 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ int	cd(char *path)
 		return (-1);
 	}
 	else
-		
-	return (0);
+		return (0);
 }
