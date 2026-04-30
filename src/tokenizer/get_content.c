@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/29 14:33:23 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/30 18:49:43 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ static char	*res_fill(t_token *res, int pos_res, char *str)
 	return (&str[i]);
 }
 
+//Un split modifie, free les tokens en cas de probleme
 t_token	*get_content(char *str)
 {
 	t_token	*res;

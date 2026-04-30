@@ -6,12 +6,13 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/30 17:20:54 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/30 18:27:01 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
+//Lexer, associe le type du token a ce dernier
 static void	get_all_types(t_token *lst)
 {
 	if (!lst)
@@ -34,7 +35,8 @@ static void	get_all_types(t_token *lst)
 	}
 }
 
-//Retourne s'il y a eu un changement d'etat ou non
+//Change l'etat actuel lors du parsing du token
+//Retourne 1 s'il y a eu un changement d'etat, 0 sinon
 int	change_state(char c, t_state *state)
 {
 	if (c == '\'' && *state == GENERAL)
@@ -63,16 +65,21 @@ int	change_state(char c, t_state *state)
 //Recupere le contenu brut des tokens 
 //et remplace le contenu par une autre chaine 
 //dans laquelle les guillemets et les expand ont ete geres
-void	tokenize(char *prompt, t_shell *shell)
+//Retourne 1 si jamais c'est alloue mais qu'il y a eu un soucis de malloc 
+//lors de la tokenization
+//Retourne 2 si jamais le premier malloc ne passe pas
+int	tokenize(char *prompt, t_shell *shell)
 {
 	t_token		*list;
 
 	list = get_content(prompt);
+	if (!list)
+		return (2);
 	shell->tokens = list;
 	while (list && list->next)
 	{
 		if (!get_new_content(list, shell->envp))
-			return ;
+			return (1);
 		list = list->next;
 	}
 	list = shell->tokens;
@@ -82,4 +89,5 @@ void	tokenize(char *prompt, t_shell *shell)
 		printf("%s %s\n", list->content, get_type(*list));
 		list = list->next;
 	}
+	return (0);
 }

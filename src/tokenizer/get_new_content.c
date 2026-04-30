@@ -6,12 +6,13 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 15:39:11 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/29 16:19:35 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/30 19:03:11 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
+//L'embrouille dans cette fonction 
 static int	expand_case(char *old, int *i, char **new, char **envp)
 {
 	char	*join;
@@ -19,10 +20,14 @@ static int	expand_case(char *old, int *i, char **new, char **envp)
 	if (!old[*i + 1] || is_expand_lim(old[*i + 1]))
 	{
 		join = ft_strjoin(*new, "$");
+		if (!join)
+			return (-1);
 		free(*new);
 		*new = join;
 	}
 	*new = ft_strappend(*new, get_expand(&old[*i + 1], envp));
+	if (!new)
+		return (-1);
 	(*i)++;
 	while (old[*i] && !is_expand_lim(old[*i]))
 		(*i)++;
@@ -43,17 +48,25 @@ static char	*new_content_loop(char *old, char **envp, char *new)
 		if (change_state(old[i], &state))
 		{
 			new = ft_strappend(new, ft_substr(old, start, i - start));
+			if (!new)
+				return (NULL);
 			start = ++i;
 		}
 		else if (state != SIMPLE_QUOTE && old[i] == '$')
 		{
 			new = ft_strappend(new, ft_substr(old, start, i - start));
+			if (!new)
+				return (NULL);
 			start = expand_case(old, &i, &new, envp);
+			if (i == -1)
+				return (NULL);
 		}
 		else
 			i++;
 	}
 	new = ft_strappend(new, ft_substr(old, start, i - start));
+	if (!new)
+		return (NULL);
 	return (new);
 }
 

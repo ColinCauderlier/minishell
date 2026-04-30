@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 14:34:19 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/29 15:11:51 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/30 18:55:31 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*get_expand(char *str, char **envp)
 	while (str[i] && !is_expand_lim(str[i]))
 		i++;
 	name = ft_substr(str, 0, i);
+	if (!name)
+		return (NULL);
 	i = -1;
 	while (envp[++i])
 	{
@@ -31,10 +33,14 @@ char	*get_expand(char *str, char **envp)
 			j++;
 		if (ft_strncmp(name, envp[i], max(ft_strlen(name), j)) == 0)
 		{
+			free(name);
 			equal = j;
 			while (envp[i][j])
 				j++;
-			return (free(name), ft_substr(envp[i], equal + 1, j - equal));
+			name = ft_substr(envp[i], equal + 1, j - equal);
+			if (!name)
+				return (NULL);
+			return (name);
 		}
 	}
 	free(name);
