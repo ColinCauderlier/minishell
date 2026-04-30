@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/29 16:50:23 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/30 17:07:29 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 # include "structure.h"
 
 /********TOKENIZER*********/
-void	tokenize(char *prompt, char **envp);
+void	tokenize(char *prompt, t_shell *shell);
 t_token	*get_content(char *s);
 int		ft_isspace(char c);
 int		ft_isquote(char c);
 int		is_expand_lim(char c);
 void	free_res(t_token *res, int pos_res);
-void	free_all_tokens(t_token *tokens);
+void	free_all_tokens(t_shell *shell);
 char	*get_expand(char *str, char **envp);
 char	*get_type(t_token token);
 int		change_state(char c, t_state *state);

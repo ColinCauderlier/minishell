@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/29 15:42:03 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/30 17:20:54 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,26 +63,23 @@ int	change_state(char c, t_state *state)
 //Recupere le contenu brut des tokens 
 //et remplace le contenu par une autre chaine 
 //dans laquelle les guillemets et les expand ont ete geres
-void	tokenize(char *prompt, char **envp)
+void	tokenize(char *prompt, t_shell *shell)
 {
 	t_token		*list;
-	t_token		*head;
 
 	list = get_content(prompt);
-	head = list;
+	shell->tokens = list;
 	while (list && list->next)
 	{
-		if (!get_new_content(list, envp))
+		if (!get_new_content(list, shell->envp))
 			return ;
 		list = list->next;
 	}
-	list = head;
+	list = shell->tokens;
 	get_all_types(list);
 	while (list && list->next)
 	{
 		printf("%s %s\n", list->content, get_type(*list));
 		list = list->next;
 	}
-	free_all_tokens(head);
-	free(head);
 }
