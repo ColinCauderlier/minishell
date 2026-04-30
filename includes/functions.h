@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/30 17:43:07 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/30 20:05:22 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	free_all_tokens(t_shell *shell);
 char	*get_expand(char *str, char **envp);
 char	*get_type(t_token token);
 int		change_state(char c, t_state *state);
-int		get_new_content(t_token *tkn, char **envp);
+int		get_new_content(t_shell *shell);
 
 /********BUILT*IN**********/
 int		pwd(void);

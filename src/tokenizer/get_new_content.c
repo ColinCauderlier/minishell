@@ -6,14 +6,14 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 15:39:11 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/30 19:03:11 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/30 20:06:53 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
 //L'embrouille dans cette fonction 
-static int	expand_case(char *old, int *i, char **new, char **envp)
+static int	expand_case(char *old, int *i, char **new, t_shell *shell)
 {
 	char	*join;
 
@@ -25,7 +25,15 @@ static int	expand_case(char *old, int *i, char **new, char **envp)
 		free(*new);
 		*new = join;
 	}
-	*new = ft_strappend(*new, get_expand(&old[*i + 1], envp));
+	else if (old[*i + 1] == '?')
+	{
+		join = ft_strjoin(*new, ft_itoa(shell->last_exit));
+		if (!join)
+			return (-1);
+		free(*new);
+		*new = join;
+	}
+	*new = ft_strappend(*new, get_expand(&old[*i + 1], shell->envp));
 	if (!new)
 		return (-1);
 	(*i)++;
@@ -34,7 +42,7 @@ static int	expand_case(char *old, int *i, char **new, char **envp)
 	return (*i);
 }
 
-static char	*new_content_loop(char *old, char **envp, char *new)
+static char	*new_content_loop(char *old, t_shell *shell, char *new)
 {
 	int		start;
 	int		i;
@@ -57,7 +65,7 @@ static char	*new_content_loop(char *old, char **envp, char *new)
 			new = ft_strappend(new, ft_substr(old, start, i - start));
 			if (!new)
 				return (NULL);
-			start = expand_case(old, &i, &new, envp);
+			start = expand_case(old, &i, &new, shell);
 			if (i == -1)
 				return (NULL);
 		}
@@ -70,7 +78,7 @@ static char	*new_content_loop(char *old, char **envp, char *new)
 	return (new);
 }
 
-int	get_new_content(t_token *tkn, char **envp)
+int	get_new_content(t_shell *shell)
 {
 	char	*new;
 
@@ -78,10 +86,10 @@ int	get_new_content(t_token *tkn, char **envp)
 	if (!new)
 		return (0);
 	new[0] = '\0';
-	new = new_content_loop(tkn->content, envp, new);
+	new = new_content_loop(shell->tokens->content, shell, new);
 	if (!new)
 		return (0);
-	free(tkn->content);
-	tkn->content = new;
+	free(shell->tokens->content);
+	shell->tokens->content = new;
 	return (1);
 }

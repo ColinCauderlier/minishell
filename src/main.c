@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/30 18:17:28 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/30 20:10:03 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char **argv, char **envp)
 	while (ft_strncmp(prompt, "exit", 4) != 0)
 	{
 		prompt = get_prompt();
-		if (tokenize(prompt, &shell))
+		if (tokenize(prompt, &shell) == 1)
 			return (free_all_tokens(&shell), 1);
 		if (ft_strncmp(prompt, "pwd", 3) == 0)
 			pwd();

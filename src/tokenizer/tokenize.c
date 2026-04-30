@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/30 18:27:01 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/30 20:06:02 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	tokenize(char *prompt, t_shell *shell)
 	shell->tokens = list;
 	while (list && list->next)
 	{
-		if (!get_new_content(list, shell->envp))
+		if (!get_new_content(shell))
 			return (1);
 		list = list->next;
 	}

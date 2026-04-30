@@ -6,12 +6,13 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 14:34:19 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/30 18:55:31 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/04/30 19:41:40 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
+//En cas d'erreur, l'expand n'est pas fait
 char	*get_expand(char *str, char **envp)
 {
 	int		i;
