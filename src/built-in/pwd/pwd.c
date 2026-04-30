@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 18:15:11 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/29 18:15:00 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/30 20:36:51 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ int	pwd(void)
 		ft_putstr_fd("\n", 2);
 		return (-1);
 	}
+	else
+		ft_printf("%s\n", buffer); //print buffer content (= path)
 	return (0);
 }
