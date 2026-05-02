@@ -6,11 +6,12 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/30 20:52:42 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/02 16:14:03 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/includes.h"
+
 /*
 void	sig_handler(int sig)
 {
@@ -34,11 +35,10 @@ int	main(int argc, char **argv, char **envp)
 	t_shell	shell;
 
 	(void)argv;
-	if (argc != 1)
-		return (1);
-//	signal(SIGINT, sig_handler);
+	(void)argc;
+	//	signal(SIGINT, sig_handler);
+	init_envp(&shell, envp);
 	prompt = "";
-	shell.envp = envp;
 	while (ft_strncmp(prompt, "exit\0", 5) != 0)
 	{
 		prompt = get_prompt();
@@ -47,14 +47,8 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strncmp(shell.tokens[0].content, "pwd\0", 4) == 0)
 			pwd();
 		if (ft_strncmp(shell.tokens[0].content, "cd\0", 3) == 0)
-			cd();
+			cd(prompt);
 	}
 	free_all_tokens(&shell);
 	return (0);
 }
-
-// int main(void) //test cd
-// {
-// 	cd("/home/Oswen/42/Devoirs/");
-// 	return (0);
-// }

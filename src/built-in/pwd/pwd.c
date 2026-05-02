@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 18:15:11 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/30 20:36:51 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/02 15:41:25 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 // Print current working directory into a 4096-byte buffer; on error
 // print strerror(errno) to stderr
+// print buffer content (= path)
 
 int	pwd(void)
 {
@@ -27,6 +28,6 @@ int	pwd(void)
 		return (-1);
 	}
 	else
-		ft_printf("%s\n", buffer); //print buffer content (= path)
+		ft_printf("%s\n", buffer);
 	return (0);
 }
