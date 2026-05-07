@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
+/*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/06 18:27:07 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/07 16:31:11 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static char	**get_commands(t_token *tokens)
 			{
 				commands[i] = ft_strdup(command->content);
 				if (!commands[i])
-						return (free_split(commands), NULL);
+					return (free_split(commands), NULL);
 				command = command->next;
 				i++;
 			}
@@ -112,18 +112,18 @@ static int	execute_command(char **envp, char **command)
 
 	if (!command[0] || command[0][0] == '\0')
 	{
-//      errno = 0;
-//      error(args, -1, NULL);
-//      free_and_exit(args, 127);
+		//      errno = 0;
+		//      error(args, -1, NULL);
+		//      free_and_exit(args, 127);
 		free_split(command);
 		exit(127);
 	}
 	path = find_path(command[0], envp);
 	if (!path)
 	{
-//      errno = 0;
-//      error(args, -1, args->commands[i]);
-//      free_and_exit(args, 127);
+		//      errno = 0;
+		//      error(args, -1, args->commands[i]);
+		//      free_and_exit(args, 127);
 		free_split(command);
 		exit(127);
 	}
@@ -131,8 +131,8 @@ static int	execute_command(char **envp, char **command)
 	{
 		perror(path);
 		free(path);
-//      error(args, -1, args->commands[i]);
-//      free_and_exit(args, 126);
+		//      error(args, -1, args->commands[i]);
+		//      free_and_exit(args, 126);
 		free_split(command);
 		exit(126);
 	}
@@ -145,7 +145,7 @@ int	exec(t_shell *shell)
 	int	status;
 
 	if (check_syntax_pipes(shell) || check_syntax_redir(shell))
-			return (1);
+		return (1);
 	pid = fork();
 	if (pid == -1)
 		return (1);

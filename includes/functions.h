@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/06 18:17:27 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/07 16:25:07 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		change_state(char c, t_state *state);
 int		get_new_content(t_shell *shell);
 void	free_split(char **splitted);
 
-/**********EXEX***********/
+/**********EXEC***********/
 int		exec(t_shell *shell);
 char	*find_path(char *command, char **envp);
 
