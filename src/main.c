@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/06 18:15:27 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/07 15:45:06 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*prompt;
 	t_shell	shell;
+	int		status;
 
 	(void)argv;
 	(void)argc;
@@ -42,9 +43,11 @@ int	main(int argc, char **argv, char **envp)
 	while (ft_strncmp(prompt, "exit\0", 5) != 0)
 	{
 		prompt = get_prompt();
-		if (tokenize(prompt, &shell) == 1)
+		status = tokenize(prompt, &shell);
+		if (status == 1)
 			return (free_all_tokens(&shell), 1);
-		exec(&shell);
+		else if (status != 2)
+			exec(&shell);
 	}
 	free(prompt);
 	free_all_tokens(&shell);

@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/07 16:30:22 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/07 18:01:05 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ int	count_nb_token(t_token *list)
 	return (count);
 }
 
-// Recupere le contenu brut des tokens
-// et remplace le contenu par une autre chaine
-// dans laquelle les guillemets et les expand ont ete geres
-// Retourne 1 si jamais c'est alloue mais qu'il y a eu un soucis de malloc
-// lors de la tokenization
-// Retourne 2 si jamais le premier malloc ne passe pas
+//Recupere le contenu brut des tokens
+//et remplace le contenu par une autre chaine
+//dans laquelle les guillemets et les expand ont ete geres
+//Retourne 1 si jamais c'est alloue mais qu'il y a eu un soucis de malloc
+//lors de la tokenization
+//Retourne 2 si jamais le premier malloc ne passe pas
 int	tokenize(char *prompt, t_shell *shell)
 {
 	t_token	*list;
@@ -89,20 +89,21 @@ int	tokenize(char *prompt, t_shell *shell)
 	if (!list)
 		return (2);
 	shell->tokens = list;
-	while (list && list->next)
+	while (list && list->content)
 	{
-		if (!get_new_content(shell))
+		if (!get_new_content(list, shell))
 			return (1);
 		list = list->next;
 	}
 	list = shell->tokens;
 	get_all_types(list);
 	shell->nb_token = count_nb_token(list);
-	/*
+/*
 	while (list && list->next)
 	{
 		printf("%s %s\n", list->content, get_type(*list));
 		list = list->next;
-	}*/
+	}
+*/
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/07 16:25:07 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/07 18:01:38 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	free_all_tokens(t_shell *shell);
 char	*get_expand(char *str, t_envp *envp);
 char	*get_type(t_token token);
 int		change_state(char c, t_state *state);
-int		get_new_content(t_shell *shell);
+int		get_new_content(t_token *list, t_shell *shell);
 void	free_split(char **splitted);
 
 /**********EXEC***********/

@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/07 16:31:11 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:56:36 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,11 +141,12 @@ static int	execute_command(char **envp, char **command)
 
 int	exec(t_shell *shell)
 {
-	int	pid;
-	int	status;
+	int		pid;
+	int		status;
+	char	**commands;
 
 	if (check_syntax_pipes(shell) || check_syntax_redir(shell))
-		return (1);
+			return (1);
 	pid = fork();
 	if (pid == -1)
 		return (1);

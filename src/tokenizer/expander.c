@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 14:34:19 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/04 11:43:41 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:34:13 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,15 @@ char	*get_expand(char *str, t_envp *envp)
 	if (!name)
 		return (NULL);
 	i = -1;
-	while (envp && envp->next)
+	while (envp)
 	{
 		key_len = ft_strlen(envp->key);
 		if (ft_strncmp(name, envp->key, max(name_len, key_len)) == 0)
 		{
 			free(name);
-			name = envp->value;
-			return (name);
+			return (ft_strdup(envp->value));
 		}
 		envp = envp->next;
 	}
-	return (free(name), NULL);
+	return (free(name), "");
 }
