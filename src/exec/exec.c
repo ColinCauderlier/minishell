@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/07 17:56:36 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/07 15:29:46 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static char	**get_commands(t_token *tokens)
 			{
 				commands[i] = ft_strdup(command->content);
 				if (!commands[i])
-					return (free_split(commands), NULL);
+						return (free_split(commands), NULL);
 				command = command->next;
 				i++;
 			}
@@ -112,18 +112,18 @@ static int	execute_command(char **envp, char **command)
 
 	if (!command[0] || command[0][0] == '\0')
 	{
-		//      errno = 0;
-		//      error(args, -1, NULL);
-		//      free_and_exit(args, 127);
+//      errno = 0;
+//      error(args, -1, NULL);
+//      free_and_exit(args, 127);
 		free_split(command);
 		exit(127);
 	}
 	path = find_path(command[0], envp);
 	if (!path)
 	{
-		//      errno = 0;
-		//      error(args, -1, args->commands[i]);
-		//      free_and_exit(args, 127);
+//      errno = 0;
+//      error(args, -1, args->commands[i]);
+//      free_and_exit(args, 127);
 		free_split(command);
 		exit(127);
 	}
@@ -131,8 +131,8 @@ static int	execute_command(char **envp, char **command)
 	{
 		perror(path);
 		free(path);
-		//      error(args, -1, args->commands[i]);
-		//      free_and_exit(args, 126);
+//      error(args, -1, args->commands[i]);
+//      free_and_exit(args, 126);
 		free_split(command);
 		exit(126);
 	}
@@ -147,11 +147,19 @@ int	exec(t_shell *shell)
 
 	if (check_syntax_pipes(shell) || check_syntax_redir(shell))
 			return (1);
-	pid = fork();
-	if (pid == -1)
-		return (1);
-	if (pid == 0)
-		execute_command(shell->str_envp, get_commands(shell->tokens));
-	waitpid(pid, &status, 0);
+	commands = get_commands(shell->tokens);
+	if (ft_strncmp(commands[0], "cd", 3) == 0)
+			cd(commands[1]);
+	else if (ft_strncmp(commands[0], "pwd", 4) == 0)
+			pwd();
+	else
+	{
+		pid = fork();
+		if (pid == -1)
+			return (1);
+		if (pid == 0)
+			execute_command(shell->str_envp, commands);
+		waitpid(pid, &status, 0);
+	}
 	return (status);
 }
