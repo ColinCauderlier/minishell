@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 15:39:11 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/07 17:17:58 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:36:57 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,12 @@ static int	expand_case(char *old, int *i, char **new, t_shell *shell)
 		*new = join;
 	}
 	else
-		*new = ft_strappend(*new, get_expand(&old[*i + 1], shell->envp));
+	{
+		join = get_expand(&old[*i + 1], shell->envp);
+		if (!join)
+			return (-1);
+		*new = ft_strappend(*new, join);
+	}
 	if (!(*new))
 		return (-1);
 	(*i)++;
@@ -71,7 +76,7 @@ static char	*new_content_loop(char *old, t_shell *shell, char *new)
 			if (!new)
 				return (NULL);
 			start = expand_case(old, &i, &new, shell);
-			if (i == -1)
+			if (start == -1)
 				return (free(new), NULL);
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/07 17:21:00 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:25:32 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,12 @@ int	tokenize(char *prompt, t_shell *shell)
 	list = shell->tokens;
 	get_all_types(list);
 	shell->nb_token = count_nb_token(list);
+/*
 	while (list && list->next)
 	{
 		printf("%s %s\n", list->content, get_type(*list));
 		list = list->next;
 	}
+*/
 	return (0);
 }
