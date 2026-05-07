@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/06 18:27:07 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/07 15:29:46 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,16 +141,25 @@ static int	execute_command(char **envp, char **command)
 
 int	exec(t_shell *shell)
 {
-	int	pid;
-	int	status;
+	int		pid;
+	int		status;
+	char	**commands;
 
 	if (check_syntax_pipes(shell) || check_syntax_redir(shell))
 			return (1);
-	pid = fork();
-	if (pid == -1)
-		return (1);
-	if (pid == 0)
-		execute_command(shell->str_envp, get_commands(shell->tokens));
-	waitpid(pid, &status, 0);
+	commands = get_commands(shell->tokens);
+	if (ft_strncmp(commands[0], "cd", 3) == 0)
+			cd(commands[1]);
+	else if (ft_strncmp(commands[0], "pwd", 4) == 0)
+			pwd();
+	else
+	{
+		pid = fork();
+		if (pid == -1)
+			return (1);
+		if (pid == 0)
+			execute_command(shell->str_envp, commands);
+		waitpid(pid, &status, 0);
+	}
 	return (status);
 }

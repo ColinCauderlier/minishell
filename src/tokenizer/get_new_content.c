@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 15:39:11 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/06 18:08:48 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:17:58 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static char	*new_content_loop(char *old, t_shell *shell, char *new)
 	return (new);
 }
 
-int	get_new_content(t_shell *shell)
+int	get_new_content(t_token *list, t_shell *shell)
 {
 	char	*new;
 
@@ -91,10 +91,10 @@ int	get_new_content(t_shell *shell)
 	if (!new)
 		return (0);
 	new[0] = '\0';
-	new = new_content_loop(shell->tokens->content, shell, new);
+	new = new_content_loop(list->content, shell, new);
 	if (!new)
 		return (0);
-	free(shell->tokens->content);
-	shell->tokens->content = new;
+	free(list->content);
+	list->content = new;
 	return (1);
 }

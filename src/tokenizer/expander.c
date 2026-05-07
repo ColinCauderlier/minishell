@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 14:34:19 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/04 11:43:41 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/07 16:35:36 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	*get_expand(char *str, t_envp *envp)
 		{
 			free(name);
 			name = envp->value;
+			printf("%s\n", name);
 			return (name);
 		}
 		envp = envp->next;
