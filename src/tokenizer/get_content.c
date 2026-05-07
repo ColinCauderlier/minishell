@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/30 18:49:43 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/06 18:22:50 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ t_token	*get_content(char *str)
 	if (!str)
 		return (NULL);
 	nb_words = countwords(str);
-	res = malloc((nb_words + 1) * sizeof(t_token));
+	res = ft_calloc((nb_words + 1), sizeof(t_token));
 	if (!res)
 		return (NULL);
 	while (pos_res < nb_words)
 	{
 		str = res_fill(res, pos_res, str);
 		if (!str)
-			return (free(res), NULL);
+			return (free_res(res, pos_res), NULL);
 		res[pos_res].next = &res[pos_res + 1];
 		pos_res++;
 	}

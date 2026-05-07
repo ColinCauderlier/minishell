@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 12:49:38 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/30 18:28:23 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/06 18:24:54 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ void	free_all_tokens(t_shell *shell)
 	t_token	*head;
 
 	head = shell->tokens;
-	while (shell->tokens && shell->tokens->next)
+	while (head)
 	{
-		free(shell->tokens->content);
-		shell->tokens = shell->tokens->next;
+		free(head->content);
+		head->content = NULL;
+		head = head->next;	
 	}
-	free(head);
+	free(shell->tokens);
+	shell->tokens = NULL;
 }

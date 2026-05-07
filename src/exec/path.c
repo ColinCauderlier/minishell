@@ -3,24 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 21:51:57 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/05 13:54:07 by ccauderl         ###   ########.fr       */
+/*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
+/*   Updated: 2026/05/06 18:16:51 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../../includes/includes.h"
+
+void	free_split(char **splitted)
+{
+	int	i;
+
+	i = 0;
+	if (!splitted)
+		return ;
+	while (splitted[i])
+	{
+		free(splitted[i]);
+		i++;
+	}
+	free(splitted);
+}
 
 static char	*get_path_from_envp(char **envp)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-			return ((&envp)[i][5]);
+			return (envp[i] + 5);
 		i++;
 	}
 	return (NULL);

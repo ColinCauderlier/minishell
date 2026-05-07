@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 23:42:56 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/02 16:33:34 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/05 18:25:34 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static void	fill_envp_from_tab(t_shell *shell, char **envp)
 void	init_envp(t_shell *shell, char **envp)
 {
 	shell->envp = NULL;
+	shell->str_envp = envp;
 	if (!envp || !*envp || !**envp)
 	{
 		init_custom_envp(shell);

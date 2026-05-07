@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/02 16:28:49 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/06 18:17:27 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,17 @@ int		ft_isquote(char c);
 int		is_expand_lim(char c);
 void	free_res(t_token *res, int pos_res);
 void	free_all_tokens(t_shell *shell);
-char	*get_expand(char *str, char **envp);
+char	*get_expand(char *str, t_envp *envp);
 char	*get_type(t_token token);
 int		change_state(char c, t_state *state);
 int		get_new_content(t_shell *shell);
+void	free_split(char **splitted);
 
-/* Envp */
+/**********EXEX***********/
+int		exec(t_shell *shell);
+char	*find_path(char *command, char **envp);
+
+/**********ENVP***********/
 t_envp	*create_envp_node(char *key, char *value);
 void	envp_add_back(t_envp **lst, t_envp *new);
 int		parse_env_var(char *env_var, char **key, char **value);

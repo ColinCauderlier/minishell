@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 11:20:36 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/29 17:17:18 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/04 11:57:42 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ static int	end_loop(t_proc_args *args, int status)
 	return (0);
 }
 
-static int	pipe_loop(t_proc_args *args, int argc)
+static int	pipe_loop(t_proc_args *args, t_shell *shell)
 {
 	int		i;
 	int		status;
 
 	status = 0;
 	i = 0;
-	args->pids = malloc((argc - 3) * sizeof(pid_t));
+	args->pids = malloc((shell->nb_token - 3) * sizeof(pid_t));
 	while (args->commands[i])
 	{
 		args->pids[i] = fork();
@@ -51,7 +51,7 @@ static int	pipe_loop(t_proc_args *args, int argc)
 		{
 			if (i == 0)
 				first_cmd(args);
-			else if (i == argc - 4)
+			else if (i == shell->nb_token - 4)
 				last_cmd(args, i);
 			else
 				middle_cmd(args, i);
@@ -61,20 +61,19 @@ static int	pipe_loop(t_proc_args *args, int argc)
 	return (end_loop(args, status));
 }
 
-int	main(int argc, char **argv, char **envp)
+int	pipex(t_shell *shell)
 {
 	t_proc_args	args;
 	int			error_var;
 
 	error_var = 0;
 	args.pids = NULL;
-	check_nb_arguments(argc);
-	init_args(&args, envp, argv, argc);
-	args.commands = init_commands(argv, argc);
+	init_args(&args, shell);
+	args.commands = init_commands(shell);
 	if (!args.commands)
 		error_var = 1;
 	if (error_var == 0)
-		error_var = pipe_loop(&args, argc);
+		error_var = pipe_loop(&args, shell);
 	free_all_pipes(&args);
 	free(args.pids);
 	free_commands(args.commands);

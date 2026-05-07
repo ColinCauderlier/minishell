@@ -6,21 +6,11 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 15:37:56 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/29 17:39:11 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/04 11:57:33 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	check_nb_arguments(int argc)
-{
-	if (argc >= 5)
-		return ;
-	ft_fprintf(2, "ERROR_NB_ARG: Too few arguments\n");
-	ft_fprintf(2, "The program should be executed as follows :\n");
-	ft_fprintf(2, "./pipex file1 cmd1 cmd2 cmd3 ... cmdn file2\n");
-	exit(1);
-}
 
 void	free_all_pipes(t_proc_args *args)
 {

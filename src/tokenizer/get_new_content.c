@@ -6,18 +6,18 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 15:39:11 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/30 20:53:20 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/06 18:08:48 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
-//L'embrouille dans cette fonction 
 static int	expand_case(char *old, int *i, char **new, t_shell *shell)
 {
 	char	*join;
+	char	*itoa;
 
-	if (!old[*i + 1] || is_expand_lim(old[*i + 1]))
+	if (!old[*i + 1] || ft_isspace(old[*i + 1]))
 	{
 		join = ft_strjoin(*new, "$");
 		if (!join)
@@ -27,14 +27,19 @@ static int	expand_case(char *old, int *i, char **new, t_shell *shell)
 	}
 	else if (old[*i + 1] == '?')
 	{
-		join = ft_strjoin(*new, ft_itoa(shell->last_exit));
+		itoa = ft_itoa(shell->last_exit);
+		if (!itoa)
+			return (-1);
+		join = ft_strjoin(*new, itoa);
 		if (!join)
 			return (-1);
 		free(*new);
+		free(itoa);
 		*new = join;
 	}
-	*new = ft_strappend(*new, get_expand(&old[*i + 1], shell->envp));
-	if (!new)
+	else
+		*new = ft_strappend(*new, get_expand(&old[*i + 1], shell->envp));
+	if (!(*new))
 		return (-1);
 	(*i)++;
 	while (old[*i] && !is_expand_lim(old[*i]))
@@ -67,7 +72,7 @@ static char	*new_content_loop(char *old, t_shell *shell, char *new)
 				return (NULL);
 			start = expand_case(old, &i, &new, shell);
 			if (i == -1)
-				return (NULL);
+				return (free(new), NULL);
 		}
 		else
 			i++;
