@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/07 17:25:32 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/08 16:36:06 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ static void	get_all_types(t_token *lst)
 	{
 		if (ft_strncmp(lst->content, "|\0", 2) == 0)
 			lst->token_type = PIPE;
-		else if (ft_strncmp(lst->content, "<\0", 2) == 0)
-			lst->token_type = REDIR_IN;
-		else if (ft_strncmp(lst->content, ">\0", 2) == 0)
-			lst->token_type = REDIR_OUT;
 		else if (ft_strncmp(lst->content, "<<\0", 3) == 0)
 			lst->token_type = HEREDOC;
 		else if (ft_strncmp(lst->content, ">>\0", 3) == 0)
 			lst->token_type = REDIR_OUT_APP_MODE;
+		else if (ft_strncmp(lst->content, "<\0", 2) == 0)
+			lst->token_type = REDIR_IN;
+		else if (ft_strncmp(lst->content, ">\0", 2) == 0)
+			lst->token_type = REDIR_OUT;
 		else
 			lst->token_type = WORD;
 		lst = lst->next;
@@ -90,14 +90,14 @@ int	tokenize(char *prompt, t_shell *shell)
 	if (!list)
 		return (2);
 	shell->tokens = list;
+	get_all_types(list);
 	while (list && list->content)
 	{
 		if (!get_new_content(list, shell))
-			return (1);
+			return (free_all_tokens(shell), 1);
 		list = list->next;
 	}
 	list = shell->tokens;
-	get_all_types(list);
 	shell->nb_token = count_nb_token(list);
 /*
 	while (list && list->next)

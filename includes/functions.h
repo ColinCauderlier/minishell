@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/08 16:32:46 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/08 17:04:12 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_isquote(char c);
 int		is_expand_lim(char c);
 void	free_res(t_token *res, int pos_res);
 void	free_all_tokens(t_shell *shell);
-char	*get_expand(char *str, t_envp *envp);
+char	*get_expand(char *str, t_shell *shell);
 char	*get_type(t_token token);
 int		change_state(char c, t_state *state);
 int		get_new_content(t_token *list, t_shell *shell);
