@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
+/*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/07 15:29:46 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/08 16:36:35 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ int	exec(t_shell *shell)
 			return (1);
 	commands = get_commands(shell->tokens);
 	if (ft_strncmp(commands[0], "cd", 3) == 0)
-			cd(commands[1]);
+			cd(commands[1], shell);
 	else if (ft_strncmp(commands[0], "pwd", 4) == 0)
 			pwd();
 	else
