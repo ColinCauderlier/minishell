@@ -6,61 +6,11 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/11 16:58:33 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/11 17:57:43 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
-
-static int	is_redir_type(t_token *tkn)
-{
-	if (tkn->token_type == REDIR_IN || tkn->token_type == REDIR_OUT)
-		return (1);
-	if (tkn->token_type == HEREDOC || tkn->token_type == REDIR_OUT_APP_MODE)
-		return (1);
-	return (0);
-}
-
-static int	check_syntax_redir(t_shell *shell)
-{
-	t_token	*list;
-	int		nb_redir;
-
-	list = shell->tokens;
-	nb_redir = 0;
-	while (list && list->next)
-	{
-		if (is_redir_type(list))
-		{
-			nb_redir++;
-			if (list->next->token_type != WORD)
-				return (1);
-		}
-		else if (list->token_type == PIPE)
-			nb_redir = 0;
-		if (nb_redir >= 2)
-			return (1);
-		list = list->next;
-	}
-	return (0);
-}
-
-static int	check_syntax_pipes(t_shell *shell)
-{
-	t_token	*list;
-
-	list = shell->tokens;
-	while (list && list->next)
-	{
-		if (list->token_type == PIPE)
-		{
-			if (!list->next || list->next->token_type == PIPE)
-				return (1);
-		}
-		list = list->next;
-	}
-	return (0);
-}
 
 static char	**get_commands(t_token *tokens)
 {
@@ -98,7 +48,7 @@ static char	**get_commands(t_token *tokens)
 			list = command;
 			continue ;
 		}
-		if (list && list->next && is_redir_type(list))
+		if (list && list->next && is_redir_wo_word(list))
 			list = list->next;
 		if (list)
 			list = list->next;
@@ -137,7 +87,7 @@ int	exec(t_shell *shell)
 	int		status;
 	char	**commands;
 
-	if (check_syntax_pipes(shell) || check_syntax_redir(shell))
+	if (check_syntax_shell(shell))
 		return (1);
 	commands = get_commands(shell->tokens);
 	if (ft_strncmp(commands[0], "cd", 3) == 0)
@@ -159,5 +109,6 @@ int	exec(t_shell *shell)
 		else
 			shell->last_exit = status;
 	}
+	free_split(commands);
 	return (status);
 }
