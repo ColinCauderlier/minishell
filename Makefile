@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 11:38:44 by lucinguy          #+#    #+#              #
-#    Updated: 2026/05/06 18:27:53 by ccauderl         ###   ########.fr        #
+#    Updated: 2026/05/11 17:09:54 by ccauderl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ SRCS		:= 	tokenizer/tokenize.c \
 			exec/path.c \
 			exec/free.c \
 			envp_management/envp.c \
-			envp_management/envp_utils.c \
 			built-in/pwd/pwd.c \
 			built-in/cd/cd.c \
 			main.c

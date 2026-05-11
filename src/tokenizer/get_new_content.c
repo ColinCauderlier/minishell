@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 15:39:11 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/11 14:13:22 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:58:17 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	expand_case(char *old, int *i, char **new, t_shell *shell)
 	}
 	else
 	{
-		join = get_expand(&old[*i + 1], shell);
+		join = get_expand(&old[*i + 1], shell->envp);
 		if (!join)
 			return (-1);
 		*new = ft_strappend(*new, join);

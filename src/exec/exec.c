@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/11 15:21:15 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:58:33 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int	exec(t_shell *shell)
 		if (pid == -1)
 			return (1);
 		if (pid == 0)
-			execute_command(shell->str_envp, commands);
+			execute_command(shell->envp, commands);
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			shell->last_exit = WEXITSTATUS(status);
