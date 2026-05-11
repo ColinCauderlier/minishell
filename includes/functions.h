@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/11 17:16:16 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/11 17:18:51 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ char		*find_path(char *command, char **envp);
 
 /**********ENVP***********/
 void		init_envp(t_shell *shell, char **env);
-static void	free_custom_envp(char **envp, size_t count);
-static int	init_custom_envp(t_shell *shell);
 
 /********BUILT*IN**********/
 int			pwd(void);
