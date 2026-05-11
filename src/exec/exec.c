@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/11 17:57:43 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/11 18:33:57 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,11 @@ int	exec(t_shell *shell)
 	if (check_syntax_shell(shell))
 		return (1);
 	commands = get_commands(shell->tokens);
+	if (!commands || !commands[0])
+	{
+		free_split(commands);
+		return (0);
+	}
 	if (ft_strncmp(commands[0], "cd", 3) == 0)
 		cd(commands[1], shell);
 	else if (ft_strncmp(commands[0], "pwd", 4) == 0)
@@ -110,5 +115,5 @@ int	exec(t_shell *shell)
 			shell->last_exit = status;
 	}
 	free_split(commands);
-	return (status);
+	return (shell->last_exit);
 }
