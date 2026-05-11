@@ -6,19 +6,11 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 23:42:56 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/11 16:11:46 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:37:35 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
-
-void init_envp(t_shell *shell, char **env)
-{
-	if (!env)
-		init_custom_envp(shell);
-	else
-		shell->envp = env;
-}
 
 static void	free_custom_envp(char **envp, size_t count)
 {
@@ -46,4 +38,12 @@ static void	init_custom_envp(t_shell *shell)
 	shell->envp[3] = ft_strjoin("OLDPWD=", cwd);
 	shell->envp[4] = NULL;
 	return (1);
+}
+
+void	init_envp(t_shell *shell, char **env)
+{
+	if (!env)
+		init_custom_envp(shell);
+	else
+		shell->envp = env;
 }
