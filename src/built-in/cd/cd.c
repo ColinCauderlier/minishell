@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 15:29:15 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/08 16:32:58 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/11 21:40:35 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 int	cd(char *path, t_shell *shell)
 {
 	(void)shell;
-	// update_envp()
 	if (chdir(path) == -1)
 	{
 		ft_putstr_fd("bash: cd: ", 2);
@@ -28,14 +27,23 @@ int	cd(char *path, t_shell *shell)
 		return (-1);
 	}
 	else
+	{
+		// update_envp(shell);
 		return (0);
+	}
 }
 
-// void update_envp(t_shell *shell)
+// void	update_envp(t_shell *shell, char *path)
 // {
-// 	while(shell->envp)
+// 	int i;
+// 	i = 0;
+// 	int j = 0;
+// 	while (shell->envp[i])
 // 	{
-
-// 		shell->envp = shell->envp->next;
+// 		while (envp[i])
+// 		{
+// 			strncmp(envp[i], "")
+// 		}
+// 		i++;
 // 	}
 // }
