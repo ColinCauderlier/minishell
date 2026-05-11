@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/11 15:21:33 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:34:06 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,30 @@
 # include "structure.h"
 
 /********TOKENIZER*********/
-int		tokenize(char *prompt, t_shell *shell);
-t_token	*get_content(char *s);
-int		ft_isspace(char c);
-int		ft_isquote(char c);
-int		is_expand_lim(char c);
-void	free_res(t_token *res, int pos_res);
-void	free_all_tokens(t_shell *shell);
-char	*get_expand(char *str, t_shell *shell);
-char	*get_type(t_token token);
-int		change_state(char c, t_state *state);
-int		get_new_content(t_token *list, t_shell *shell);
-void	free_split(char **splitted);
+int			tokenize(char *prompt, t_shell *shell);
+t_token		*get_content(char *s);
+int			ft_isspace(char c);
+int			ft_isquote(char c);
+int			is_expand_lim(char c);
+void		free_res(t_token *res, int pos_res);
+void		free_all_tokens(t_shell *shell);
+char		*get_expand(char *str, t_shell *shell);
+char		*get_type(t_token token);
+int			change_state(char c, t_state *state);
+int			get_new_content(t_token *list, t_shell *shell);
+void		free_split(char **splitted);
 
 /**********EXEX***********/
-int		exec(t_shell *shell);
-char	*find_path(char *command, char **envp);
+int			exec(t_shell *shell);
+char		*find_path(char *command, char **envp);
 
 /**********ENVP***********/
-t_envp	*create_envp_node(char *key, char *value);
-void	envp_add_back(t_envp **lst, t_envp *new);
-int		parse_env_var(char *env_var, char **key, char **value);
-void	free_envp_list(t_envp **envp);
-int		append_envp_entry(t_shell *shell, char *key, char *value);
-
-void	init_envp(t_shell *shell, char **envp);
+void		init_envp(t_shell *shell, char **env);
+static void	free_custom_envp(char **envp, size_t count);
+static void	init_custom_envp(t_shell *shell);
 
 /********BUILT*IN**********/
-int		pwd(void);
-int		cd(char *path, t_shell *shell);
+int			pwd(void);
+int			cd(char *path, t_shell *shell);
 
 #endif

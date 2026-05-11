@@ -6,84 +6,44 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 23:42:56 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/08 16:42:26 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:30:37 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
-static int	append_custom_envp(t_shell *shell, char *cwd)
+static void	free_custom_envp(char **envp, size_t count)
 {
-	t_envp	*head;
-
-	if (!append_envp_entry(shell, "HOME", cwd))
-		return (0);
-	if (!append_envp_entry(shell, "PATH",
-			"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"))
-		return (0);
-	if (!append_envp_entry(shell, "PWD", cwd))
-		return (0);
-	if (!append_envp_entry(shell, "OLDPWD", ""))
-		return (0);
-	if (!append_envp_entry(shell, "SHLVL", "1"))
-		return (0);
-	head = shell->envp;
-	while (head)
+	while (count > 0)
 	{
-		printf("%s=%s\n", head->key, head->value);
-		head = head->next;
+		count--;
+		free(envp[count]);
 	}
+	free(envp);
+}
+
+static void	init_custom_envp(t_shell *shell)
+{
+	char	cwd[4096];
+
+	shell->envp = malloc(5 * sizeof(char *));
+	if (!shell->envp[0])
+		return (0);
+	shell->envp = NULL;
+	if (getcwd(cwd, 4096) == NULL)
+		return (0, free_custom_envp(shell->envp, 4));
+	shell->envp[0] = ft_strdup("HOME=");
+	shell->envp[1] = ft_strdup("PATH=/usr/lib64/ccache:/usr/local/bin:/usr/bin");
+	shell->envp[2] = ft_strjoin("PWD=", cwd);
+	shell->envp[3] = ft_strjoin("OLDPWD=", cwd);
+	shell->envp[4] = NULL;
 	return (1);
 }
 
-static int	init_custom_envp(t_shell *shell)
+void init_envp(t_shell *shell, char **env)
 {
-	char	*cwd;
-	int		ok;
-
-	shell->envp = NULL;
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-		return (0);
-	ok = append_custom_envp(shell, cwd);
-	free(cwd);
-	if (!ok)
-		free_envp_list(&shell->envp);
-	return (ok);
-}
-
-static void	fill_envp_from_tab(t_shell *shell, char **envp)
-{
-	char	*key;
-	char	*value;
-	t_envp	*new_node;
-	int		i;
-
-	i = 0;
-	while (envp[i])
-	{
-		key = NULL;
-		value = NULL;
-		if (parse_env_var(envp[i], &key, &value))
-		{
-			new_node = create_envp_node(key, value);
-			if (new_node)
-				envp_add_back(&shell->envp, new_node);
-			free(key);
-			free(value);
-		}
-		i++;
-	}
-}
-
-void	init_envp(t_shell *shell, char **envp)
-{
-	shell->envp = NULL;
-	shell->str_envp = envp;
-	if (!envp || !*envp || !**envp)
-	{
+	if (!env)
 		init_custom_envp(shell);
-		return ;
-	}
-	fill_envp_from_tab(shell, envp);
+	else
+		shell->envp = env;
 }
