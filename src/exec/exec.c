@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/08 17:04:34 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/11 15:21:15 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static char	**get_commands(t_token *tokens)
 			{
 				commands[i] = ft_strdup(command->content);
 				if (!commands[i])
-						return (free_split(commands), NULL);
+					return (free_split(commands), NULL);
 				command = command->next;
 				i++;
 			}
@@ -106,24 +106,19 @@ static char	**get_commands(t_token *tokens)
 	return (commands);
 }
 
-static int	execute_command(char **envp, char **command)
+static void	execute_command(char **envp, char **command)
 {
 	char	*path;
 
 	if (!command[0] || command[0][0] == '\0')
 	{
-//      errno = 0;
-//      error(args, -1, NULL);
-//      free_and_exit(args, 127);
 		free_split(command);
 		exit(127);
 	}
 	path = find_path(command[0], envp);
 	if (!path)
 	{
-//      errno = 0;
-//      error(args, -1, args->commands[i]);
-//      free_and_exit(args, 127);
+		ft_fprintf(2, "minishell: %s: command not found\n", command[0]);
 		free_split(command);
 		exit(127);
 	}
@@ -131,12 +126,9 @@ static int	execute_command(char **envp, char **command)
 	{
 		perror(path);
 		free(path);
-//      error(args, -1, args->commands[i]);
-//      free_and_exit(args, 126);
 		free_split(command);
 		exit(126);
 	}
-	return (0);
 }
 
 int	exec(t_shell *shell)
@@ -146,12 +138,12 @@ int	exec(t_shell *shell)
 	char	**commands;
 
 	if (check_syntax_pipes(shell) || check_syntax_redir(shell))
-			return (1);
+		return (1);
 	commands = get_commands(shell->tokens);
 	if (ft_strncmp(commands[0], "cd", 3) == 0)
-			cd(commands[1], shell);
+		cd(commands[1], shell);
 	else if (ft_strncmp(commands[0], "pwd", 4) == 0)
-			pwd();
+		pwd();
 	else
 	{
 		pid = fork();
@@ -160,6 +152,12 @@ int	exec(t_shell *shell)
 		if (pid == 0)
 			execute_command(shell->str_envp, commands);
 		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			shell->last_exit = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			shell->last_exit = 128 + WTERMSIG(status);
+		else
+			shell->last_exit = status;
 	}
 	return (status);
 }

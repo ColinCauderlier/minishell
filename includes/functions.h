@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/08 17:04:12 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/11 15:21:33 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ void	init_envp(t_shell *shell, char **envp);
 
 /********BUILT*IN**********/
 int		pwd(void);
-int	cd(char *path, t_shell *shell);
+int		cd(char *path, t_shell *shell);
 
 #endif
