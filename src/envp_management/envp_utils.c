@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/02 16:22:39 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/02 16:22:47 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/08 15:58:44 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	envp_add_back(t_envp **lst, t_envp *new)
 	if (!*lst)
 	{
 		*lst = new;
+		
 		return ;
 	}
 	last = *lst;
