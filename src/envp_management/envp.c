@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 23:42:56 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/11 16:38:18 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/11 17:14:10 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	free_custom_envp(char **envp, size_t count)
 	free(envp);
 }
 
-static void	init_custom_envp(t_shell *shell)
+static int	init_custom_envp(t_shell *shell)
 {
 	char	cwd[4096];
 
@@ -31,7 +31,7 @@ static void	init_custom_envp(t_shell *shell)
 		return (0);
 	shell->envp = NULL;
 	if (getcwd(cwd, 4096) == NULL)
-		return (0, free_custom_envp(shell->envp, 4));
+		return (free_custom_envp(shell->envp, 4), 0);
 	shell->envp[0] = ft_strdup("HOME=");
 	shell->envp[1] = ft_strdup("PATH=/usr/lib64/ccache:/usr/local/bin:/usr/bin");
 	shell->envp[2] = ft_strjoin("PWD=", cwd);
@@ -40,7 +40,7 @@ static void	init_custom_envp(t_shell *shell)
 	return (1);
 }
 
-void	init_envp(t_shell *shell, char **env)
+void init_envp(t_shell *shell, char **env)
 {
 	if (!env)
 		init_custom_envp(shell);
