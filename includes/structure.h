@@ -6,18 +6,27 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/11 15:58:01 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:35:25 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURE_H
 # define STRUCTURE_H
 
+//PIPE : |
+//REDIR_IN : >
+//REDIR_IN_WW : > + filename, ex: '<Makefile' (WW means "with word")
+//REDIR_OUT : <
+//REDIR_OUT_WW : < + filename, ex: '>outfile'
+//HEREDOC : >>
+//REDIR_OUT_APP_MODE : >>
 typedef enum s_type
 {
 	PIPE,
 	REDIR_IN,
+	REDIR_IN_WW,
 	REDIR_OUT,
+	REDIR_OUT_WW,
 	HEREDOC,
 	REDIR_OUT_APP_MODE,
 	WORD,
