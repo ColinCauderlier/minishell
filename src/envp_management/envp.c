@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 23:42:56 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/08 16:42:26 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/05 18:25:34 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static int	append_custom_envp(t_shell *shell, char *cwd)
 {
-	t_envp	*head;
-
 	if (!append_envp_entry(shell, "HOME", cwd))
 		return (0);
 	if (!append_envp_entry(shell, "PATH",
@@ -27,12 +25,6 @@ static int	append_custom_envp(t_shell *shell, char *cwd)
 		return (0);
 	if (!append_envp_entry(shell, "SHLVL", "1"))
 		return (0);
-	head = shell->envp;
-	while (head)
-	{
-		printf("%s=%s\n", head->key, head->value);
-		head = head->next;
-	}
 	return (1);
 }
 

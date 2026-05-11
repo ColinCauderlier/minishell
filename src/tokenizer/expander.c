@@ -6,14 +6,14 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 14:34:19 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/08 16:07:21 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:34:13 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
 //En cas d'erreur, l'expand n'est pas fait
-char	*get_expand(char *str, t_shell *shell)
+char	*get_expand(char *str, t_envp *envp)
 {
 	int		i;
 	int		name_len;
@@ -28,12 +28,15 @@ char	*get_expand(char *str, t_shell *shell)
 	if (!name)
 		return (NULL);
 	i = -1;
-	while (shell->envp)
+	while (envp)
 	{
-		key_len = ft_strlen(shell->envp->key);
-		if (ft_strncmp(name, shell->envp->key, max(name_len, key_len)) == 0)
-			return (free(name), ft_strdup(shell->envp->value));
-		shell->envp = shell->envp->next;
+		key_len = ft_strlen(envp->key);
+		if (ft_strncmp(name, envp->key, max(name_len, key_len)) == 0)
+		{
+			free(name);
+			return (ft_strdup(envp->value));
+		}
+		envp = envp->next;
 	}
-	return (free(name), ft_strdup(""));
+	return (free(name), "");
 }
