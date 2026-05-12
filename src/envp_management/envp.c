@@ -6,32 +6,19 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 23:42:56 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/11 21:45:09 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/12 15:06:23 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
-static void	free_custom_envp(char **envp, size_t count)
-{
-	while (count > 0)
-	{
-		count--;
-		free(envp[count]);
-	}
-	free(envp);
-}
-
 static int	init_custom_envp(t_shell *shell)
 {
 	char	cwd[4096];
 
-	shell->envp = malloc(5 * sizeof(char *));
-	if (!shell->envp[0])
-		return (0);
-	shell->envp = NULL;
+	shell->envp[5][4104] = '\0';
 	if (getcwd(cwd, 4096) == NULL)
-		return (free_custom_envp(shell->envp, 4), 0);
+		return (0);
 	shell->envp[0] = ft_strdup("HOME=");
 	shell->envp[1] = ft_strdup("PATH=/usr/lib64/ccache:/usr/local/bin:/usr/bin");
 	shell->envp[2] = ft_strjoin("PWD=", cwd);
