@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/11 18:33:57 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/12 16:41:06 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	**get_commands(t_token *tokens)
 	return (commands);
 }
 
-static void	execute_command(char **envp, char **command)
+static void	execute_command(t_shell *shell, char **command)
 {
 	char	*path;
 
@@ -65,14 +65,16 @@ static void	execute_command(char **envp, char **command)
 		free_split(command);
 		exit(127);
 	}
-	path = find_path(command[0], envp);
+	path = find_path(command[0], shell->envp);
 	if (!path)
 	{
-		ft_fprintf(2, "minishell: %s: command not found\n", command[0]);
+		if (ft_strncmp(command[0], ":", 2) != 0 && ft_strncmp(command[0], "!", 2) != 0)
+			ft_fprintf(2, "minishell: %s: command not found\n", command[0]);
 		free_split(command);
+		free_all_tokens(shell);
 		exit(127);
 	}
-	if (execve(path, command, envp) == -1)
+	if (execve(path, command, shell->envp) == -1)
 	{
 		perror(path);
 		free(path);
@@ -87,14 +89,15 @@ int	exec(t_shell *shell)
 	int		status;
 	char	**commands;
 
-	if (check_syntax_shell(shell))
-		return (1);
+	status = check_syntax_shell(shell);
+	if (status)
+	{
+		shell->last_exit = status;
+		return (status);
+	}
 	commands = get_commands(shell->tokens);
 	if (!commands || !commands[0])
-	{
-		free_split(commands);
-		return (0);
-	}
+		return (free_split(commands), 0);
 	if (ft_strncmp(commands[0], "cd", 3) == 0)
 		cd(commands[1], shell);
 	else if (ft_strncmp(commands[0], "pwd", 4) == 0)
@@ -105,7 +108,7 @@ int	exec(t_shell *shell)
 		if (pid == -1)
 			return (1);
 		if (pid == 0)
-			execute_command(shell->envp, commands);
+			execute_command(shell, commands);
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			shell->last_exit = WEXITSTATUS(status);

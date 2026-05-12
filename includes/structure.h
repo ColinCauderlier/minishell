@@ -6,12 +6,14 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/11 16:35:25 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/12 16:00:11 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURE_H
 # define STRUCTURE_H
+
+# define STX_ER_MESSAGE "minishell: syntax error near unexpected token"
 
 //PIPE : |
 //REDIR_IN : >

@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 15:39:11 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/11 16:58:17 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/12 17:26:33 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	expand_case(char *old, int *i, char **new, t_shell *shell)
 	char	*join;
 	char	*itoa;
 
-	if (!old[*i + 1] || ft_isspace(old[*i + 1]))
+	if (!old[*i + 1] || ft_isspace(old[*i + 1]) || old[*i + 1] == '\"')
 	{
 		join = ft_strjoin(*new, "$");
 		if (!join)

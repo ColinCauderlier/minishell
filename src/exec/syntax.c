@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 17:14:39 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/11 17:52:09 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/12 16:58:25 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,56 @@ int	is_redir_wo_word(t_token *tkn)
 	return (0);
 }
 
+static int is_redir_symbol(char c)
+{
+    if (c == '<' || c == '>')
+        return (1);
+    return (0);
+}
+
 static int	check_syntax_redir(t_shell *shell)
 {
 	t_token	*list;
+	size_t		i;
+	int		charac_bool;
+	char	mess[2];
 
 	list = shell->tokens;
 	while (list && list->next)
 	{
-		if (is_redir_wo_word(list))
+		if (list->token_type == REDIR_IN_WW || list->token_type == REDIR_OUT_WW)
+		{
+			i = 0;
+			charac_bool = 1;
+			while (list->content[i] && charac_bool)
+			{
+				if (!is_redir_symbol(list->content[i]))
+				{
+					charac_bool = 0;
+					i--;
+				}
+				i++;
+			}
+			if (i == ft_strlen(list->content))
+			{
+				mess[0] = list->content[0];
+				if (list->content[1] == mess[0])
+						mess[1] = list->content[1];
+				ft_fprintf(2, "%s `%s'\n", STX_ER_MESSAGE, mess);
+				return (2);
+			}
+		}
+		if (is_redir_wo_word(list) || ft_strncmp(list->content, "<>", 3) == 0)
 		{
 			if (!list->next || !list->next->content)
 			{
-				ft_fprintf(2, "minishell: syntax error near unexpected token `newline'\n");
-				return (1);
+				ft_fprintf(2, "%s `newline'\n", STX_ER_MESSAGE);
+				return (2);
 			}
 			if (list->next->token_type != WORD)
 			{
-				ft_fprintf(2, "minishell: syntax error near unexpected token `%s'\n", list->next->content);
-				return (1);
+				ft_fprintf(2, "%s `%s'\n", STX_ER_MESSAGE, list->next->content);
+				return (2);
 			}
 		}
 		list = list->next;
@@ -57,13 +89,13 @@ static int	check_syntax_pipes(t_shell *shell)
 		{
 			if (!list->next)
 			{
-				ft_fprintf(2, "minishell: syntax error near unexpected token `newline'\n");
-				return (1);
+				ft_fprintf(2, "%s `newline'\n", STX_ER_MESSAGE);
+				return (2);
 			}
 			if (list->next->token_type == PIPE)
 			{
-				ft_fprintf(2, "minishell: syntax error near unexpected token `|'\n");
-				return (1);
+				ft_fprintf(2, "%s `|'\n", STX_ER_MESSAGE);
+				return (2);
 			}
 		}
 		list = list->next;
@@ -73,9 +105,13 @@ static int	check_syntax_pipes(t_shell *shell)
 
 int	check_syntax_shell(t_shell *shell)
 {
-	if (check_syntax_pipes(shell))
-		return (1);
-	if (check_syntax_redir(shell))
-		return (1);
+	int	status;
+
+	status = check_syntax_pipes(shell);
+	if (status)
+		return (status);
+	status = check_syntax_redir(shell);
+	if (status)
+		return (status);
 	return (0);
 }
