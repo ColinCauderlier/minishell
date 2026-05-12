@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 15:29:15 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/11 21:40:35 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/12 18:50:18 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	cd(char *path, t_shell *shell)
 	(void)shell;
 	if (chdir(path) == -1)
 	{
-		ft_putstr_fd("bash: cd: ", 2);
+		ft_putstr_fd("minishell: cd: ", 2);
 		ft_putstr_fd(path, 2);
 		ft_putstr_fd(": ", 2);
 		ft_putstr_fd(strerror(errno), 2);

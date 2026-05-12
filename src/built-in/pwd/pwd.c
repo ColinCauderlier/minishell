@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 18:15:11 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/11 15:55:04 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/12 19:11:23 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	pwd(void)
 
 	if (getcwd(buffer, 4096) == NULL)
 	{
-		ft_putstr_fd("bash: pwd: ", 2);
+		ft_putstr_fd("minishell: pwd: ", 2);
 		ft_putstr_fd(strerror(errno), 2);
 		ft_putstr_fd("\n", 2);
 		return (-1);
