@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/12 16:16:02 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/13 16:59:40 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		prompt = readline("Minishell > ");
+		if (!prompt)
+			continue;
 		if (ft_strncmp(prompt, ":", 2) == 0)
 		{
 			free(prompt);

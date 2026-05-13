@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/12 16:00:11 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/13 16:18:13 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,17 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-typedef struct s_envp
+typedef struct s_exec
 {
-	char			*key;
-	char			*value;
-	struct s_envp	*next;
-	struct s_envp	*prev;
-}					t_envp;
+	char	***commands;
+	int		**pipes;
+	int		*pids;
+}	t_exec;
 
 typedef struct s_shell
 {
 	t_token			*tokens;
+	t_exec			exec;
 	char			*user_input;
 	char			**envp;
 	int				last_exit;

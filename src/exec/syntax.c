@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 17:14:39 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/12 16:58:25 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/12 17:45:13 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ static int	check_syntax_pipes(t_shell *shell)
 	t_token	*list;
 
 	list = shell->tokens;
+	if (list->token_type == PIPE)
+	{
+		ft_fprintf(2, "%s `|'\n", STX_ER_MESSAGE);
+		return (2);
+	}
 	while (list && list->next)
 	{
 		if (list->token_type == PIPE)
