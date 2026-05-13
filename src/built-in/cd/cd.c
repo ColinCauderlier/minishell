@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 15:29:15 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/12 18:50:18 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/13 14:25:15 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,8 @@ int	cd(char *path, t_shell *shell)
 	}
 	else
 	{
-		// update_envp(shell);
+		update_envp(shell, "PWD", getcwd);
 		return (0);
 	}
 }
 
-// void	update_envp(t_shell *shell, char *path)
-// {
-// 	int i;
-// 	i = 0;
-// 	int j = 0;
-// 	while (shell->envp[i])
-// 	{
-// 		while (envp[i])
-// 		{
-// 			strncmp(envp[i], "")
-// 		}
-// 		i++;
-// 	}
-// }
