@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/13 17:03:02 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/13 17:18:52 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,16 @@ void	execute_command(t_shell *shell, int i)
 
 	if (!shell->exec.commands[i][0] || shell->exec.commands[i][0][0] == '\0')
 	{
-		printf("Error\n");
 		free_commands(shell->exec.commands);
 		exit(127);
 	}
 	status = check_builtin(shell->exec.commands[i][0]);
 	if (status)
 	{
-		printf("Builtin\n");
-		exit(exec_builtin(shell, shell->exec.commands[i], status));
+		status = exec_builtin(shell, shell->exec.commands[i], status);
+		free_commands(shell->exec.commands);
+		free_all_tokens(shell);
+		exit (status);
 	}
 	path = find_path(shell->exec.commands[i][0], shell->envp);
 	if (!path)
@@ -128,7 +129,6 @@ int	get_nb_pipes(t_shell *shell)
 int	init_exec(t_shell *shell)
 {
 	int	i;
-	int	j;
 	int	nb_pipes;
 	t_token	*list;
 
@@ -165,13 +165,6 @@ int	init_exec(t_shell *shell)
 	while (i < nb_pipes + 1)
 	{
 		shell->exec.commands[i] = get_commands(list);
-		
-		j = 0;
-		while (shell->exec.commands[i][j])
-		{
-			printf("%s\n", shell->exec.commands[i][j]);
-			j++;
-		}	
 		if (!shell->exec.commands[i])
 		{
 			free_commands(shell->exec.commands);
@@ -200,7 +193,6 @@ int	exec(t_shell *shell)
 		return (status);
 	}
 	nb_commands = init_exec(shell);
-	printf("nb_commands= %d\n", nb_commands);
 	if (nb_commands == -1)
 	{
 		ft_fprintf(2, "A malloc has failed\n");
