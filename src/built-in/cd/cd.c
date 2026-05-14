@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 15:29:15 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/13 20:20:16 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/14 15:40:22 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	cd(char *path, t_shell *shell)
 	(void)shell;
 	if (getcwd(temp, 4096) == NULL)
 	{
-		perror("Could not retrieve current working directory before changing directory.");
+		perror("Could not retrieve current working directory.");
 		return (0);
 	}
 	if (chdir(path) == 0)

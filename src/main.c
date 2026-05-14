@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/11 18:34:23 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/14 15:17:09 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*prompt;
 	t_shell	shell;
 	int		status;
+	int		i;
 
 	(void)argv;
 	(void)argc;
@@ -56,6 +57,16 @@ int	main(int argc, char **argv, char **envp)
 			exec(&shell);
 		free_all_tokens(&shell);
 		free(prompt);
+	}
+	if (shell.custom_envp && shell.envp)
+	{
+		i = 0;
+		while (shell.envp[i])
+		{
+			free(shell.envp[i]);
+			i++;
+		}
+		free(shell.envp);
 	}
 	return (0);
 }
