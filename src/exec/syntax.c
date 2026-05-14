@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 17:14:39 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/12 17:45:13 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/14 12:48:13 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ static int	check_syntax_redir(t_shell *shell)
 			{
 				mess[0] = list->content[0];
 				if (list->content[1] == mess[0])
-						mess[1] = list->content[1];
+					mess[1] = list->content[1];
+				else
+					mess[1] = '\0';
 				ft_fprintf(2, "%s `%s'\n", STX_ER_MESSAGE, mess);
 				return (2);
 			}

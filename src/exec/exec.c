@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/13 17:18:52 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/14 12:57:41 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ void	execute_command(t_shell *shell, int i)
 	if (status)
 	{
 		status = exec_builtin(shell, shell->exec.commands[i], status);
+		close_all_pipes(shell);
+		free_all_pipes(shell);
+		free(shell->exec.pids);
 		free_commands(shell->exec.commands);
 		free_all_tokens(shell);
 		exit (status);
@@ -96,6 +99,9 @@ void	execute_command(t_shell *shell, int i)
 	if (!path)
 	{
 		ft_fprintf(2, "minishell: %s: command not found\n", shell->exec.commands[i][0]);
+		close_all_pipes(shell);
+		free_all_pipes(shell);
+		free(shell->exec.pids);
 		free_commands(shell->exec.commands);
 		free_all_tokens(shell);
 		exit(127);
@@ -104,6 +110,9 @@ void	execute_command(t_shell *shell, int i)
 	{
 		perror(path);
 		free(path);
+		close_all_pipes(shell);
+		free_all_pipes(shell);
+		free(shell->exec.pids);
 		free_all_tokens(shell);
 		free_commands(shell->exec.commands);
 		exit(126);
@@ -204,7 +213,13 @@ int	exec(t_shell *shell)
 	{
 		shell->exec.pids[0] = fork();
 		if (shell->exec.pids[0] == -1)
+		{
+			close_all_pipes(shell);
+			free_all_pipes(shell);
+			free(shell->exec.pids);
+			free_commands(shell->exec.commands);
 			return (1);
+		}
 		if (shell->exec.pids[0] == 0)
 			execute_command(shell, 0);
 		waitpid(shell->exec.pids[0], &status, 0);
@@ -222,7 +237,13 @@ int	exec(t_shell *shell)
 		{
 			shell->exec.pids[i] = fork();
 			if (shell->exec.pids[i] == -1)
+			{
+				close_all_pipes(shell);
+				free_all_pipes(shell);
+				free(shell->exec.pids);
+				free_commands(shell->exec.commands);
 				return (1);
+			}
 			if (shell->exec.pids[i] == 0)
 			{
 				if (i == 0)
@@ -248,6 +269,9 @@ int	exec(t_shell *shell)
 		else if (WIFSIGNALED(status))
 			shell->last_exit = 128 + WTERMSIG(status);
 	}
+	close_all_pipes(shell);
+	free_all_pipes(shell);
+	free(shell->exec.pids);
 	free_commands(shell->exec.commands);
 	return (shell->last_exit);
 }

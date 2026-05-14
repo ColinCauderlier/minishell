@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:06:16 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/13 17:04:43 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/14 13:00:18 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,3 +67,5 @@ void	free_commands(char ***commands)
 	}
 	free(commands);
 }
+
+
