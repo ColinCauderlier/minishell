@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 12:49:38 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/06 18:24:54 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/12 16:01:39 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	free_all_tokens(t_shell *shell)
 	{
 		free(head->content);
 		head->content = NULL;
-		head = head->next;	
+		head = head->next;
 	}
 	free(shell->tokens);
 	shell->tokens = NULL;

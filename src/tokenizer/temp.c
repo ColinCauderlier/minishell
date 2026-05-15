@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 14:49:05 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/29 14:57:39 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/11 15:30:19 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,9 @@ char	*get_type(t_token token)
 		str = "REDIR_OUT_APP_MODE";
 	else if (token.token_type == WORD)
 		str = "WORD";
+	else if (token.token_type == REDIR_IN_WW)
+		str = "REDIR_IN_WW";
+	else if (token.token_type == REDIR_OUT_WW)
+		str = "REDIR_OUT_WW";
 	return (str);
 }

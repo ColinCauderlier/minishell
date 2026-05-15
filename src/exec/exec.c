@@ -6,59 +6,40 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/08 17:04:34 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/15 16:01:16 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
-static int	is_redir_type(t_token *tkn)
+static int	check_builtin(char **command)
 {
-	if (tkn->token_type == REDIR_IN || tkn->token_type == REDIR_OUT)
+	if (ft_strncmp(command[0], "cd", 3) == 0)
 		return (1);
-	if (tkn->token_type == HEREDOC || tkn->token_type == REDIR_OUT_APP_MODE)
-		return (1);
+	if (ft_strncmp(command[0], "pwd", 4) == 0)
+		return (2);
 	return (0);
 }
 
-static int	check_syntax_redir(t_shell *shell)
+static int	exec_builtin(t_shell *shell, char **command, int id)
 {
-	t_token	*list;
-	int		nb_redir;
+	int	len_command;
 
-	list = shell->tokens;
-	nb_redir = 0;
-	while (list && list->next)
+	len_command = 0;
+	while (command[len_command])
+		len_command++;
+	if (id == 1)
 	{
-		if (is_redir_type(list))
+		if (len_command > 2)
 		{
-			nb_redir++;
-			if (list->next->token_type != WORD)
-				return (1);
-		}
-		else if (list->token_type == PIPE)
-			nb_redir = 0;
-		if (nb_redir >= 2)
+			ft_fprintf(2, "minishell: cd: too many arguments\n");
 			return (1);
-		list = list->next;
-	}
-	return (0);
-}
-
-static int	check_syntax_pipes(t_shell *shell)
-{
-	t_token	*list;
-
-	list = shell->tokens;
-	while (list && list->next)
-	{
-		if (list->token_type == PIPE)
-		{
-			if (!list->next || list->next->token_type == PIPE)
-				return (1);
 		}
-		list = list->next;
+		else
+			return (cd(command[1], shell));
 	}
+	if (id == 2)
+		return (pwd());
 	return (0);
 }
 
@@ -73,7 +54,7 @@ static char	**get_commands(t_token *tokens)
 	len_command = 0;
 	list = tokens;
 	commands = NULL;
-	while (list && list->next && list->token_type != PIPE)
+	while (list && list->token_type != PIPE)
 	{
 		if (list->token_type == WORD)
 		{
@@ -90,7 +71,7 @@ static char	**get_commands(t_token *tokens)
 			{
 				commands[i] = ft_strdup(command->content);
 				if (!commands[i])
-						return (free_split(commands), NULL);
+					return (free_split(commands), NULL);
 				command = command->next;
 				i++;
 			}
@@ -98,68 +79,191 @@ static char	**get_commands(t_token *tokens)
 			list = command;
 			continue ;
 		}
-		if (list && list->next && is_redir_type(list))
+		if (list && list->next && is_redir_wo_word(list))
 			list = list->next;
-		if (list)
+		if (list->next)
 			list = list->next;
 	}
 	return (commands);
 }
 
-static int	execute_command(char **envp, char **command)
+void	execute_command(t_shell *shell, int i)
 {
 	char	*path;
+	int		status;
 
-	if (!command[0] || command[0][0] == '\0')
+	if (!shell->exec.commands[i][0] || shell->exec.commands[i][0][0] == '\0')
 	{
-//      errno = 0;
-//      error(args, -1, NULL);
-//      free_and_exit(args, 127);
-		free_split(command);
+		free_commands(shell->exec.commands);
 		exit(127);
 	}
-	path = find_path(command[0], envp);
+	status = check_builtin(shell->exec.commands[i]);
+	if (status)
+	{
+		status = exec_builtin(shell, shell->exec.commands[i], status);
+		free_exec(shell);
+		free_all_tokens(shell);
+		exit(status);
+	}
+	path = find_path(shell->exec.commands[i][0], shell->envp);
 	if (!path)
 	{
-//      errno = 0;
-//      error(args, -1, args->commands[i]);
-//      free_and_exit(args, 127);
-		free_split(command);
+		ft_fprintf(2, "minishell: %s: command not found\n", shell->exec.commands[i][0]);
+		free_exec(shell);
+		free_all_tokens(shell);
 		exit(127);
 	}
-	if (execve(path, command, envp) == -1)
+	if (execve(path, shell->exec.commands[i], shell->envp) == -1)
 	{
 		perror(path);
 		free(path);
-//      error(args, -1, args->commands[i]);
-//      free_and_exit(args, 126);
-		free_split(command);
+		close_all_pipes(shell);
+		free_all_pipes(shell);
+		free(shell->exec.pids);
+		free_all_tokens(shell);
+		free_commands(shell->exec.commands);
 		exit(126);
 	}
-	return (0);
+}
+
+int	get_nb_pipes(t_shell *shell)
+{
+	int			count;
+	t_token		*list;
+
+	count = 0;
+	list = shell->tokens;
+	while (list && list->next)
+	{
+		if (list->token_type == PIPE)
+			count++;
+		list = list->next;
+	}
+	return (count);
+}
+
+int	init_exec(t_shell *shell)
+{
+	int		i;
+	int		nb_pipes;
+	t_token	*list;
+
+	i = 0;
+	nb_pipes = get_nb_pipes(shell);
+	shell->exec.commands = ft_calloc(nb_pipes + 2, sizeof(char **));
+	if (!shell->exec.commands)
+		return (-1);
+	shell->exec.commands[nb_pipes + 1] = NULL;
+	shell->exec.pids = ft_calloc(nb_pipes + 2, sizeof(int));
+	if (!shell->exec.pids)
+		return (free(shell->exec.commands), -1);
+	shell->exec.pipes = ft_calloc(nb_pipes + 1, sizeof(int *));
+	if (!shell->exec.pipes)
+		return (free(shell->exec.pids), free(shell->exec.commands), -1);
+	while (i < nb_pipes)
+	{
+		shell->exec.pipes[i] = ft_calloc(2, sizeof(int));
+		if (!shell->exec.pipes[i])
+		{
+			free_all_pipes(shell);
+			return (-1);
+		}
+		if (pipe(shell->exec.pipes[i]) == -1)
+		{
+			free_all_pipes(shell);
+			return (-1);
+		}
+		i++;
+	}
+	shell->exec.pipes[nb_pipes] = NULL;
+	i = 0;
+	list = shell->tokens;
+	while (i < nb_pipes + 1)
+	{
+		shell->exec.commands[i] = get_commands(list);
+		if (!shell->exec.commands[i])
+		{
+			free_commands(shell->exec.commands);
+			exit(127);
+		}
+		while (list->next && list->token_type != PIPE)
+			list = list->next;
+		if (list->next)
+			list = list->next;
+		i++;
+	}
+	shell->exec.commands[i] = NULL;
+	return (nb_pipes + 1);
 }
 
 int	exec(t_shell *shell)
 {
-	int		pid;
 	int		status;
-	char	**commands;
+	int		nb_commands;
+	int		i;
 
-	if (check_syntax_pipes(shell) || check_syntax_redir(shell))
-			return (1);
-	commands = get_commands(shell->tokens);
-	if (ft_strncmp(commands[0], "cd", 3) == 0)
-			cd(commands[1], shell);
-	else if (ft_strncmp(commands[0], "pwd", 4) == 0)
-			pwd();
+	status = check_syntax_shell(shell);
+	if (status)
+	{
+		shell->last_exit = status;
+		return (status);
+	}
+	nb_commands = init_exec(shell);
+	if (nb_commands == -1)
+	{
+		ft_fprintf(2, "A malloc has failed\n");
+		return (-1);
+	}
+	if (!shell->exec.commands || !shell->exec.commands[0])
+		return (free_commands(shell->exec.commands), 0);
+	else if (nb_commands == 1)
+	{
+		shell->exec.pids[0] = fork();
+		if (shell->exec.pids[0] == -1)
+			return (free_exec(shell), 1);
+		if (shell->exec.pids[0] == 0)
+			execute_command(shell, 0);
+		waitpid(shell->exec.pids[0], &status, 0);
+		if (WIFEXITED(status))
+			shell->last_exit = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			shell->last_exit = 128 + WTERMSIG(status);
+		else
+			shell->last_exit = status;
+	}
 	else
 	{
-		pid = fork();
-		if (pid == -1)
-			return (1);
-		if (pid == 0)
-			execute_command(shell->str_envp, commands);
-		waitpid(pid, &status, 0);
+		i = 0;
+		while (shell->exec.commands[i])
+		{
+			shell->exec.pids[i] = fork();
+			if (shell->exec.pids[i] == -1)
+				return (free_exec(shell), 1);
+			if (shell->exec.pids[i] == 0)
+			{
+				if (i == 0)
+					first_cmd(shell);
+				else if (i == nb_commands - 1)
+					last_cmd(shell, i);
+				else
+					middle_cmd(shell, i);
+			}
+			i++;
+		}
+		i = 0;
+		close_all_pipes(shell);
+		while (shell->exec.commands[i])
+		{
+			waitpid(shell->exec.pids[i], &status, 0);
+			if (!shell->exec.commands[i + 1])
+				shell->last_exit = status;
+			i++;
+		}
+		if (WIFEXITED(status))
+			shell->last_exit = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			shell->last_exit = 128 + WTERMSIG(status);
 	}
-	return (status);
+	free_exec(shell);
+	return (shell->last_exit);
 }
