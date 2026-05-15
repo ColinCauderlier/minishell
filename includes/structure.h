@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/13 16:18:13 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/15 16:47:52 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ typedef struct s_shell
 	t_exec			exec;
 	char			*user_input;
 	char			**envp;
+	bool			custom_envp;
 	int				last_exit;
 	int				nb_token;
 }					t_shell;
+
 #endif
