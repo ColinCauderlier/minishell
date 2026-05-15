@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/13 16:59:40 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/15 15:58:33 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,17 @@ int	main(int argc, char **argv, char **envp)
 	init_envp(&shell, envp);
 	prompt = "";
 	shell.last_exit = 0;
+	status = 0;
 	while (1)
 	{
 		prompt = readline("Minishell > ");
 		if (!prompt)
-			continue;
+			break ;
+		add_history(prompt);
 		if (ft_strncmp(prompt, ":", 2) == 0)
 		{
 			free(prompt);
-			continue ;	
+			continue ;
 		}
 		if (ft_strncmp(prompt, "exit", 5) == 0)
 		{
@@ -57,5 +59,5 @@ int	main(int argc, char **argv, char **envp)
 		free_all_tokens(&shell);
 		free(prompt);
 	}
-	return (0);
+	return (status);
 }

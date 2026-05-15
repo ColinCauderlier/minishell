@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/07 15:38:02 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/14 17:50:33 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static size_t	countwords_inword(char const *s, size_t i)
 {
 	char	c;
 
-	while (!ft_isspace(s[i]) && s[i])
+	while (s[i] && !ft_isspace(s[i]) && s[i] != '|')
 	{
 		if (s[i] == '\'' || s[i] == '\"')
 		{
@@ -39,6 +39,11 @@ static size_t	countwords(char const *s)
 	i = 0;
 	while (s[i])
 	{
+		if (s[i] == '|')
+		{
+			count++;
+			i++;
+		}
 		if (!ft_isspace(s[i]))
 		{
 			count++;
@@ -60,17 +65,19 @@ static char	*res_fill(t_token *res, int pos_res, char *str)
 		i++;
 	str = &str[i];
 	i = 0;
-	while (!ft_isspace(str[i]) && str[i])
+	while (str[i] && !ft_isspace(str[i]) && str[i] != '|')
 	{
 		if (str[i] == '\'' || str[i] == '\"')
 		{
 			c = str[i];
 			i++;
-			while (str[i] != c && str[i])
+			while (str[i] && str[i] != c)
 				i++;
 		}
 		i++;
 	}
+	if (i == 0 && str[i] == '|')
+		i++;
 	res[pos_res].content = ft_substr(str, 0, i);
 	if (!res[pos_res].content)
 		return (free_res(res, pos_res), NULL);

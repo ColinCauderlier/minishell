@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 15:39:11 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/12 17:26:33 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/15 15:59:09 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ static int	expand_case(char *old, int *i, char **new, t_shell *shell)
 {
 	char	*join;
 	char	*itoa;
+	int		bo;
 
+	bo = 0;
 	if (!old[*i + 1] || ft_isspace(old[*i + 1]) || old[*i + 1] == '\"')
 	{
 		join = ft_strjoin(*new, "$");
@@ -36,6 +38,7 @@ static int	expand_case(char *old, int *i, char **new, t_shell *shell)
 		free(*new);
 		free(itoa);
 		*new = join;
+		bo = 1;
 	}
 	else
 	{
@@ -47,8 +50,13 @@ static int	expand_case(char *old, int *i, char **new, t_shell *shell)
 	if (!(*new))
 		return (-1);
 	(*i)++;
-	while (old[*i] && !is_expand_lim(old[*i]))
+	if (bo)
 		(*i)++;
+	else
+	{
+		while (old[*i] && !is_expand_lim(old[*i]))
+			(*i)++;
+	}
 	return (*i);
 }
 
@@ -92,10 +100,7 @@ int	get_new_content(t_token *list, t_shell *shell)
 {
 	char	*new;
 
-	new = malloc((1) * sizeof(char));
-	if (!new)
-		return (0);
-	new[0] = '\0';
+	new = NULL;
 	new = new_content_loop(list->content, shell, new);
 	if (!new)
 		return (0);

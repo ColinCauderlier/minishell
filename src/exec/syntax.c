@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 17:14:39 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/14 12:48:13 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/15 16:02:08 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ int	is_redir_wo_word(t_token *tkn)
 	return (0);
 }
 
-static int is_redir_symbol(char c)
+static int	is_redir_symbol(char c)
 {
-    if (c == '<' || c == '>')
-        return (1);
-    return (0);
+	if (c == '<' || c == '>')
+		return (1);
+	return (0);
 }
 
 static int	check_syntax_redir(t_shell *shell)
 {
 	t_token	*list;
-	size_t		i;
+	size_t	i;
 	int		charac_bool;
 	char	mess[2];
 

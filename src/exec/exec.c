@@ -6,25 +6,38 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/14 12:57:41 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/15 16:01:16 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
-static int	check_builtin(char *command)
+static int	check_builtin(char **command)
 {
-	if (ft_strncmp(command, "cd", 3) == 0)
+	if (ft_strncmp(command[0], "cd", 3) == 0)
 		return (1);
-	if (ft_strncmp(command, "pwd", 4) == 0)
+	if (ft_strncmp(command[0], "pwd", 4) == 0)
 		return (2);
 	return (0);
 }
 
 static int	exec_builtin(t_shell *shell, char **command, int id)
 {
+	int	len_command;
+
+	len_command = 0;
+	while (command[len_command])
+		len_command++;
 	if (id == 1)
-		return (cd(command[1], shell));
+	{
+		if (len_command > 2)
+		{
+			ft_fprintf(2, "minishell: cd: too many arguments\n");
+			return (1);
+		}
+		else
+			return (cd(command[1], shell));
+	}
 	if (id == 2)
 		return (pwd());
 	return (0);
@@ -77,32 +90,26 @@ static char	**get_commands(t_token *tokens)
 void	execute_command(t_shell *shell, int i)
 {
 	char	*path;
-	int	status;
+	int		status;
 
 	if (!shell->exec.commands[i][0] || shell->exec.commands[i][0][0] == '\0')
 	{
 		free_commands(shell->exec.commands);
 		exit(127);
 	}
-	status = check_builtin(shell->exec.commands[i][0]);
+	status = check_builtin(shell->exec.commands[i]);
 	if (status)
 	{
 		status = exec_builtin(shell, shell->exec.commands[i], status);
-		close_all_pipes(shell);
-		free_all_pipes(shell);
-		free(shell->exec.pids);
-		free_commands(shell->exec.commands);
+		free_exec(shell);
 		free_all_tokens(shell);
-		exit (status);
+		exit(status);
 	}
 	path = find_path(shell->exec.commands[i][0], shell->envp);
 	if (!path)
 	{
 		ft_fprintf(2, "minishell: %s: command not found\n", shell->exec.commands[i][0]);
-		close_all_pipes(shell);
-		free_all_pipes(shell);
-		free(shell->exec.pids);
-		free_commands(shell->exec.commands);
+		free_exec(shell);
 		free_all_tokens(shell);
 		exit(127);
 	}
@@ -122,7 +129,7 @@ void	execute_command(t_shell *shell, int i)
 int	get_nb_pipes(t_shell *shell)
 {
 	int			count;
-	t_token 	*list;
+	t_token		*list;
 
 	count = 0;
 	list = shell->tokens;
@@ -137,8 +144,8 @@ int	get_nb_pipes(t_shell *shell)
 
 int	init_exec(t_shell *shell)
 {
-	int	i;
-	int	nb_pipes;
+	int		i;
+	int		nb_pipes;
 	t_token	*list;
 
 	i = 0;
@@ -213,13 +220,7 @@ int	exec(t_shell *shell)
 	{
 		shell->exec.pids[0] = fork();
 		if (shell->exec.pids[0] == -1)
-		{
-			close_all_pipes(shell);
-			free_all_pipes(shell);
-			free(shell->exec.pids);
-			free_commands(shell->exec.commands);
-			return (1);
-		}
+			return (free_exec(shell), 1);
 		if (shell->exec.pids[0] == 0)
 			execute_command(shell, 0);
 		waitpid(shell->exec.pids[0], &status, 0);
@@ -237,13 +238,7 @@ int	exec(t_shell *shell)
 		{
 			shell->exec.pids[i] = fork();
 			if (shell->exec.pids[i] == -1)
-			{
-				close_all_pipes(shell);
-				free_all_pipes(shell);
-				free(shell->exec.pids);
-				free_commands(shell->exec.commands);
-				return (1);
-			}
+				return (free_exec(shell), 1);
 			if (shell->exec.pids[i] == 0)
 			{
 				if (i == 0)
@@ -263,15 +258,12 @@ int	exec(t_shell *shell)
 			if (!shell->exec.commands[i + 1])
 				shell->last_exit = status;
 			i++;
-		}	
+		}
 		if (WIFEXITED(status))
 			shell->last_exit = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
 			shell->last_exit = 128 + WTERMSIG(status);
 	}
-	close_all_pipes(shell);
-	free_all_pipes(shell);
-	free(shell->exec.pids);
-	free_commands(shell->exec.commands);
+	free_exec(shell);
 	return (shell->last_exit);
 }

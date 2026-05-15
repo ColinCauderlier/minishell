@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/13 15:46:34 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/14 14:49:27 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void		free_split(char **splitted);
 
 /**********EXEX***********/
 int			exec(t_shell *shell);
+void		free_exec(t_shell *shell);
 int			is_redir_wo_word(t_token *tkn);
 char		*find_path(char *command, char **envp);
 int			check_syntax_shell(t_shell *shell);
