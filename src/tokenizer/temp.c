@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   temp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
+/*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 14:49:05 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/11 15:30:19 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/15 17:06:49 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*get_type(t_token token)
 {
 	char	*str;
 
+	str = NULL;
 	if (token.token_type == PIPE)
 		str = "PIPE";
 	else if (token.token_type == REDIR_IN)
