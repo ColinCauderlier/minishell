@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/14 17:50:33 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/16 15:31:15 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static size_t	countwords_inword(char const *s, size_t i)
 		{
 			c = s[i];
 			i++;
-			while (s[i] != c && s[i])
+			while (s[i] && s[i] != c)
 				i++;
 		}
 		i++;
@@ -43,6 +43,7 @@ static size_t	countwords(char const *s)
 		{
 			count++;
 			i++;
+			continue ;
 		}
 		if (!ft_isspace(s[i]))
 		{

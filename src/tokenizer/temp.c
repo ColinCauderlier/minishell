@@ -6,14 +6,14 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 14:49:05 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/15 17:06:49 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/16 15:58:13 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //Fichier temporaire, sert au debug
 #include "../../includes/includes.h"
 
-char	*get_type(t_token token)
+static char	*get_type(t_token token)
 {
 	char	*str;
 
@@ -35,4 +35,16 @@ char	*get_type(t_token token)
 	else if (token.token_type == REDIR_OUT_WW)
 		str = "REDIR_OUT_WW";
 	return (str);
+}
+
+void	print_tokens(t_shell *shell)
+{
+	t_token	*list;
+
+	list = shell->tokens;
+	while (list && list->next)
+	{
+		printf("%s %s\n", list->content, get_type(*list));
+		list = list->next;
+	}
 }

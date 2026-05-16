@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 17:14:39 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/15 16:02:08 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/16 15:10:40 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static int	check_syntax_redir(t_shell *shell)
 			{
 				if (!is_redir_symbol(list->content[i]))
 				{
-					charac_bool = 0;
 					i--;
+					charac_bool = 0;
 				}
 				i++;
 			}

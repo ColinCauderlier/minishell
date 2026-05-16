@@ -6,44 +6,29 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/15 16:01:16 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/16 17:00:35 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
-static int	check_builtin(char **command)
+int	get_nb_pipes(t_shell *shell)
 {
-	if (ft_strncmp(command[0], "cd", 3) == 0)
-		return (1);
-	if (ft_strncmp(command[0], "pwd", 4) == 0)
-		return (2);
-	return (0);
-}
+	int			count;
+	t_token		*list;
 
-static int	exec_builtin(t_shell *shell, char **command, int id)
-{
-	int	len_command;
-
-	len_command = 0;
-	while (command[len_command])
-		len_command++;
-	if (id == 1)
+	count = 0;
+	list = shell->tokens;
+	while (list && list->next)
 	{
-		if (len_command > 2)
-		{
-			ft_fprintf(2, "minishell: cd: too many arguments\n");
-			return (1);
-		}
-		else
-			return (cd(command[1], shell));
+		if (list->token_type == PIPE)
+			count++;
+		list = list->next;
 	}
-	if (id == 2)
-		return (pwd());
-	return (0);
+	return (count);
 }
 
-static char	**get_commands(t_token *tokens)
+char	**get_commands(t_token *tokens)
 {
 	t_token	*list;
 	t_token	*command;
@@ -94,7 +79,7 @@ void	execute_command(t_shell *shell, int i)
 
 	if (!shell->exec.commands[i][0] || shell->exec.commands[i][0][0] == '\0')
 	{
-		free_commands(shell->exec.commands);
+		free_commands(shell);
 		exit(127);
 	}
 	status = check_builtin(shell->exec.commands[i]);
@@ -117,83 +102,10 @@ void	execute_command(t_shell *shell, int i)
 	{
 		perror(path);
 		free(path);
-		close_all_pipes(shell);
-		free_all_pipes(shell);
-		free(shell->exec.pids);
+		free_exec(shell);
 		free_all_tokens(shell);
-		free_commands(shell->exec.commands);
 		exit(126);
 	}
-}
-
-int	get_nb_pipes(t_shell *shell)
-{
-	int			count;
-	t_token		*list;
-
-	count = 0;
-	list = shell->tokens;
-	while (list && list->next)
-	{
-		if (list->token_type == PIPE)
-			count++;
-		list = list->next;
-	}
-	return (count);
-}
-
-int	init_exec(t_shell *shell)
-{
-	int		i;
-	int		nb_pipes;
-	t_token	*list;
-
-	i = 0;
-	nb_pipes = get_nb_pipes(shell);
-	shell->exec.commands = ft_calloc(nb_pipes + 2, sizeof(char **));
-	if (!shell->exec.commands)
-		return (-1);
-	shell->exec.commands[nb_pipes + 1] = NULL;
-	shell->exec.pids = ft_calloc(nb_pipes + 2, sizeof(int));
-	if (!shell->exec.pids)
-		return (free(shell->exec.commands), -1);
-	shell->exec.pipes = ft_calloc(nb_pipes + 1, sizeof(int *));
-	if (!shell->exec.pipes)
-		return (free(shell->exec.pids), free(shell->exec.commands), -1);
-	while (i < nb_pipes)
-	{
-		shell->exec.pipes[i] = ft_calloc(2, sizeof(int));
-		if (!shell->exec.pipes[i])
-		{
-			free_all_pipes(shell);
-			return (-1);
-		}
-		if (pipe(shell->exec.pipes[i]) == -1)
-		{
-			free_all_pipes(shell);
-			return (-1);
-		}
-		i++;
-	}
-	shell->exec.pipes[nb_pipes] = NULL;
-	i = 0;
-	list = shell->tokens;
-	while (i < nb_pipes + 1)
-	{
-		shell->exec.commands[i] = get_commands(list);
-		if (!shell->exec.commands[i])
-		{
-			free_commands(shell->exec.commands);
-			exit(127);
-		}
-		while (list->next && list->token_type != PIPE)
-			list = list->next;
-		if (list->next)
-			list = list->next;
-		i++;
-	}
-	shell->exec.commands[i] = NULL;
-	return (nb_pipes + 1);
 }
 
 int	exec(t_shell *shell)
@@ -211,11 +123,11 @@ int	exec(t_shell *shell)
 	nb_commands = init_exec(shell);
 	if (nb_commands == -1)
 	{
-		ft_fprintf(2, "A malloc has failed\n");
+		ft_fprintf(2, "minishell: A malloc has failed\n");
 		return (-1);
 	}
-	if (!shell->exec.commands || !shell->exec.commands[0])
-		return (free_commands(shell->exec.commands), 0);
+	if (nb_commands == -2)
+		return (free_exec(shell), 0);
 	else if (nb_commands == 1)
 	{
 		shell->exec.pids[0] = fork();
@@ -254,9 +166,7 @@ int	exec(t_shell *shell)
 		close_all_pipes(shell);
 		while (shell->exec.commands[i])
 		{
-			waitpid(shell->exec.pids[i], &status, 0);
-			if (!shell->exec.commands[i + 1])
-				shell->last_exit = status;
+			waitpid(shell->exec.pids[i++], &status, 0);
 			i++;
 		}
 		if (WIFEXITED(status))
