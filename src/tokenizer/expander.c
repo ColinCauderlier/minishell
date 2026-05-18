@@ -6,14 +6,14 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 14:34:19 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/11 16:54:25 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/18 12:41:27 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
 //En cas d'erreur, l'expand n'est pas fait
-char	*get_expand(char *str, char **envp)
+static char	*get_expand(char *str, char **envp)
 {
 	int		i;
 	int		j;
@@ -39,4 +39,81 @@ char	*get_expand(char *str, char **envp)
 		}
 	}
 	return (free(name), ft_strdup(""));
+}
+
+static int	expand_last_exit(t_shell *shell, char **new)
+{
+	char	*itoa;
+	char	*join;
+
+	itoa = ft_itoa(shell->last_exit);
+	if (!itoa)
+		return (-1);
+	join = ft_strjoin(*new, itoa);
+	if (!join)
+		return (free(itoa), (-1));
+	free(*new);
+	free(itoa);
+	*new = join;
+	return (0);
+}
+
+static int	expand_single_char(char **new, char *old, int *i)
+{
+	char	*join;
+
+	if (!old[*i + 1] || ft_isspace(old[*i + 1]) || old[*i + 1] == '\"')
+	{
+		join = ft_strjoin(*new, "$");
+		if (!join)
+			return (-1);
+		free(*new);
+		*new = join;
+	}
+	return (0);
+}
+
+static int	expand_cases(char *old, int *i, char **new, t_shell *shell)
+{
+	char	*join;
+	int		bo;
+
+	bo = 0;
+	if (expand_single_char(new, old, i) == -1)
+		return (-1);
+	else if (old[*i + 1] == '?')
+	{
+		bo = 1;
+		if (expand_last_exit(shell, new) == -1)
+			return (-1);
+	}
+	else
+	{
+		join = get_expand(&old[*i + 1], shell->envp);
+		if (!join)
+			return (-1);
+		*new = ft_strappend(*new, join);
+	}
+	if (!(*new))
+		return (-1);
+	(*i)++;
+	return (bo);
+}
+
+//bo: boolean to check if it is the $? case
+int	expand(char *old, int *i, char **new, t_shell *shell)
+{
+	int	bo;
+
+	bo = expand_cases(old, i, new, shell);
+	if (bo == -1)
+		return (-1);
+	if (bo == 1)
+		(*i)++;
+	else
+	{
+		while (old[*i] && !is_expand_lim(old[*i]))
+			(*i)++;
+	}
+	return (*i);
 }

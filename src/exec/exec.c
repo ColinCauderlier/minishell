@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/16 17:00:35 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/18 15:23:51 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,15 @@ char	**get_commands(t_token *tokens)
 				command = command->next;
 			}
 			commands = malloc((len_command + 1) * sizeof(char *));
+			if (!commands)
+				return (NULL);
 			command = list;
 			i = 0;
 			while (i < len_command)
 			{
 				commands[i] = ft_strdup(command->content);
 				if (!commands[i])
-					return (free_split(commands), NULL);
+					return (NULL);
 				command = command->next;
 				i++;
 			}
@@ -165,10 +167,7 @@ int	exec(t_shell *shell)
 		i = 0;
 		close_all_pipes(shell);
 		while (shell->exec.commands[i])
-		{
 			waitpid(shell->exec.pids[i++], &status, 0);
-			i++;
-		}
 		if (WIFEXITED(status))
 			shell->last_exit = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))

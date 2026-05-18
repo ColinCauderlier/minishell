@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:06:16 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/16 14:01:28 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/18 15:32:21 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	free_all_pipes(t_shell *shell)
 		i++;
 	}
 	free(shell->exec.pipes);
+	shell->exec.pipes = NULL;
 }
 
 void	close_all_pipes(t_shell *shell)
@@ -64,11 +65,12 @@ void	free_commands(t_shell *shell)
 	nb_commands = get_nb_pipes(shell) + 1;
 	while (i < nb_commands)
 	{
-		if (shell->exec.commands[i])
+		if (shell->exec.commands[i] && shell->exec.commands[i][0])
 			free_split(shell->exec.commands[i]);
 		i++;
 	}
 	free(shell->exec.commands);
+	shell->exec.commands = NULL;
 }
 
 void	free_exec(t_shell *shell)

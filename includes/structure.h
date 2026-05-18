@@ -6,14 +6,14 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/16 16:46:27 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/18 14:47:57 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURE_H
 # define STRUCTURE_H
 
-# define STX_ER_MESSAGE "minishell: syntax error near unexpected token"
+# define STX_ERR "minishell: syntax error near unexpected token"
 
 //PIPE : |
 //REDIR_IN : >
@@ -54,6 +54,13 @@ typedef struct s_exec
 	int		**pipes;
 	int		*pids;
 }	t_exec;
+
+typedef struct s_parsing
+{
+	int		i[2];
+	t_state	state;
+	char	*old;
+}					t_parsing;
 
 typedef struct s_shell
 {

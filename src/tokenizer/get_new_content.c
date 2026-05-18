@@ -6,102 +6,72 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 15:39:11 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/15 15:59:09 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/18 14:47:20 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
-static int	expand_case(char *old, int *i, char **new, t_shell *shell)
+static char	*append_word(t_parsing *prs, char **new)
 {
-	char	*join;
-	char	*itoa;
-	int		bo;
+	char	*tmp;
 
-	bo = 0;
-	if (!old[*i + 1] || ft_isspace(old[*i + 1]) || old[*i + 1] == '\"')
-	{
-		join = ft_strjoin(*new, "$");
-		if (!join)
-			return (-1);
-		free(*new);
-		*new = join;
-	}
-	else if (old[*i + 1] == '?')
-	{
-		itoa = ft_itoa(shell->last_exit);
-		if (!itoa)
-			return (-1);
-		join = ft_strjoin(*new, itoa);
-		if (!join)
-			return (free(itoa), (-1));
-		free(*new);
-		free(itoa);
-		*new = join;
-		bo = 1;
-	}
-	else
-	{
-		join = get_expand(&old[*i + 1], shell->envp);
-		if (!join)
-			return (-1);
-		*new = ft_strappend(*new, join);
-	}
-	if (!(*new))
-		return (-1);
-	(*i)++;
-	if (bo)
-		(*i)++;
-	else
-	{
-		while (old[*i] && !is_expand_lim(old[*i]))
-			(*i)++;
-	}
-	return (*i);
+	tmp = ft_substr(prs->old, prs->i[0], prs->i[1] - prs->i[0]);
+	if (!tmp)
+		return (NULL);
+	*new = ft_strappend(*new, tmp);
+	return (*new);
 }
 
-static char	*new_content_loop(char *old, t_shell *shell, char *new)
+static int	inside_loop(t_parsing *prs, t_shell *shell, char **new)
 {
-	int		start;
-	int		i;
-	t_state	state;
-
-	i = 0;
-	state = GENERAL;
-	start = 0;
-	while (old[i])
+	if (change_state(prs->old[prs->i[1]], &(prs->state)))
 	{
-		if (change_state(old[i], &state))
-		{
-			new = ft_strappend(new, ft_substr(old, start, i - start));
-			if (!new)
-				return (NULL);
-			start = ++i;
-		}
-		else if (state != SIMPLE_QUOTE && old[i] == '$')
-		{
-			new = ft_strappend(new, ft_substr(old, start, i - start));
-			if (!new)
-				return (NULL);
-			start = expand_case(old, &i, &new, shell);
-			if (start == -1)
-				return (free(new), NULL);
-		}
-		else
-			i++;
+		*new = append_word(prs, new);
+		if (!*new)
+			return (-1);
+		prs->i[0] = ++(prs->i[1]);
 	}
-	new = ft_strappend(new, ft_substr(old, start, i - start));
+	else if (prs->state != SIMPLE_QUOTE && prs->old[prs->i[1]] == '$')
+	{
+		*new = append_word(prs, new);
+		if (!*new)
+			return (-1);
+		prs->i[0] = expand(prs->old, &(prs->i[1]), new, shell);
+		if (prs->i[0] == -1)
+			return (free(*new), -1);
+	}
+	else
+		(prs->i[1])++;
+	return (0);
+}
+
+//I need 2 index, the start and the end of every str I will not expand
+//i[0] is the start, i[1] the end
+static int	new_content_loop(t_parsing *prs, t_shell *shell, char **new)
+{
+	prs->i[0] = 0;
+	prs->i[1] = 0;
+	prs->state = GENERAL;
+	while (prs->old[prs->i[1]])
+	{
+		if (inside_loop(prs, shell, new) == -1)
+			return (-1);
+	}
+	*new = append_word(prs, new);
 	if (!new)
-		return (NULL);
-	return (new);
+		return (-1);
+	return (0);
 }
 
 int	get_new_content(t_token *list, t_shell *shell)
 {
-	char	*new;
+	char		*new;
+	t_parsing	prs;
 
 	new = NULL;
-	new = new_content_loop(list->content, shell, new);
+	prs.old = list->content;
+	new_content_loop(&prs, shell, &new);
 	if (!new)
 		return (0);
 	free(list->content);

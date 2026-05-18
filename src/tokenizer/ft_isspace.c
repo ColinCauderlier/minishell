@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 14:45:05 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/04/29 15:11:09 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/18 14:58:50 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ int	ft_isquote(char c)
 int	is_expand_lim(char c)
 {
 	if (ft_isquote(c) || ft_isspace(c) || c == '$')
+		return (1);
+	return (0);
+}
+
+int	is_redir_symbol(char c)
+{
+	if (c == '<' || c == '>')
 		return (1);
 	return (0);
 }
