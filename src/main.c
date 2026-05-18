@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/18 16:28:07 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/18 17:15:54 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	free_envp(t_shell *shell)
 			i++;
 		}
 		free(shell->envp);
+		shell->envp = NULL;
 	}
 }
 

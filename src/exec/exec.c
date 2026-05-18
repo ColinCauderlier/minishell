@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/18 16:27:18 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/18 17:19:37 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void	execute_command(t_shell *shell, int i)
 	if (!shell->exec.commands[i][0] || shell->exec.commands[i][0][0] == '\0')
 	{
 		free_commands(shell);
+		free_envp(shell);
+		free_all_tokens(shell);
 		exit(127);
 	}
 	status = check_builtin(shell->exec.commands[i]);
@@ -98,6 +100,7 @@ void	execute_command(t_shell *shell, int i)
 	{
 		ft_fprintf(2, "minishell: %s: command not found\n", shell->exec.commands[i][0]);
 		free_exec(shell);
+		free_envp(shell);
 		free_all_tokens(shell);
 		exit(127);
 	}
@@ -106,6 +109,7 @@ void	execute_command(t_shell *shell, int i)
 		perror(path);
 		free(path);
 		free_exec(shell);
+		free_envp(shell);
 		free_all_tokens(shell);
 		exit(126);
 	}
