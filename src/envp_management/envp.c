@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 23:42:56 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/15 16:46:14 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/18 15:25:25 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	init_custom_envp(t_shell *shell)
 	shell->envp[0] = ft_strdup("HOME=");
 	shell->envp[1] = ft_strjoin("OLDPWD=", cwd);
 	shell->envp[2] = ft_strdup("PATH=/usr/lib64/ccache:/usr/local/bin:"
-			"/usr/bin");
+								"/usr/bin");
 	shell->envp[3] = ft_strjoin("PWD=", cwd);
 	shell->envp[4] = ft_strdup("SHLVL=1");
 	shell->envp[5] = NULL;
@@ -102,7 +102,8 @@ void	init_envp(t_shell *shell, char **env)
 	if (!env || !env[0])
 	{
 		shell->custom_envp = 1;
-		init_custom_envp(shell);
+		if (!init_custom_envp(shell))
+			return ;
 	}
 	else
 	{
