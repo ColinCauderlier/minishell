@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/15 16:47:22 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/18 16:20:02 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@ int		get_new_content(t_token *list, t_shell *shell);
 void	free_split(char **splitted);
 
 /**********EXEX***********/
-int			exec(t_shell *shell);
-void		free_exec(t_shell *shell);
-int			is_redir_wo_word(t_token *tkn);
-char		*find_path(char *command, char **envp);
-int			check_syntax_shell(t_shell *shell);
-void		close_all_pipes(t_shell *shell);
-void		free_all_pipes(t_shell *shell);
-void		free_commands(char ***commands);
-void		execute_command(t_shell *shell, int i);
-void    first_cmd(t_shell *shell);
-void    last_cmd(t_shell *shell, int i);
-void    middle_cmd(t_shell *shell, int i);
+int		exec(t_shell *shell);
+void	free_exec(t_shell *shell);
+int		is_redir_wo_word(t_token *tkn);
+char	*find_path(char *command, char **envp);
+int		check_syntax_shell(t_shell *shell);
+void	close_all_pipes(t_shell *shell);
+void	free_all_pipes(t_shell *shell);
+void	free_commands(char ***commands);
+void	execute_command(t_shell *shell, int i);
+void	first_cmd(t_shell *shell);
+void	last_cmd(t_shell *shell, int i);
+void	middle_cmd(t_shell *shell, int i);
 
 /**********ENVP***********/
 void	init_envp(t_shell *shell, char **env);
@@ -50,5 +50,6 @@ void	update_envp(t_shell *shell, char *var_name, char *var_value);
 /********BUILT*IN**********/
 int		pwd(void);
 int		cd(char *path, t_shell *shell);
+int		env(t_shell *shell);
 
 #endif
