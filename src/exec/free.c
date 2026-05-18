@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:06:16 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/15 15:56:42 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/18 17:18:46 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	free_all_pipes(t_shell *shell)
 		i++;
 	}
 	free(shell->exec.pipes);
+	shell->exec.pipes = NULL;
 }
 
 void	close_all_pipes(t_shell *shell)
@@ -53,25 +54,29 @@ void	close_all_pipes(t_shell *shell)
 	}
 }
 
-void	free_commands(char ***commands)
+void	free_commands(t_shell *shell)
 {
 	int	i;
+	int	nb_commands;
 
 	i = 0;
-	if (!commands)
+	if (!shell->exec.commands)
 		return ;
-	while (commands[i])
+	nb_commands = get_nb_pipes(shell) + 1;
+	while (i < nb_commands)
 	{
-		free_split(commands[i]);
+		if (shell->exec.commands[i] && shell->exec.commands[i][0])
+			free_split(shell->exec.commands[i]);
 		i++;
 	}
-	free(commands);
+	free(shell->exec.commands);
+	shell->exec.commands = NULL;
 }
 
 void	free_exec(t_shell *shell)
 {
 	close_all_pipes(shell);
 	free_all_pipes(shell);
-	free_commands(shell->exec.commands);
+	free_commands(shell);
 	free(shell->exec.pids);
 }

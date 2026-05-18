@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/15 16:48:31 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/18 21:08:19 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,23 @@ void	sig_handler(int sig)
 }
 */
 
+void	free_envp(t_shell *shell)
+{
+	int		i;
+
+	if (shell->custom_envp && shell->envp)
+	{
+		i = 0;
+		while (shell->envp[i])
+		{
+			free(shell->envp[i]);
+			i++;
+		}
+		free(shell->envp);
+		shell->envp = NULL;
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*prompt;
@@ -36,8 +53,14 @@ int	main(int argc, char **argv, char **envp)
 	prompt = "";
 	shell.last_exit = 0;
 	status = 0;
+	if (tcgetattr(STDIN_FILENO, &(shell.term_ctl)) == -1)
+	{
+		perror("minishell: ");
+		return (errno);
+	}
 	while (1)
 	{
+		tcsetattr(STDIN_FILENO, TCSANOW, &(shell.term_ctl));
 		prompt = readline("Minishell > ");
 		if (!prompt)
 			break ;
@@ -60,15 +83,6 @@ int	main(int argc, char **argv, char **envp)
 		free_all_tokens(&shell);
 		free(prompt);
 	}
-	if (shell.custom_envp && shell.envp)
-	{
-		i = 0;
-		while (shell.envp[i])
-		{
-			free(shell.envp[i]);
-			i++;
-		}
-		free(shell.envp);
-	}
+	free_envp(&shell);
 	return (0);
 }

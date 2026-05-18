@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/14 17:51:15 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/18 14:49:27 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	count_nb_token(t_token *list)
 //Retourne 1 si jamais c'est alloue mais qu'il y a eu un soucis de malloc
 //lors de la tokenization
 //Retourne 2 si jamais le premier malloc ne passe pas
-//La derniere boucle affiche les tokens
 int	tokenize(char *prompt, t_shell *shell)
 {
 	t_token	*list;
@@ -101,14 +100,7 @@ int	tokenize(char *prompt, t_shell *shell)
 			return (free_all_tokens(shell), 1);
 		list = list->next;
 	}
-	list = shell->tokens;
 	shell->nb_token = count_nb_token(list);
-/*	
-	while (list && list->next)
-	{
-		printf("%s %s\n", list->content, get_type(*list));
-		list = list->next;
-	}
-*/
 	return (0);
 }
+//	print_tokens(shell);
