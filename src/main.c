@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/18 21:14:28 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/18 21:15:38 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	free_envp(t_shell *shell)
 {
 	int		i;
 
-	if (shell->custom_envp && shell->envp)
+	if (shell->envp)
 	{
 		i = 0;
 		while (shell->envp[i])
