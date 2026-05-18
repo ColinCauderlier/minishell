@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/16 16:58:38 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/18 16:28:07 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,27 @@ void	sig_handler(int sig)
 }
 */
 
+void	free_envp(t_shell *shell)
+{
+	int		i;
+
+	if (shell->custom_envp && shell->envp)
+	{
+		i = 0;
+		while (shell->envp[i])
+		{
+			free(shell->envp[i]);
+			i++;
+		}
+		free(shell->envp);
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*prompt;
 	t_shell	shell;
 	int		status;
-	int		i;
 
 	(void)argv;
 	(void)argc;
@@ -66,15 +81,6 @@ int	main(int argc, char **argv, char **envp)
 		free_all_tokens(&shell);
 		free(prompt);
 	}
-	if (shell.custom_envp && shell.envp)
-	{
-		i = 0;
-		while (shell.envp[i])
-		{
-			free(shell.envp[i]);
-			i++;
-		}
-		free(shell.envp);
-	}
+	free_envp(&shell);
 	return (0);
 }

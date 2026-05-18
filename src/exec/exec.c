@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/18 15:23:51 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/18 16:27:18 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	execute_command(t_shell *shell, int i)
 	{
 		status = exec_builtin(shell, shell->exec.commands[i], status);
 		free_exec(shell);
+		free_envp(shell);
 		free_all_tokens(shell);
 		exit(status);
 	}
@@ -132,6 +133,14 @@ int	exec(t_shell *shell)
 		return (free_exec(shell), 0);
 	else if (nb_commands == 1)
 	{
+		status = check_builtin(shell->exec.commands[0]);
+		if (status)
+		{
+			status = exec_builtin(shell, shell->exec.commands[0], status);
+			free_exec(shell);
+			free_all_tokens(shell);
+			return (status);
+		}
 		shell->exec.pids[0] = fork();
 		if (shell->exec.pids[0] == -1)
 			return (free_exec(shell), 1);
