@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 23:42:56 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/18 15:48:13 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/18 20:28:41 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ static int	init_custom_envp(t_shell *shell)
 void	init_envp(t_shell *shell, char **env)
 {
 	char	*shlvl;
+	int		n;
 
 	if (!env || !env[0])
 	{
-		shell->custom_envp = 1;
 		if (!init_custom_envp(shell))
 			return ;
 	}
@@ -109,8 +109,7 @@ void	init_envp(t_shell *shell, char **env)
 	{
 		shell->envp = duplicate_env(env);
 		if (!shell->envp)
-			return (shell->custom_envp = 1, (void)init_custom_envp(shell));
-		shell->custom_envp = 1;
+			return ((void)init_custom_envp(shell));
 		shlvl = get_next_shlvl(shell->envp);
 		if (shlvl)
 		{
@@ -118,4 +117,8 @@ void	init_envp(t_shell *shell, char **env)
 			free(shlvl);
 		}
 	}
+	n = 0;
+	while (shell->envp[n])
+		n++;
+	ft_sort_strings(n, shell->envp);
 }

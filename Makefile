@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 11:38:44 by lucinguy          #+#    #+#              #
-#    Updated: 2026/05/18 16:21:28 by lucinguy         ###   ########.fr        #
+#    Updated: 2026/05/18 19:49:00 by lucinguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,9 @@ SRCS		:= 	tokenizer/tokenize.c \
 			built-in/pwd/pwd.c \
 			built-in/cd/cd.c \
 			built-in/export/export.c \
-			envp_management/envp.c \
 			built-in/env/env.c \
+			envp_management/envp.c \
+			envp_management/sort_envp.c \
 			main.c
 
 SRCS_FILES	:= $(addprefix $(SRCS_DIR)/, $(SRCS))

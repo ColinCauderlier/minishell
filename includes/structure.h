@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/15 16:47:52 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/18 20:20:54 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 # define STX_ER_MESSAGE "minishell: syntax error near unexpected token"
 
-//PIPE : |
-//REDIR_IN : >
-//REDIR_IN_WW : > + filename, ex: '<Makefile' (WW means "with word")
-//REDIR_OUT : <
-//REDIR_OUT_WW : < + filename, ex: '>outfile'
-//HEREDOC : >>
-//REDIR_OUT_APP_MODE : >>
+// PIPE : |
+// REDIR_IN : >
+// REDIR_IN_WW : > + filename, ex: '<Makefile' (WW means "with word")
+// REDIR_OUT : <
+// REDIR_OUT_WW : < + filename, ex: '>outfile'
+// HEREDOC : >>
+// REDIR_OUT_APP_MODE : >>
 typedef enum s_type
 {
 	PIPE,
@@ -50,10 +50,10 @@ typedef struct s_token
 
 typedef struct s_exec
 {
-	char	***commands;
-	int		**pipes;
-	int		*pids;
-}	t_exec;
+	char			***commands;
+	int				**pipes;
+	int				*pids;
+}					t_exec;
 
 typedef struct s_shell
 {
@@ -61,7 +61,7 @@ typedef struct s_shell
 	t_exec			exec;
 	char			*user_input;
 	char			**envp;
-	bool			custom_envp;
+
 	int				last_exit;
 	int				nb_token;
 }					t_shell;
