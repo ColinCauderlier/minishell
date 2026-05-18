@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/29 16:49:33 by lucinguy          #+#    #+#              #
-#    Updated: 2026/04/29 18:52:03 by lucinguy         ###   ########.fr        #
+#    Updated: 2026/05/18 20:08:14 by lucinguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS := \
 	ft_memmove.c \
 	ft_memset.c \
 	ft_strchr.c \
+	ft_strcmp.c \
 	ft_strdup.c \
 	ft_strlcat.c \
 	ft_strlcpy.c \

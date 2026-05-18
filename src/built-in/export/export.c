@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 14:08:12 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/14 20:55:30 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/18 20:44:11 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ static int	extend_envp(t_shell *shell, char *new_var)
 	}
 	new_envp[i] = new_var;
 	new_envp[i + 1] = NULL;
-	if (shell->custom_envp)
-		free(shell->envp);
+	free(shell->envp);
 	shell->envp = new_envp;
+	ft_sort_strings(size + 1, shell->envp);
 	return (1);
 }
 
@@ -59,8 +59,7 @@ static int	update_existing(t_shell *shell, char *var, char *var_value, int len)
 			new = ft_strjoin(var, var_value);
 			if (!new)
 				return (-1);
-			if (shell->custom_envp)
-				free(shell->envp[i]);
+			free(shell->envp[i]);
 			shell->envp[i] = new;
 			return (1);
 		}
