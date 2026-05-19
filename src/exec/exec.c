@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/18 17:32:32 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/19 14:18:02 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ int	exec(t_shell *shell)
 			status = exec_builtin(shell, shell->exec.commands[0], status);
 			free_exec(shell);
 			free_all_tokens(shell);
+			shell->last_exit = status;
 			return (status);
 		}
 		shell->exec.pids[0] = fork();
