@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/18 21:17:21 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:56:57 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,7 @@ void	free_envp(t_shell *shell);
 int		pwd(void);
 int		cd(char *path, t_shell *shell);
 int		env(t_shell *shell);
+void	exit_code(int code);
+void	exit_cmd(void);
 
 #endif
