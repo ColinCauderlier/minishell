@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/19 14:18:02 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:58:43 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,39 +80,22 @@ void	execute_command(t_shell *shell, int i)
 	int		status;
 
 	if (!shell->exec.commands[i][0] || shell->exec.commands[i][0][0] == '\0')
-	{
-		free_exec(shell);
-		free_envp(shell);
-		free_all_tokens(shell);
-		exit(127);
-	}
+		free_all_error(shell, NULL, 127);
 	status = check_builtin(shell->exec.commands[i]);
 	if (status)
 	{
 		status = exec_builtin(shell, shell->exec.commands[i], status);
-		free_exec(shell);
-		free_envp(shell);
-		free_all_tokens(shell);
-		exit(status);
+		free_all_error(shell, NULL, status);
 	}
 	path = find_path(shell->exec.commands[i][0], shell->envp);
 	if (!path)
 	{
-		ft_fprintf(2, "minishell: %s: command not found\n", shell->exec.commands[i][0]);
-		free_exec(shell);
-		free_envp(shell);
-		free_all_tokens(shell);
-		exit(127);
+		ft_fprintf(2, "minishell: %s: command not found\n",
+			shell->exec.commands[i][0]);
+		free_all_error(shell, NULL, 127);
 	}
 	if (execve(path, shell->exec.commands[i], shell->envp) == -1)
-	{
-		perror(path);
-		free(path);
-		free_exec(shell);
-		free_envp(shell);
-		free_all_tokens(shell);
-		exit(126);
-	}
+		free_all_error(shell, &path, 126);
 }
 
 int	exec(t_shell *shell)
