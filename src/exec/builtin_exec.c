@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 13:04:03 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/16 13:07:12 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/19 12:19:38 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	check_builtin(char **command)
 		return (1);
 	if (ft_strncmp(command[0], "pwd", 4) == 0)
 		return (2);
+	if (ft_strncmp(command[0], "env", 4) == 0)
+		return (3);
 	return (0);
 }
 
@@ -41,5 +43,7 @@ int	exec_builtin(t_shell *shell, char **command, int id)
 	}
 	if (id == 2)
 		return (pwd());
+	if (id == 3)
+		return (env(shell));
 	return (0);
 }
