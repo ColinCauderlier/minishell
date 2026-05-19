@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 13:04:03 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/16 13:07:12 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/19 14:04:06 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	check_builtin(char **command)
 		return (1);
 	if (ft_strncmp(command[0], "pwd", 4) == 0)
 		return (2);
+	if (ft_strncmp(command[0], "env", 4) == 0)
+		return (3);
 	return (0);
 }
 
@@ -32,14 +34,16 @@ int	exec_builtin(t_shell *shell, char **command, int id)
 	if (id == 1)
 	{
 		if (len_command > 2)
-		{
-			ft_fprintf(2, "minishell: cd: too many arguments\n");
-			return (1);
-		}
-		else
-			return (cd(command[1], shell));
+			return (ft_fprintf(2, "minishell: cd: too many arguments\n"), 1);
+		return (cd(command[1], shell));
 	}
 	if (id == 2)
 		return (pwd());
+	if (id == 3)
+	{
+		if (len_command >= 2)
+			return (ft_fprintf(2, "minishell: env: too many arguments\n"), 1);
+		return (env(shell));
+	}
 	return (0);
 }

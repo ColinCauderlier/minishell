@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 15:29:15 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/18 21:14:35 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/19 12:55:50 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	cd(char *path, t_shell *shell)
 	if (getcwd(temp, 4096) == NULL)
 	{
 		perror("Could not retrieve current working directory.");
-		return (0);
+		return (1);
 	}
 	if (chdir(path) == 0)
 	{
@@ -37,6 +37,6 @@ int	cd(char *path, t_shell *shell)
 		ft_putstr_fd(": ", 2);
 		ft_putstr_fd(strerror(errno), 2);
 		ft_putstr_fd("\n", 2);
-		return (2);
+		return (1);
 	}
 }
