@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 11:38:44 by lucinguy          #+#    #+#              #
-#    Updated: 2026/05/18 21:10:39 by lucinguy         ###   ########.fr        #
+#    Updated: 2026/05/19 18:57:32 by ccauderl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS		:= 	tokenizer/tokenize.c \
 			exec/builtin_exec.c \
 			exec/path.c \
 			exec/free.c \
+			exec/free_pipes_and_pids.c \
 			exec/syntax.c \
 			exec/commands.c \
 			built-in/pwd/pwd.c \
