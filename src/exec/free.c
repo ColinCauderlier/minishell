@@ -6,53 +6,11 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:06:16 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/18 17:18:46 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:55:04 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
-
-static void	close_fd(int fd[2])
-{
-	if (!fd)
-		return ;
-	if (fd[1] != -1)
-	{
-		close(fd[1]);
-		fd[1] = -1;
-	}
-	if (fd[0] != -1)
-	{
-		close(fd[0]);
-		fd[0] = -1;
-	}
-}
-
-void	free_all_pipes(t_shell *shell)
-{
-	int	i;
-
-	i = 0;
-	while (shell->exec.pipes[i])
-	{
-		free(shell->exec.pipes[i]);
-		i++;
-	}
-	free(shell->exec.pipes);
-	shell->exec.pipes = NULL;
-}
-
-void	close_all_pipes(t_shell *shell)
-{
-	int	i;
-
-	i = 0;
-	while (shell->exec.pipes[i])
-	{
-		close_fd(shell->exec.pipes[i]);
-		i++;
-	}
-}
 
 void	free_commands(t_shell *shell)
 {
@@ -79,4 +37,17 @@ void	free_exec(t_shell *shell)
 	free_all_pipes(shell);
 	free_commands(shell);
 	free(shell->exec.pids);
+}
+
+void	free_all_error(t_shell *shell, char **path, int exit_code)
+{
+	if (path)
+	{
+		perror(*path);
+		free(*path);
+	}
+	free_exec(shell);
+	free_envp(shell);
+	free_all_tokens(shell);
+	exit(exit_code);
 }
