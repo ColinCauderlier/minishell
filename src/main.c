@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/20 14:12:33 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/21 23:05:34 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,32 @@ void	sig_handler(int sig)
 }
 */
 
+static void	free_env_copy(char **envp)
+{
+	int	i;
+
+	i = 0;
+	if (!envp)
+		return ;
+	while (envp[i])
+	{
+		free(envp[i]);
+		i++;
+	}
+	free(envp);
+}
+
 void	free_envp(t_shell *shell)
 {
-	int		i;
-
 	if (shell->envp)
 	{
-		i = 0;
-		while (shell->envp[i])
-		{
-			free(shell->envp[i]);
-			i++;
-		}
-		free(shell->envp);
+		free_env_copy(shell->envp);
 		shell->envp = NULL;
+	}
+	if (shell->exp)
+	{
+		free_env_copy(shell->exp);
+		shell->exp = NULL;
 	}
 }
 
@@ -47,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	(void)argc;
-	//	signal(SIGINT, sig_handler);
+	//	//	signal(SIGINT, sig_handler);
 	init_envp(&shell, envp);
 	prompt = "";
 	shell.last_exit = 0;
@@ -57,10 +69,13 @@ int	main(int argc, char **argv, char **envp)
 	{
 		perror("minishell: ");
 		return (errno);
-	}*/
+	}
+	*/
 	while (1)
 	{
-//		tcsetattr(STDIN_FILENO, TCSANOW, &(shell.term_ctl));
+		/*
+		tcsetattr(STDIN_FILENO, TCSANOW, &(shell.term_ctl));
+		*/
 		prompt = readline("Minishell > ");
 		if (!prompt)
 			break ;

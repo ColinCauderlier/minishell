@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/20 14:14:26 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/21 22:24:27 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int		get_nb_pipes(t_shell *shell);
 /**********ENVP***********/
 void	init_envp(t_shell *shell, char **env);
 void	update_envp(t_shell *shell, char *var_name, char *var_value);
+int		update_named_array(char ***array, char *var_name, char *var_value);
 void	ft_sort_strings(int num, char **s);
 void	free_envp(t_shell *shell);
 
@@ -60,7 +61,14 @@ void	free_envp(t_shell *shell);
 int		pwd(void);
 int		cd(char *path, t_shell *shell);
 int		env(t_shell *shell);
+int		export(char **command, t_shell *shell);
 void	exit_code(int code);
 void	exit_cmd(void);
+int		envp_size(char **envp);
+int		export_is_valid_identifier(char *arg);
+int		export_find_index(char **array, char *name);
+char	*export_get_name(char *arg);
+char	*export_get_value(char *arg);
+void	print_export_env(t_shell *shell);
 
 #endif

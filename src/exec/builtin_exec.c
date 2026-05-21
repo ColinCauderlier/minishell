@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
+/*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 13:04:03 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/19 14:04:06 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/21 18:33:45 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	check_builtin(char **command)
 		return (2);
 	if (ft_strncmp(command[0], "env", 4) == 0)
 		return (3);
+	if (ft_strncmp(command[0], "export", 7) == 0)
+		return (4);
 	return (0);
 }
 
@@ -45,5 +47,7 @@ int	exec_builtin(t_shell *shell, char **command, int id)
 			return (ft_fprintf(2, "minishell: env: too many arguments\n"), 1);
 		return (env(shell));
 	}
+	if (id == 4)
+		return (export(command, shell));
 	return (0);
 }

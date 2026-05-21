@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 23:42:56 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/18 20:28:41 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/21 22:05:52 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,5 @@ void	init_envp(t_shell *shell, char **env)
 	while (shell->envp[n])
 		n++;
 	ft_sort_strings(n, shell->envp);
+	shell->exp = duplicate_env(shell->envp);
 }
