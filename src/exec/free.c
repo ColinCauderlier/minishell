@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:06:16 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/19 18:55:04 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/22 15:45:05 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	free_commands(t_shell *shell)
 	nb_commands = get_nb_pipes(shell) + 1;
 	while (i < nb_commands)
 	{
-		if (shell->exec.commands[i] && shell->exec.commands[i][0])
+		if (shell->exec.commands[i])
 			free_split(shell->exec.commands[i]);
 		i++;
 	}

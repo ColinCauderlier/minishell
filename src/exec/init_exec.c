@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/18 15:25:44 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/22 14:24:37 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,9 @@ static int	init_pipes(t_shell *shell, int nb_pipes)
 	{
 		shell->exec.pipes[i] = ft_calloc(2, sizeof(int));
 		if (!shell->exec.pipes[i])
-		{
-			free_all_pipes(shell);
-			return (free(shell->exec.commands), free(shell->exec.pids), 1);
-		}
+			return (free_exec(shell), 1);
 		if (pipe(shell->exec.pipes[i]) == -1)
-		{
-			free_all_pipes(shell);
-			return (free(shell->exec.commands), free(shell->exec.pids), 1);
-		}
+			return (free_exec(shell), 1);
 		i++;
 	}
 	shell->exec.pipes[nb_pipes] = NULL;
@@ -50,13 +44,10 @@ static int	init_commands(t_shell *shell, int nb_pipes)
 	{
 		shell->exec.commands[i] = get_commands(list);
 		if (!shell->exec.commands[i])
-		{
-			free_commands(shell);
-			return (1);
-		}
+			return (free_commands(shell), 1);
 		while (list->next && list->token_type != PIPE)
 			list = list->next;
-		if (list->next)
+		if (list->next && list->next->token_type == PIPE)
 			list = list->next;
 		i++;
 	}
