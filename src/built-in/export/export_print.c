@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 22:20:00 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/21 22:26:32 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/25 17:13:11 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_export_env(t_shell *shell)
 	index = 0;
 	while (shell->exp[index])
 	{
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putstr_fd("export ", STDOUT_FILENO);
 		equal = ft_strchr(shell->exp[index], '=');
 		if (!equal)
 			ft_putstr_fd(shell->exp[index], STDOUT_FILENO);

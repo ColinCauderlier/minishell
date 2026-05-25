@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/21 22:24:27 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/25 19:42:46 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ int		export_find_index(char **array, char *name);
 char	*export_get_name(char *arg);
 char	*export_get_value(char *arg);
 void	print_export_env(t_shell *shell);
+int		echo(char **commands);
 
 #endif
