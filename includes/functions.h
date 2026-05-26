@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/25 19:42:46 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/26 15:04:45 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int		cd(char *path, t_shell *shell);
 int		env(t_shell *shell);
 int		export(char **command, t_shell *shell);
 void	exit_code(int code);
-void	exit_cmd(void);
 int		envp_size(char **envp);
 int		export_is_valid_identifier(char *arg);
 int		export_find_index(char **array, char *name);
