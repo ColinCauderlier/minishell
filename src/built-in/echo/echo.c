@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 19:24:53 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/26 15:59:33 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/26 19:32:03 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,15 @@ static void	print_strings(char **command)
 	size = envp_size(command);
 	while (command[i])
 	{
-		if (valid_option(command[i]) == 0)
+		if (valid_option(command[i]) == 0 && i < size)
 		{
 			trail = 0;
 			i++;
 			continue ;
 		}
 		ft_putstr_fd(command[i], STDOUT_FILENO);
+		if (i == size && valid_option(command[size]) == 0)
+			break ;
 		i++;
 		if (i < size && i != 1)
 			ft_putstr_fd(" ", STDOUT_FILENO);
