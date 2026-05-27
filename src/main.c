@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/21 23:05:34 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/27 15:38:34 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)argc;
 	//	//	signal(SIGINT, sig_handler);
+	shell = (t_shell){0};
 	init_envp(&shell, envp);
 	prompt = "";
 	shell.last_exit = 0;

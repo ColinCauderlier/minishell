@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 22:20:00 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/21 22:25:47 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/27 15:38:34 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ void	update_envp(t_shell *shell, char *var_name, char *var_value)
 		return ;
 	if (!update_named_array(&shell->envp, var_name, var_value))
 		return ;
-	update_named_array(&shell->exp, var_name, var_value);
+	if (shell->exp)
+		update_named_array(&shell->exp, var_name, var_value);
 }

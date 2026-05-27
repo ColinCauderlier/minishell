@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/26 15:04:45 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/27 18:17:17 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,16 @@ void	free_envp(t_shell *shell);
 /********BUILT*IN**********/
 int		pwd(void);
 int		cd(char *path, t_shell *shell);
+int		perform_cd_update(t_shell *shell, char *target, int print_path);
+int		perform_cd_update(t_shell *shell, char *target, int print_path);
+char	*get_target_path(char *path, t_shell *shell, int *print_path);
+char	*get_env_value(t_shell *shell, char *name);
+void	print_cd_error(char *path);
 int		env(t_shell *shell);
 int		export(char **command, t_shell *shell);
 void	exit_code(int code);
 int		envp_size(char **envp);
+char	*get_home(char *pwd);
 int		export_is_valid_identifier(char *arg);
 int		export_find_index(char **array, char *name);
 char	*export_get_name(char *arg);
