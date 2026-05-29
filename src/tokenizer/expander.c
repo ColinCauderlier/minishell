@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 14:34:19 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/18 12:41:27 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/29 15:36:05 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,16 @@ static int	expand_single_char(char **new, char *old, int *i)
 	return (0);
 }
 
-static int	expand_cases(char *old, int *i, char **new, t_shell *shell)
+static int	expand_cases(t_parsing *prs, char **new, t_shell *shell)
 {
 	char	*join;
+	char	*tmp;
 	int		bo;
 
 	bo = 0;
-	if (expand_single_char(new, old, i) == -1)
+	if (expand_single_char(new, prs->old, &(prs->i[1])) == -1)
 		return (-1);
-	else if (old[*i + 1] == '?')
+	else if (prs->old[prs->i[1] + 1] == '?')
 	{
 		bo = 1;
 		if (expand_last_exit(shell, new) == -1)
@@ -89,30 +90,41 @@ static int	expand_cases(char *old, int *i, char **new, t_shell *shell)
 	}
 	else
 	{
-		join = get_expand(&old[*i + 1], shell->envp);
+		join = get_expand(&(prs->old[prs->i[1] + 1]), shell->envp);
 		if (!join)
 			return (-1);
+		if (prs->state == GENERAL)
+		{
+			tmp = ft_strtrim(join, "\t\n\v\r\f ");
+			free(join);
+			join = malloc(ft_strlen(tmp) * sizeof(char));
+			if (!join)
+				return (-1);
+			join = tmp;
+		}
 		*new = ft_strappend(*new, join);
 	}
 	if (!(*new))
 		return (-1);
-	(*i)++;
+	(prs->i[1])++;
 	return (bo);
 }
 
 //bo: boolean to check if it is the $? case
-int	expand(char *old, int *i, char **new, t_shell *shell)
+int	expand(t_parsing *prs, char **new, t_shell *shell)
 {
 	int	bo;
+	int *i;
 
-	bo = expand_cases(old, i, new, shell);
+	i = &(prs->i[1]);
+	bo = expand_cases(prs, new, shell);
 	if (bo == -1)
 		return (-1);
 	if (bo == 1)
 		(*i)++;
 	else
 	{
-		while (old[*i] && !is_expand_lim(old[*i]))
+		while (prs->old[*i] && !is_expand_lim(prs->old[*i]))
 			(*i)++;
 	}
 	return (*i);

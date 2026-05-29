@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/18 21:13:00 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/22 17:20:52 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 // REDIR_OUT_WW : < + filename, ex: '>outfile'
 // HEREDOC : >>
 // REDIR_OUT_APP_MODE : >>
+// REDIR_OUT_APP_MODE_WW : >>
 typedef enum s_type
 {
 	PIPE,
@@ -31,6 +32,7 @@ typedef enum s_type
 	REDIR_OUT_WW,
 	HEREDOC,
 	REDIR_OUT_APP_MODE,
+	REDIR_OUT_APP_MODE_WW,
 	WORD,
 }					t_type;
 

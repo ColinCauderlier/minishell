@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 15:39:11 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/18 14:47:20 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/29 15:37:07 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	inside_loop(t_parsing *prs, t_shell *shell, char **new)
 		*new = append_word(prs, new);
 		if (!*new)
 			return (-1);
-		prs->i[0] = expand(prs->old, &(prs->i[1]), new, shell);
+		prs->i[0] = expand(prs, new, shell);
 		if (prs->i[0] == -1)
 			return (free(*new), -1);
 	}
