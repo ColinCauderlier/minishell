@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/27 18:17:17 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:06:10 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		is_redir_symbol(char c);
 int		is_expand_lim(char c);
 void	free_res(t_token *res, int pos_res);
 void	free_all_tokens(t_shell *shell);
-int		expand(char *old, int *i, char **new, t_shell *shell);
+int		expand(t_parsing *prs, char **new, t_shell *shell);
 int		change_state(char c, t_state *state);
 int		get_new_content(t_token *list, t_shell *shell);
 void	free_split(char **splitted);
