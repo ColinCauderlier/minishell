@@ -6,11 +6,13 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 01:36:18 by lucinguy          #+#    #+#             */
-/*   Updated: 2025/11/11 15:36:00 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/26 17:48:59 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+//Trims [set] chars at start and end of [s1]
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
@@ -37,32 +39,31 @@ char	*ft_strtrim(char const *s1, char const *set)
 	return (out);
 }
 
-/*
-#include <stdio.h>
-#include <stdlib.h>
 
-int	main(void)
-{
-	const char	*in[] = {"   Hello World   ", "\n\t 42 School \t\n",
-			"Pas d'espace", "      ", "", NULL};
-	size_t		i;
-	char		*out;
+// #include <stdio.h>
+// #include <stdlib.h>
 
-	i = 0;
-	while (in[i])
-	{
-		out = ft_strtrim(in[i], " \n\t");
-		printf("Input : [%s]\n", in[i] ? in[i] : "(NULL)");
-		if (out)
-		{
-			printf("Output: [%s]\n", out);
-			free(out);
-		}
-		else
-			printf("Output: (NULL)\n");
-		printf("----------\n");
-		i++;
-	}
-	return (0);
-}
-*/
+// int	main(void)
+// {
+// 	const char	*in[] = {"   Hello World   ", "\n\t 42 School \t\n",
+// 			"Pas d'espace", "      ", "", NULL};
+// 	size_t		i;
+// 	char		*out;
+
+// 	i = 0;
+// 	while (in[i])
+// 	{
+// 		out = ft_strtrim(in[i], " \n\t");
+// 		printf("Input : [%s]\n", in[i] ? in[i] : "(NULL)");
+// 		if (out)
+// 		{
+// 			printf("Output: [%s]\n", out);
+// 			free(out);
+// 		}
+// 		else
+// 			printf("Output: (NULL)\n");
+// 		printf("----------\n");
+// 		i++;
+// 	}
+// 	return (0);
+// }

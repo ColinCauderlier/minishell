@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 23:22:47 by lucinguy          #+#    #+#             */
-/*   Updated: 2025/11/11 12:40:37 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/21 15:11:50 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (out);
 }
 
-/*
-#include <stdio.h>
 
-int	main(void)
-{
-	char string[] = "hello world?";
-	unsigned int start = 6;
-	size_t len = 5;
-	newstring = ft_substr(string, start, len);
-	printf("%s\n", newstring);
-	free(newstring);
-}*/
+// #include <stdio.h>
+
+// int	main(void)
+// {
+// 	char string[] = "hello world?";
+// 	unsigned int start = 6;
+// 	size_t len = 5;
+// 	char *newstring = ft_substr(string, start, len);
+// 	printf("%s\n", newstring);
+// 	free(newstring);
+// }

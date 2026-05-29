@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/22 17:20:52 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/29 16:32:27 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,16 @@ typedef struct s_token
 
 typedef struct s_exec
 {
-	char	***commands;
-	int		**pipes;
-	int		*pids;
-}	t_exec;
+	char			***commands;
+	int				**pipes;
+	int				*pids;
+}					t_exec;
 
 typedef struct s_parsing
 {
-	int		i[2];
-	t_state	state;
-	char	*old;
+	int				i[2];
+	t_state			state;
+	char			*old;
 }					t_parsing;
 
 typedef struct s_shell
@@ -71,6 +71,7 @@ typedef struct s_shell
 	struct termios	term_ctl;
 	char			*user_input;
 	char			**envp;
+	char			**exp;
 
 	int				last_exit;
 	int				nb_token;

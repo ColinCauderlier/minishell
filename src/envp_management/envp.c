@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 23:42:56 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/18 20:28:41 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/27 15:23:05 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,21 @@ static char	**duplicate_env(char **env)
 static int	init_custom_envp(t_shell *shell)
 {
 	char	cwd[4096];
-
+	char *home;
 	shell->envp = ft_calloc(6, sizeof(char *));
 	if (!shell->envp)
 		return (0);
 	if (getcwd(cwd, 4096) == NULL)
 		return (free_env_copy(shell->envp), shell->envp = NULL, 0);
-	shell->envp[0] = ft_strdup("HOME=");
+	home = get_home(cwd);
+	shell->envp[0] = ft_strjoin("HOME=", home);
 	shell->envp[1] = ft_strjoin("OLDPWD=", cwd);
 	shell->envp[2] = ft_strdup("PATH=/usr/lib64/ccache:/usr/local/bin:"
 			"/usr/bin");
 	shell->envp[3] = ft_strjoin("PWD=", cwd);
 	shell->envp[4] = ft_strdup("SHLVL=1");
 	shell->envp[5] = NULL;
+	free(home);
 	if (!shell->envp[0] || !shell->envp[1] || !shell->envp[2] || !shell->envp[3]
 		|| !shell->envp[4])
 		return (free_env_copy(shell->envp), shell->envp = NULL, 0);
@@ -121,4 +123,5 @@ void	init_envp(t_shell *shell, char **env)
 	while (shell->envp[n])
 		n++;
 	ft_sort_strings(n, shell->envp);
+	shell->exp = duplicate_env(shell->envp);
 }

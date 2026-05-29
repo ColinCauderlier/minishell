@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/27 18:15:43 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/27 18:17:48 by lucinguy         ###   ########.fr       */
+/*   Created: 2026/05/19 18:40:40 by lucinguy          #+#    #+#             */
+/*   Updated: 2026/05/19 19:10:43 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/includes.h"
+#include "../../includes/includes.h"
 
-int	cd(char *path, t_shell *shell)
+// void exit_cmd(void)
+// {
+
+// }
+
+void	exit_code(int code)
 {
-	char	*target;
-	int		print_path;
-	int		ret;
-
-	target = get_target_path(path, shell, &print_path);
-	if (!target)
-		return (print_cd_error(path), 1);
-	ret = perform_cd_update(shell, target, print_path);
-	free(target);
-	return (ret);
+	if (code >= 0 && code <= 255)
+		exit(code);
 }
