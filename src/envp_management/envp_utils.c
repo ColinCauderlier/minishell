@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 14:52:31 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/27 15:26:27 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:09:48 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_home(char *pwd)
 		len++;
 	}
 	home = malloc(len * sizeof(char) + 1);
-	while (i < len)
+	while (i <= len)
 	{
 		home[i] = pwd[i];
 		i++;

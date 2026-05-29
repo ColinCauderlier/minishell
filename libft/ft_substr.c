@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 23:22:47 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/21 15:11:50 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:17:37 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	out[i] = '\0';
 	return (out);
 }
-
 
 // #include <stdio.h>
 

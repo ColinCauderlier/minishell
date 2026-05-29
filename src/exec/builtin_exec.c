@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 13:04:03 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/25 19:41:26 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:03:55 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	check_builtin(char **command)
 		return (4);
 	if (ft_strncmp(command[0], "echo", 5) == 0)
 		return (5);
+	if (ft_strncmp(command[0], "unset", 6) == 0)
+		return (6);
 	return (0);
 }
 
@@ -53,5 +55,7 @@ int	exec_builtin(t_shell *shell, char **command, int id)
 		return (export(command, shell));
 	if (id == 5)
 		return (echo(command));
+	if (id == 6)
+		return (unset(command, shell));
 	return (0);
 }

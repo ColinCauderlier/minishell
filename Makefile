@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 11:38:44 by lucinguy          #+#    #+#              #
-#    Updated: 2026/05/27 18:17:35 by lucinguy         ###   ########.fr        #
+#    Updated: 2026/05/29 17:03:55 by lucinguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRCS		:= 	tokenizer/tokenize.c \
 			built-in/export/export.c \
 			built-in/export/export_parse.c \
 			built-in/export/export_print.c \
+			built-in/unset/unset.c \
 			built-in/env/env.c \
 			built-in/exit/exit.c \
 			built-in/echo/echo.c \
