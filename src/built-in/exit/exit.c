@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 18:40:40 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/06/01 18:55:06 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/01 19:33:49 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	exit_code(char **cmd)
 	{
 		if (!ft_isdigit(cmd[1][i]))
 		{
-			perror("Given argument is not an int.");
+			ft_printf("exit: %s: numeric argument required", cmd[1]);
 			return (-1);
 		}
 		i++;
@@ -59,8 +59,19 @@ int	exit_code(char **cmd)
 	return (error);
 }
 
+// if no args, print 
+// if arg, check if correct arg
+// if argc > 1, return
+//
 int	ft_exit(char **cmd)
 {
 	if (!cmd[1])
 		ft_printf("exit\n");
+	else if (cmd[1])
+	{
+		if (cmd[2])
+			return(ft_printf("exit: too many arguments"));
+		if (exit_code(cmd) == -1)
+			return;
+	}
 }
