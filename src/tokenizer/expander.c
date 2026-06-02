@@ -6,11 +6,71 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 14:34:19 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/29 15:36:05 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:37:06 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
+
+static int	get_new_len(char *str)
+{
+	int	i;
+	int	len;
+	int	in_word;
+
+	i = 0;
+	len = 0;
+	in_word = 0;
+	while (str[i])
+	{
+		if (ft_isspace(str[i]) && in_word == 1)
+		{
+			in_word = 0;
+			len++;
+		}
+		if (!ft_isspace(str[i]))
+		{
+			in_word = 1;
+			len++;
+		}
+		i++;
+	}
+	len++;
+	return (len);
+}
+
+static char	*trim_spaces(char *str)
+{
+	char	*res;
+	int	i;
+	int	j;
+	int	in_word;
+
+	in_word = 0;
+	i = 0;
+	j = 0;
+	res = malloc(get_new_len(str) * sizeof(char));
+	if (!res)
+		return (NULL);
+	while (str[i])
+	{
+		if (!ft_isspace(str[i]))
+		{
+			in_word = 1;
+			res[j] = str[i];
+			j++;
+		}
+		if (ft_isspace(str[i]) && in_word == 1)
+		{
+			res[j] = ' ';
+			j++;
+			in_word = 0;
+		}
+		i++;
+	}
+	res[j] = '\0';
+	return (free(str), res);
+}
 
 //En cas d'erreur, l'expand n'est pas fait
 static char	*get_expand(char *str, char **envp)
@@ -76,7 +136,6 @@ static int	expand_single_char(char **new, char *old, int *i)
 static int	expand_cases(t_parsing *prs, char **new, t_shell *shell)
 {
 	char	*join;
-	char	*tmp;
 	int		bo;
 
 	bo = 0;
@@ -95,12 +154,9 @@ static int	expand_cases(t_parsing *prs, char **new, t_shell *shell)
 			return (-1);
 		if (prs->state == GENERAL)
 		{
-			tmp = ft_strtrim(join, "\t\n\v\r\f ");
-			free(join);
-			join = malloc(ft_strlen(tmp) * sizeof(char));
+			join = trim_spaces(join);
 			if (!join)
 				return (-1);
-			join = tmp;
 		}
 		*new = ft_strappend(*new, join);
 	}

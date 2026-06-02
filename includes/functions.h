@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/29 17:06:10 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/02 12:03:47 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int		change_state(char c, t_state *state);
 int		get_new_content(t_token *list, t_shell *shell);
 void	free_split(char **splitted);
 void	print_tokens(t_shell *shell);
+int		strip_token_quotes(t_token *list);
+char	*expand_raw_prompt(char *prompt, t_shell *shell);
 
 /**********EXEX***********/
 int		exec(t_shell *shell);
