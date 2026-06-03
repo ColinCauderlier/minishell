@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 18:40:40 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/06/01 19:33:49 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/03 14:20:41 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,44 +34,54 @@ long	ft_atol(const char *str)
 		result = result * 10 + (str[i] - '0');
 		i++;
 	}
-	return ((int)(result * sign));
+	return (result * sign);
 }
 
-int	exit_code(char **cmd)
+static int	is_numeric_arg(char *arg)
 {
-	int	error;
-	int	num_len;
 	int	i;
 
-	error = 0;
 	i = 0;
-	num_len = ft_strlen(cmd[1]);
-	while (cmd[1][i])
+	if (arg[i] == '+' || arg[i] == '-')
+		i++;
+	if (!ft_isdigit(arg[i]))
+		return (0);
+	while (arg[i])
 	{
-		if (!ft_isdigit(cmd[1][i]))
-		{
-			ft_printf("exit: %s: numeric argument required", cmd[1]);
-			return (-1);
-		}
+		if (!ft_isdigit(arg[i]))
+			return (0);
 		i++;
 	}
-	error = ft_atol(cmd[1]);
-	return (error);
+	return (1);
 }
 
-// if no args, print 
-// if arg, check if correct arg
-// if argc > 1, return
-//
-int	ft_exit(char **cmd)
+static void	cleanup_before_exit(t_shell *shell)
 {
+	free_exec(shell);
+	free_envp(shell);
+	free_all_tokens(shell);
+}
+
+int	ft_exit(char **cmd, t_shell *shell)
+{
+	int	status;
+
+	if (cmd[1] && cmd[2])
+		return (ft_fprintf(2, "minishell: exit: too many arguments\n"), 1);
 	if (!cmd[1])
-		ft_printf("exit\n");
-	else if (cmd[1])
+		status = shell->last_exit;
+	else
 	{
-		if (cmd[2])
-			return(ft_printf("exit: too many arguments"));
-		if (exit_code(cmd) == -1)
-			return;
+		if (!is_numeric_arg(cmd[1]))
+		{
+			ft_fprintf(2, "minishell: exit: %s: numeric argument required\n",
+				cmd[1]);
+			status = 2;
+		}
+		else
+			status = (unsigned char)ft_atol(cmd[1]);
 	}
+	cleanup_before_exit(shell);
+	exit(status);
+	return (status);
 }

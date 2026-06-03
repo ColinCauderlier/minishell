@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 11:38:44 by lucinguy          #+#    #+#              #
-#    Updated: 2026/05/29 17:03:55 by lucinguy         ###   ########.fr        #
+#    Updated: 2026/06/03 14:44:34 by lucinguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		:= minishell
 CC			:= cc
 CFLAGS		:= -Wall -Wextra -Werror
 FLAGS		:= -lreadline
-RM			:= rm -f
+RM			:= rm -rf
 INCS		:= -I ./includes -I ./libft -I ./libft/ft_printf -I ./libft/ft_fprintf -I ./libft/gnl
 LIBFT_DIR	:= libft
 SRCS_DIR	:= src
@@ -68,12 +68,12 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 clean:
-	$(RM) -r $(OBJS_DIR) objs/built-in objs/tokenizer objs/main.o objs/pipex
+	$(RM) $(OBJS_DIR)
 	$(MAKE) clean -C $(LIBFT_DIR)
 
 fclean: clean
 	$(RM) $(NAME)
-	$(RM) $(PIPEX_NAME)
+	$(MAKE) fclean -C $(LIBFT_DIR)
 	$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean all

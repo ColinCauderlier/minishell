@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/29 17:03:55 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/03 14:14:00 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	print_cd_error(char *path);
 int		env(t_shell *shell);
 int		export(char **command, t_shell *shell);
 int		unset(char **command, t_shell *shell);
-void	exit_code(int code);
+int		ft_exit(char **cmd, t_shell *shell);
 int		envp_size(char **envp);
 char	*get_home(char *pwd);
 int		export_is_valid_identifier(char *arg);
