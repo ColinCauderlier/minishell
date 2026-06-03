@@ -1,0 +1,5 @@
+*.o
+*:Zone.Identifier
+*.swp
+*.a
+minishell_tester/
