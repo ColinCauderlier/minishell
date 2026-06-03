@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/03 16:03:30 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/03 17:31:18 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ static int	exec_one_command(t_shell *shell)
 		if (shell->exec.redirs[0].fd_out > 0)
 			dup2(shell->exec.redirs[0].fd_out, STDOUT_FILENO);
 		status = exec_builtin(shell, shell->exec.commands[0], status);
-		free_exec(shell);
-		free_all_tokens(shell);
-		shell->last_exit = status;
 		if (shell->exec.redirs[0].fd_in > 0)
 			dup2(STDIN_FILENO, 0);
 		if (shell->exec.redirs[0].fd_out > 0)
 			dup2(STDOUT_FILENO, 1);
+		free_exec(shell);
+		free_all_tokens(shell);
+		shell->last_exit = status;
 		return (status);
 	}
 	shell->exec.pids[0] = fork();

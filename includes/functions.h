@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/03 14:11:25 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/03 17:25:33 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,23 @@ void	ft_sort_strings(int num, char **s);
 void	free_envp(t_shell *shell);
 
 /********BUILT*IN**********/
-int		pwd(void);
-int		cd(char *path, t_shell *shell);
-int		perform_cd_update(t_shell *shell, char *target, int print_path);
-int		perform_cd_update(t_shell *shell, char *target, int print_path);
-char	*get_target_path(char *path, t_shell *shell, int *print_path);
-char	*get_env_value(t_shell *shell, char *name);
-void	print_cd_error(char *path);
-int		env(t_shell *shell);
-int		export(char **command, t_shell *shell);
-void	exit_code(int code);
-char	*get_home(char *pwd);
-int		export_is_valid_identifier(char *arg);
-int		export_find_index(char **array, char *name);
-char	*export_get_name(char *arg);
-char	*export_get_value(char *arg);
-void	print_export_env(t_shell *shell);
-int		echo(char **commands);
+int             pwd(void);
+int             cd(char *path, t_shell *shell);
+int             perform_cd_update(t_shell *shell, char *target, int print_path);
+int             perform_cd_update(t_shell *shell, char *target, int print_path);
+char    *get_target_path(char *path, t_shell *shell, int *print_path);
+char    *get_env_value(t_shell *shell, char *name);
+void    print_cd_error(char *path);
+int             env(t_shell *shell);
+int             export(char **command, t_shell *shell);
+void    exit_code(int code);
+int             envp_size(char **envp);
+char    *get_home(char *pwd);
+int             export_is_valid_identifier(char *arg);
+int             export_find_index(char **array, char *name);
+char    *export_get_name(char *arg);
+char    *export_get_value(char *arg);
+void    print_export_env(t_shell *shell);
+int             echo(char **commands);
 
 #endif

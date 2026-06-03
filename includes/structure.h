@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/03 13:36:48 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/03 17:23:25 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_shell
 	struct termios	term_ctl;
 	char			*user_input;
 	char			**envp;
+	char			**exp;
 	int				last_exit;
 	int				nb_token;
 }					t_shell;

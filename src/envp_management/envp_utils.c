@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   envp_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/27 18:15:43 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/27 18:17:48 by lucinguy         ###   ########.fr       */
+/*   Created: 2026/05/27 14:52:31 by lucinguy          #+#    #+#             */
+/*   Updated: 2026/05/27 15:26:27 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/includes.h"
+#include "../../includes/includes.h"
 
-int	cd(char *path, t_shell *shell)
+char	*get_home(char *pwd)
 {
-	char	*target;
-	int		print_path;
-	int		ret;
+	int		slash;
+	int		i;
+	char	*home;
+	int		len;
 
-	target = get_target_path(path, shell, &print_path);
-	if (!target)
-		return (print_cd_error(path), 1);
-	ret = perform_cd_update(shell, target, print_path);
-	free(target);
-	return (ret);
+	slash = 0;
+	i = 0;
+	len = 0;
+	while (pwd[len])
+	{
+		if (pwd[len + 1] == '/' && slash == 2)
+			break ;
+		if (pwd[len] == '/')
+			slash++;
+		len++;
+	}
+	home = malloc(len * sizeof(char) + 1);
+	while (i < len)
+	{
+		home[i] = pwd[i];
+		i++;
+	}
+	home[++i] = '\0';
+	return (home);
 }

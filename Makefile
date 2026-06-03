@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 11:38:44 by lucinguy          #+#    #+#              #
-#    Updated: 2026/05/20 16:58:06 by ccauderl         ###   ########.fr        #
+#    Updated: 2026/06/03 17:24:30 by ccauderl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,13 +37,20 @@ SRCS		:= 	tokenizer/tokenize.c \
 			exec/syntax.c \
 			exec/commands.c \
 			exec/get_commands.c \
-			built-in/pwd/pwd.c \
-			built-in/cd/cd.c \
-			built-in/export/export.c \
-			built-in/env/env.c \
-			envp_management/envp.c \
-			envp_management/sort_envp.c \
-			main.c
+                        built-in/pwd/pwd.c \
+                        built-in/cd/cd.c \
+                        built-in/cd/cd_utils.c \
+                        built-in/export/export.c \
+                        built-in/export/export_parse.c \
+                        built-in/export/export_print.c \
+                        built-in/env/env.c \
+                        built-in/exit/exit.c \
+                        built-in/echo/echo.c \
+                        envp_management/envp.c \
+                        envp_management/update_envp.c \
+                        envp_management/sort_envp.c \
+                        envp_management/envp_utils.c \
+                        main.c
 
 SRCS_FILES	:= $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS		:= $(SRCS_FILES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)

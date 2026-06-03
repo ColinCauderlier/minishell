@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/03 15:43:41 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/03 16:52:17 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,21 +78,27 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 	{
 		if (list->token_type == PIPE)
 			i++;
-		else if (list->token_type == REDIR_OUT_WW)
+		else if (list->token_type == REDIR_OUT_WW || list->token_type == REDIR_OUT_APP_MODE_WW)
 		{
 			if (redir[i].fd_out)
 					close(redir[i].fd_out);
 			redir[i].fname_out = list->content + 1;
-			redir[i].fd_out = open(redir[i].fname_out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			if (list->token_type == REDIR_OUT_WW)
+				redir[i].fd_out = open(redir[i].fname_out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			else
+				redir[i].fd_out = open(redir[i].fname_out, O_APPEND, 0644);
 			if (!redir[i].fd_out)
 				return (1);
 		}
-		else if (list->token_type == REDIR_OUT)
+		else if (list->token_type == REDIR_OUT || list->token_type == REDIR_OUT_APP_MODE)
 		{
 			if (redir[i].fd_out)
 					close(redir[i].fd_out);
 			redir[i].fname_out = list->next->content;
-			redir[i].fd_out = open(redir[i].fname_out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			if (list->token_type == REDIR_OUT)
+				redir[i].fd_out = open(redir[i].fname_out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			else
+				redir[i].fd_out = open(redir[i].fname_out, O_APPEND, 0644);
 			if (!redir[i].fd_out)
 				return (1);
 		}

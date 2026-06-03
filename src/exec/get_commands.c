@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 11:27:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/22 16:08:29 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/03 17:20:05 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,7 @@ t_token	*get_commands_loop(t_token *list, char **commands, int *i)
 			return (free_error_commands(&commands, *i));
 		(*i)++;
 	}
-	if (list->next)
-		list = list->next;
-	return (list);
+	return (list->next);
 }
 
 char	**get_commands(t_token *tokens)
