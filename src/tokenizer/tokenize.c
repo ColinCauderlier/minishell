@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/29 15:38:18 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/03 14:19:27 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,20 @@ int	count_nb_token(t_token *list)
 int	tokenize(char *prompt, t_shell *shell)
 {
 	t_token	*list;
+        char    *expanded_prompt;
 
-	list = get_content(prompt);
+        expanded_prompt = expand_raw_prompt(prompt, shell);
+        if (!expanded_prompt)
+                        return (2);
+        list = get_content(expanded_prompt);
+        free(expanded_prompt);
 	if (!list)
 		return (2);
 	shell->tokens = list;
 	get_all_types(list);
 	while (list && list->content)
 	{
-		if (!get_new_content(list, shell))
+		if (!strip_token_quotes(list))
 			return (free_all_tokens(shell), 1);
 		list = list->next;
 	}

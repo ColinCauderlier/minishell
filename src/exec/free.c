@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:06:16 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/22 15:45:05 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/03 14:27:40 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,33 @@ void	free_commands(t_shell *shell)
 	shell->exec.commands = NULL;
 }
 
+void	free_close_redirs(t_shell *shell)
+{
+	int	i;
+	int	nb_commands;
+
+	i = 0;
+	if (!shell->exec.redirs)
+		return ;
+	nb_commands = get_nb_pipes(shell) + 1;
+	while (i < nb_commands)
+	{
+		if (shell->exec.redirs->fd_in > 0)
+			close(shell->exec.redirs->fd_in);
+		if (shell->exec.redirs->fd_out > 1)
+			close(shell->exec.redirs->fd_out);
+		i++;
+	}
+	free(shell->exec.redirs);
+	shell->exec.redirs = NULL;
+}
+
 void	free_exec(t_shell *shell)
 {
 	close_all_pipes(shell);
 	free_all_pipes(shell);
 	free_commands(shell);
+	free_close_redirs(shell);
 	free(shell->exec.pids);
 }
 

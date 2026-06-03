@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 15:39:11 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/29 15:37:07 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/02 11:51:22 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ static char	*append_word(t_parsing *prs, char **new)
 	return (*new);
 }
 
-static int	inside_loop(t_parsing *prs, t_shell *shell, char **new)
+static int	inside_loop_expand(t_parsing *prs, t_shell *shell, char **new)
 {
 	if (change_state(prs->old[prs->i[1]], &(prs->state)))
 	{
+		(prs->i[1])++;
 		*new = append_word(prs, new);
 		if (!*new)
 			return (-1);
@@ -48,30 +49,57 @@ static int	inside_loop(t_parsing *prs, t_shell *shell, char **new)
 
 //I need 2 index, the start and the end of every str I will not expand
 //i[0] is the start, i[1] the end
-static int	new_content_loop(t_parsing *prs, t_shell *shell, char **new)
+static int	inside_loop_strip(t_parsing *prs, char **new)
 {
-	prs->i[0] = 0;
-	prs->i[1] = 0;
-	prs->state = GENERAL;
-	while (prs->old[prs->i[1]])
+	if (change_state(prs->old[prs->i[1]], &(prs->state)))
 	{
-		if (inside_loop(prs, shell, new) == -1)
+		*new = append_word(prs, new);
+		if (!*new)
 			return (-1);
+		prs->i[0] = ++(prs->i[1]); // Skip past the quote to STRIP it
 	}
-	*new = append_word(prs, new);
-	if (!new)
-		return (-1);
+	else
+		(prs->i[1])++;
 	return (0);
 }
 
-int	get_new_content(t_token *list, t_shell *shell)
+//Expand the raw prompt string before tokenization
+char	*expand_raw_prompt(char *prompt, t_shell *shell)
+{
+	char		*new;
+	t_parsing	prs;
+
+	new = NULL;
+	prs.old = prompt;
+	prs.i[0] = 0;
+	prs.i[1] = 0;
+	prs.state = GENERAL;
+	while (prs.old[prs.i[1]])
+	{
+		if (inside_loop_expand(&prs, shell, &new) == -1)
+			return (NULL);
+	}
+	new = append_word(&prs, &new);
+	return (new);
+}
+
+//Strip quotes from an existing token
+int	strip_token_quotes(t_token *list)
 {
 	char		*new;
 	t_parsing	prs;
 
 	new = NULL;
 	prs.old = list->content;
-	new_content_loop(&prs, shell, &new);
+	prs.i[0] = 0;
+	prs.i[1] = 0;
+	prs.state = GENERAL;
+	while (prs.old[prs.i[1]])
+	{
+		if (inside_loop_strip(&prs, &new) == -1)
+			return (0);
+	}
+	new = append_word(&prs, &new);
 	if (!new)
 		return (0);
 	free(list->content);
