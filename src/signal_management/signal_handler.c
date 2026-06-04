@@ -1,41 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp_utils.c                                       :+:      :+:    :+:   */
+/*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/27 14:52:31 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/29 17:09:48 by lucinguy         ###   ########.fr       */
+/*   Created: 2026/06/04 16:55:40 by lucinguy          #+#    #+#             */
+/*   Updated: 2026/06/04 16:56:07 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
-char	*get_home(char *pwd)
-{
-	int		slash;
-	int		i;
-	char	*home;
-	int		len;
-
-	slash = 0;
-	i = 0;
-	len = 0;
-	while (pwd[len])
-	{
-		if (pwd[len + 1] == '/' && slash == 2)
-			break ;
-		if (pwd[len] == '/')
-			slash++;
-		len++;
-	}
-	home = malloc(len * sizeof(char) + 1);
-	while (i <= len)
-	{
-		home[i] = pwd[i];
-		i++;
-	}
-	home[++i] = '\0';
-	return (home);
-}

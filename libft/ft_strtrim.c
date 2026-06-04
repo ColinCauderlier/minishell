@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 01:36:18 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/26 17:48:59 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:17:23 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	out[end - start] = '\0';
 	return (out);
 }
-
 
 // #include <stdio.h>
 // #include <stdlib.h>

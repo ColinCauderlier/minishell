@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 22:20:00 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/27 15:38:34 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:03:55 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,26 @@ int	update_named_array(char ***array, char *var_name, char *var_value)
 	}
 	if (!extend_array(array, new_var))
 		return (free(new_var), 0);
+	return (1);
+}
+
+int	remove_named_array(char ***array, char *var_name)
+{
+	int	index;
+	int	i;
+
+	if (!array || !*array || !var_name)
+		return (0);
+	index = export_find_index(*array, var_name);
+	if (index == -1)
+		return (1);
+	free((*array)[index]);
+	i = index;
+	while ((*array)[i])
+	{
+		(*array)[i] = (*array)[i + 1];
+		i++;
+	}
 	return (1);
 }
 

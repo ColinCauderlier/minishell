@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 11:38:44 by lucinguy          #+#    #+#              #
-#    Updated: 2026/06/04 17:03:54 by lucinguy         ###   ########.fr        #
+#    Updated: 2026/06/04 17:15:38 by lucinguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		:= minishell
 CC			:= cc
 CFLAGS		:= -Wall -Wextra -Werror
 FLAGS		:= -lreadline
-RM			:= rm -f
+RM			:= rm -rf
 INCS		:= -I ./includes -I ./libft -I ./libft/ft_printf -I ./libft/ft_fprintf -I ./libft/gnl
 LIBFT_DIR	:= libft
 SRCS_DIR	:= src
@@ -43,6 +43,7 @@ SRCS		:= 	tokenizer/tokenize.c \
 			built-in/export/export.c \
 			built-in/export/export_parse.c \
 			built-in/export/export_print.c \
+			built-in/unset/unset.c \
 			built-in/env/env.c \
 			built-in/exit/exit.c \
 			built-in/echo/echo.c \
@@ -50,6 +51,7 @@ SRCS		:= 	tokenizer/tokenize.c \
 			envp_management/update_envp.c \
 			envp_management/sort_envp.c \
 			envp_management/envp_utils.c \
+			signal_management/signal_handler.c \
 			main.c
 
 SRCS_FILES	:= $(addprefix $(SRCS_DIR)/, $(SRCS))
@@ -68,12 +70,12 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 clean:
-	$(RM) -r $(OBJS_DIR) objs/built-in objs/tokenizer objs/main.o objs/pipex
+	$(RM) $(OBJS_DIR)
 	$(MAKE) clean -C $(LIBFT_DIR)
 
 fclean: clean
 	$(RM) $(NAME)
-	$(RM) $(PIPEX_NAME)
+	$(MAKE) fclean -C $(LIBFT_DIR)
 	$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean all

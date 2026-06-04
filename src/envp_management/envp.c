@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 23:42:56 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/05/27 15:23:05 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:18:50 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ static char	**duplicate_env(char **env)
 static int	init_custom_envp(t_shell *shell)
 {
 	char	cwd[4096];
-	char *home;
+	char	*home;
+
 	shell->envp = ft_calloc(6, sizeof(char *));
 	if (!shell->envp)
 		return (0);

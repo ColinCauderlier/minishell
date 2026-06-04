@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:07:19 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:17:12 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,6 @@ int	main(int argc, char **argv, char **envp)
 		{
 			free(prompt);
 			continue ;
-		}
-		if (ft_strncmp(prompt, "exit", 5) == 0)
-		{
-			free(prompt);
-			break ;
 		}
 		status = tokenize(prompt, &shell);
 		if (status == 1)
