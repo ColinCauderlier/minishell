@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:07:08 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:20:50 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,30 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-//tableau de s_redir NULL terminated
+// tableau de s_redir NULL terminated
 typedef struct s_redir
 {
-	char	*fname_in;
-	char	*fname_out;
-	int		fd_in;
-	int		fd_out;
+	char			*fname_in;
+	char			*fname_out;
+	int				fd_in;
+	int				fd_out;
 }					t_redirs;
 
 typedef struct s_exec
 {
-	char		***commands;
-	int			**pipes;
-	int			*pids;
-	t_redirs	*redirs;
-}	t_exec;
+	char			***commands;
+	int				**pipes;
+	int				*pids;
+	t_redirs		*redirs;
+}					t_exec;
 
 typedef struct s_parsing
 {
-	int		i[2];
-	t_state	state;
-	int		token_index;
-	char	*old;
-	char	**new;
+	int				i[2];
+	t_state			state;
+	int				token_index;
+	char			*old;
+	char			**new;
 }					t_parsing;
 
 typedef struct s_shell

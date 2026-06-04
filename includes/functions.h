@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:17:06 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:20:47 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ void	ft_sort_strings(int num, char **s);
 void	free_envp(t_shell *shell);
 
 /*********SIGNALS**********/
-
-
 
 /********BUILT*IN**********/
 int		pwd(void);

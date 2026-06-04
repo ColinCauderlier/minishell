@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
+/*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 14:34:19 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/29 17:37:06 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:21:48 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static int	get_new_len(char *str)
 static char	*trim_spaces(char *str)
 {
 	char	*res;
-	int	i;
-	int	j;
-	int	in_word;
+	int		i;
+	int		j;
+	int		in_word;
 
 	in_word = 0;
 	i = 0;
@@ -72,7 +72,7 @@ static char	*trim_spaces(char *str)
 	return (free(str), res);
 }
 
-//En cas d'erreur, l'expand n'est pas fait
+// En cas d'erreur, l'expand n'est pas fait
 static char	*get_expand(char *str, char **envp)
 {
 	int		i;
@@ -166,11 +166,11 @@ static int	expand_cases(t_parsing *prs, char **new, t_shell *shell)
 	return (bo);
 }
 
-//bo: boolean to check if it is the $? case
+// bo: boolean to check if it is the $? case
 int	expand(t_parsing *prs, char **new, t_shell *shell)
 {
 	int	bo;
-	int *i;
+	int	*i;
 
 	i = &(prs->i[1]);
 	bo = expand_cases(prs, new, shell);

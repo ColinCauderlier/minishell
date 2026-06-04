@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:17:12 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:22:18 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ int	main(int argc, char **argv, char **envp)
 	prompt = "";
 	shell.last_exit = 0;
 	status = 0;
-/*	if (tcgetattr(STDIN_FILENO, &(shell.term_ctl)) == -1)
-	{
-		perror("minishell: ");
-		return (errno);
-	}
-	*/
+	/*	if (tcgetattr(STDIN_FILENO, &(shell.term_ctl)) == -1)
+		{
+			perror("minishell: ");
+			return (errno);
+		}
+		*/
 	while (1)
 	{
 		/*

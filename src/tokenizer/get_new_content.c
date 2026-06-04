@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 15:39:11 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:13:34 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:22:04 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ static int	inside_loop_expand(t_parsing *prs, t_shell *shell, char **new)
 	return (0);
 }
 
-//I need 2 index, the start and the end of every str I will not expand
-//i[0] is the start, i[1] the end
+// I need 2 index, the start and the end of every str I will not expand
+// i[0] is the start, i[1] the end
 static int	inside_loop_strip(t_parsing *prs, char **new)
 {
 	if (change_state(prs->old[prs->i[1]], &(prs->state)))
@@ -63,7 +63,7 @@ static int	inside_loop_strip(t_parsing *prs, char **new)
 	return (0);
 }
 
-//Expand the raw prompt string before tokenization
+// Expand the raw prompt string before tokenization
 char	*expand_raw_prompt(char *prompt, t_shell *shell)
 {
 	char		*new;
@@ -83,7 +83,7 @@ char	*expand_raw_prompt(char *prompt, t_shell *shell)
 	return (new);
 }
 
-//Strip quotes from an existing token
+// Strip quotes from an existing token
 int	strip_token_quotes(t_token *list)
 {
 	char		*new;

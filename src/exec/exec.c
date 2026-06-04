@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:12:29 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:21:22 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,8 @@ static int	pipe_exec(t_shell *shell, int nb_commands)
 
 int	exec(t_shell *shell)
 {
-	int		status;
-	int		nb_commands;
+	int	status;
+	int	nb_commands;
 
 	status = check_syntax_shell(shell);
 	if (status)

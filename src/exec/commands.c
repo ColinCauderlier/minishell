@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccauderl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 11:20:36 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/03 16:06:57 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:21:20 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	middle_cmd(t_shell *shell, int i)
 		dup2(shell->exec.redirs[i].fd_in, STDIN_FILENO);
 	else
 		dup2(shell->exec.pipes[i - 1][0], STDIN_FILENO);
-	
 	if (shell->exec.redirs[i].fd_out > 0)
 		dup2(shell->exec.redirs[i].fd_out, STDOUT_FILENO);
 	else

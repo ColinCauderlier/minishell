@@ -6,11 +6,11 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 14:49:05 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 13:26:35 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:22:06 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//Fichier temporaire, sert au debug
+// Fichier temporaire, sert au debug
 #include "../../includes/includes.h"
 
 static char	*get_type(t_token token)
