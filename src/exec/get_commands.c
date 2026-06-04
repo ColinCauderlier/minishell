@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 11:27:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/03 17:20:05 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/04 16:48:57 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,14 @@ static t_token	*free_error_commands(char ***commands, int i)
 
 t_token	*get_commands_loop(t_token *list, char **commands, int *i)
 {
-	if (list && list->next && is_redir_wo_word(list))
+	if (is_redir_wo_word(list))
 	{
-		list = list->next;
+		if (list->next)
+			list = list->next;
 		if (list->next)
 			list = list->next;
 	}
-	if (list->token_type == WORD)
+	else if (list->token_type == WORD)
 	{
 		commands[*i] = ft_strdup(list->content);
 		if (!commands[*i])
@@ -92,11 +93,7 @@ char	**get_commands(t_token *tokens)
 	if (!commands)
 		return (NULL);
 	while (list && list->token_type != PIPE)
-	{
 		list = get_commands_loop(list, commands, &i);
-		if (!list)
-			return (NULL);
-	}
 	commands[i] = NULL;
 	return (commands);
 }

@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 13:04:03 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/03 17:45:04 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/04 16:04:40 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 //If the command is a builtin, return its id, return 0 otherwise
 int     check_builtin(char **command)
 {
+	if (!command || !command[0])
+		return (0);
         if (ft_strncmp(command[0], "cd", 3) == 0)
                 return (1);
         if (ft_strncmp(command[0], "pwd", 4) == 0)

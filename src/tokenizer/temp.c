@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 14:49:05 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/18 21:10:00 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/04 13:26:35 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@ static char	*get_type(t_token token)
 		str = "REDIR_OUT";
 	else if (token.token_type == HEREDOC)
 		str = "HEREDOC";
+	else if (token.token_type == HEREDOC_WW)
+		str = "HEREDOC_WW";
 	else if (token.token_type == REDIR_OUT_APP_MODE)
 		str = "REDIR_OUT_APP_MODE";
+	else if (token.token_type == REDIR_OUT_APP_MODE_WW)
+		str = "REDIR_OUT_APP_MODE_WW";
 	else if (token.token_type == WORD)
 		str = "WORD";
 	else if (token.token_type == REDIR_IN_WW)

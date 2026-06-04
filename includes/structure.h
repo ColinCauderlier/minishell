@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/03 17:23:25 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/04 13:26:56 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum s_type
 	REDIR_OUT,
 	REDIR_OUT_WW,
 	HEREDOC,
+	HEREDOC_WW,
 	REDIR_OUT_APP_MODE,
 	REDIR_OUT_APP_MODE_WW,
 	WORD,

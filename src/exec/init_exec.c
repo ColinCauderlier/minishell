@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/03 16:52:17 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/04 16:56:10 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 	{
 		redir[i].fname_in = NULL;
 		redir[i].fname_out = NULL;
-		redir[i].fd_in = 0;
-		redir[i].fd_out = 1;	
+		redir[i].fd_in = -1;
+		redir[i].fd_out = -1;	
 		i++;
 	}
 	redir = shell->exec.redirs;
@@ -80,44 +80,47 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 			i++;
 		else if (list->token_type == REDIR_OUT_WW || list->token_type == REDIR_OUT_APP_MODE_WW)
 		{
-			if (redir[i].fd_out)
-					close(redir[i].fd_out);
-			redir[i].fname_out = list->content + 1;
+			if (redir[i].fd_out != -1)
+				close(redir[i].fd_out);
+			if (list->token_type == REDIR_OUT_WW)
+				redir[i].fname_out = list->content + 1;
+			else
+				redir[i].fname_out = list->content + 2;
 			if (list->token_type == REDIR_OUT_WW)
 				redir[i].fd_out = open(redir[i].fname_out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			else
-				redir[i].fd_out = open(redir[i].fname_out, O_APPEND, 0644);
-			if (!redir[i].fd_out)
+				redir[i].fd_out = open(redir[i].fname_out, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			if (redir[i].fd_out < 0)
 				return (1);
 		}
 		else if (list->token_type == REDIR_OUT || list->token_type == REDIR_OUT_APP_MODE)
 		{
-			if (redir[i].fd_out)
-					close(redir[i].fd_out);
+			if (redir[i].fd_out != -1)
+				close(redir[i].fd_out);
 			redir[i].fname_out = list->next->content;
 			if (list->token_type == REDIR_OUT)
 				redir[i].fd_out = open(redir[i].fname_out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			else
-				redir[i].fd_out = open(redir[i].fname_out, O_APPEND, 0644);
-			if (!redir[i].fd_out)
+				redir[i].fd_out = open(redir[i].fname_out, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			if (redir[i].fd_out < 0)
 				return (1);
 		}
 		else if (list->token_type == REDIR_IN_WW)
 		{
-			if (redir[i].fd_in)
+			if (redir[i].fd_in != -1)
 					close(redir[i].fd_in);
 			redir[i].fname_in = list->content + 1;
 			redir[i].fd_in = open(redir[i].fname_in, O_RDONLY);
-			if (!redir[i].fd_in)
+			if (redir[i].fd_in < 0)
 				return (1);
 		}
 		else if (list->token_type == REDIR_IN)
 		{
-			if (redir[i].fd_in)
+			if (redir[i].fd_in != -1)
 					close(redir[i].fd_in);
 			redir[i].fname_in = list->next->content;
 			redir[i].fd_in = open(redir[i].fname_in, O_RDONLY);
-			if (!redir[i].fd_in)
+			if (redir[i].fd_in < 0)
 				return (1);
 		}
 		list = list->next;
