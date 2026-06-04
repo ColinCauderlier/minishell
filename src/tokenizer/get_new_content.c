@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_new_content.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
+/*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 15:39:11 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/02 11:51:22 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:13:34 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	inside_loop_expand(t_parsing *prs, t_shell *shell, char **new)
 		*new = append_word(prs, new);
 		if (!*new)
 			return (-1);
-		prs->i[0] = ++(prs->i[1]);
+		prs->i[0] = (prs->i[1]);
 	}
 	else if (prs->state != SIMPLE_QUOTE && prs->old[prs->i[1]] == '$')
 	{
@@ -56,7 +56,7 @@ static int	inside_loop_strip(t_parsing *prs, char **new)
 		*new = append_word(prs, new);
 		if (!*new)
 			return (-1);
-		prs->i[0] = ++(prs->i[1]); // Skip past the quote to STRIP it
+		prs->i[0] = ++(prs->i[1]);
 	}
 	else
 		(prs->i[1])++;

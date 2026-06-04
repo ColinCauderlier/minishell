@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/02 12:05:18 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:13:50 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	get_all_types(t_token *lst)
 {
 	if (!lst)
 		return ;
-	while (lst && lst->next)
+	while (lst && lst->content)
 	{
 		if (ft_strncmp(lst->content, "|", 2) == 0)
 			lst->token_type = PIPE;
@@ -27,6 +27,8 @@ static void	get_all_types(t_token *lst)
 			lst->token_type = REDIR_OUT_APP_MODE;
 		else if (ft_strncmp(lst->content, ">>", 2) == 0)
 			lst->token_type = REDIR_OUT_APP_MODE_WW;
+		else if (ft_strncmp(lst->content, "<<", 2) == 0)
+			lst->token_type = HEREDOC_WW;
 		else if (ft_strncmp(lst->content, "<", 2) == 0)
 			lst->token_type = REDIR_IN;
 		else if (ft_strncmp(lst->content, "<", 1) == 0)

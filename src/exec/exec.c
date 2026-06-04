@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/05/29 16:31:19 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:12:29 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,48 @@ void	execute_command(t_shell *shell, int i)
 static int	exec_one_command(t_shell *shell)
 {
 	int	status;
+	int	fdin_save;
+	int	fdout_save;
 
+	if (!shell->exec.commands[0] || !shell->exec.commands[0][0])
+	{
+		free_exec(shell);
+		shell->last_exit = 0;
+		return (0);
+	}
 	status = check_builtin(shell->exec.commands[0]);
 	if (status)
 	{
+		fdin_save = dup(STDIN_FILENO);
+		fdout_save = dup(STDOUT_FILENO);
+		if (shell->exec.redirs[0].fd_in > 0)
+			dup2(shell->exec.redirs[0].fd_in, STDIN_FILENO);
+		if (shell->exec.redirs[0].fd_out > 0)
+			dup2(shell->exec.redirs[0].fd_out, STDOUT_FILENO);
 		status = exec_builtin(shell, shell->exec.commands[0], status);
+		dup2(fdin_save, STDIN_FILENO);
+		dup2(fdout_save, STDOUT_FILENO);
+		close(fdin_save);
+		close(fdout_save);
 		free_exec(shell);
 		free_all_tokens(shell);
 		shell->last_exit = status;
 		return (status);
 	}
 	shell->exec.pids[0] = fork();
-	if (shell->exec.pids[0] == -1)
-		return (free_exec(shell), 1);
 	if (shell->exec.pids[0] == 0)
-		execute_command(shell, 0);
+	{
+		if (shell->exec.pids[0] == -1)
+			return (free_exec(shell), 1);
+		if (shell->exec.redirs[0].fd_in != -1)
+			dup2(shell->exec.redirs[0].fd_in, STDIN_FILENO);
+		if (shell->exec.redirs[0].fd_out != -1)
+			dup2(shell->exec.redirs[0].fd_out, STDOUT_FILENO);
+		if (shell->exec.pids[0] == -1)
+			return (free_exec(shell), 1);
+		if (shell->exec.pids[0] == 0)
+			execute_command(shell, 0);
+	}
 	waitpid(shell->exec.pids[0], &status, 0);
 	free_exec(shell);
 	if (WIFEXITED(status))
