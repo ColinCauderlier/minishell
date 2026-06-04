@@ -6,21 +6,11 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:22:18 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/04 18:09:17 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/includes.h"
-
-/*
-void	sig_handler(int sig)
-{
-	(void)sig;
-	write(1, "Minishell>^C\n", 13);
-	sig++;
-	sig--;
-}
-*/
 
 static void	free_env_copy(char **envp)
 {
@@ -59,7 +49,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	(void)argc;
-	//	//	signal(SIGINT, sig_handler);
+	signal(SIGINT, sig_handler);
 	shell = (t_shell){0};
 	init_envp(&shell, envp);
 	prompt = "";
@@ -80,11 +70,6 @@ int	main(int argc, char **argv, char **envp)
 		if (!prompt)
 			break ;
 		add_history(prompt);
-		if (ft_strncmp(prompt, ":", 2) == 0)
-		{
-			free(prompt);
-			continue ;
-		}
 		status = tokenize(prompt, &shell);
 		if (status == 1)
 			return (free_all_tokens(&shell), 1);

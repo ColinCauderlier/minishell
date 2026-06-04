@@ -6,9 +6,13 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:55:40 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/06/04 16:56:07 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/04 18:07:57 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
+void	sig_handler(int sig)
+{
+	(void)sig;
+}
