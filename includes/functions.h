@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/03 14:14:00 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:00:42 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ int		update_named_array(char ***array, char *var_name, char *var_value);
 int		remove_named_array(char ***array, char *var_name);
 void	ft_sort_strings(int num, char **s);
 void	free_envp(t_shell *shell);
+
+/*********SIGNALS**********/
+
+
 
 /********BUILT*IN**********/
 int		pwd(void);
