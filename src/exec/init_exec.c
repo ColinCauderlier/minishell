@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:21:33 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/08 14:42:52 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,11 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 				redir[i].fd_out = open(redir[i].fname_out,
 						O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (redir[i].fd_out < 0)
-				return (1);
+			{
+				while (list->next && list->token_type != PIPE)
+					list = list->next;
+				continue ;
+			}
 		}
 		else if (list->token_type == REDIR_OUT
 			|| list->token_type == REDIR_OUT_APP_MODE)
@@ -109,7 +113,11 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 				redir[i].fd_out = open(redir[i].fname_out,
 						O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (redir[i].fd_out < 0)
-				return (1);
+			{
+				while (list->next && list->token_type != PIPE)
+					list = list->next;
+				continue ;
+			}
 		}
 		else if (list->token_type == REDIR_IN_WW)
 		{
@@ -118,7 +126,11 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 			redir[i].fname_in = list->content + 1;
 			redir[i].fd_in = open(redir[i].fname_in, O_RDONLY);
 			if (redir[i].fd_in < 0)
-				return (1);
+			{
+				while (list->next && list->token_type != PIPE)
+					list = list->next;
+				continue ;
+			}
 		}
 		else if (list->token_type == REDIR_IN)
 		{
@@ -127,7 +139,11 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 			redir[i].fname_in = list->next->content;
 			redir[i].fd_in = open(redir[i].fname_in, O_RDONLY);
 			if (redir[i].fd_in < 0)
-				return (1);
+			{
+				while (list->next && list->token_type != PIPE)
+					list = list->next;
+				continue ;
+			}
 		}
 		list = list->next;
 	}
@@ -152,8 +168,11 @@ int	init_exec(t_shell *shell)
 	if (init_pipes(shell, nb_pipes))
 		return (-1);
 	if (init_commands(shell, nb_pipes))
+	{
+		shell->last_exit = 1;
 		return (-2);
+	}
 	if (init_redirs(shell, nb_pipes))
-		return (-1);
+		shell->last_exit = 1;
 	return (nb_pipes + 1);
 }

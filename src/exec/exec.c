@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:21:22 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/08 14:32:48 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ static int	exec_one_command(t_shell *shell)
 		free_exec(shell);
 		shell->last_exit = 0;
 		return (0);
+	}
+	if ((shell->exec.redirs[0].fname_in && shell->exec.redirs[0].fd_in == -1) || (shell->exec.redirs[0].fname_out && shell->exec.redirs[0].fd_out == -1))
+	{
+		if (shell->exec.redirs[0].fd_in == -1 && shell->exec.redirs[0].fname_in)
+			perror(shell->exec.redirs[0].fname_in);
+		else
+			perror(shell->exec.redirs[0].fname_out);
+		free_all_error(shell, NULL, 1);
 	}
 	status = check_builtin(shell->exec.commands[0]);
 	if (status)

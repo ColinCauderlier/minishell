@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 11:27:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:21:31 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/08 13:57:20 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ int	get_len_command(t_token *tokens)
 	list = tokens;
 	while (list && list->token_type != PIPE)
 	{
-		if (list && list->next && is_redir_wo_word(list))
+		if (is_redir_wo_word(list))
 		{
-			list = list->next;
 			if (list->next)
 				list = list->next;
 		}
@@ -66,8 +65,6 @@ t_token	*get_commands_loop(t_token *list, char **commands, int *i)
 {
 	if (is_redir_wo_word(list))
 	{
-		if (list->next)
-			list = list->next;
 		if (list->next)
 			list = list->next;
 	}
