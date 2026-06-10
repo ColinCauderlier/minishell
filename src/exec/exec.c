@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/08 14:32:48 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/10 14:16:20 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	execute_command(t_shell *shell, int i)
 {
-	char	*path;
-	int		status;
+	char		*path;
+	int			status;
+	struct stat	statbuf;
 
 	if (!shell->exec.commands[i][0] || shell->exec.commands[i][0][0] == '\0')
 		free_all_error(shell, NULL, 127);
@@ -31,6 +32,24 @@ void	execute_command(t_shell *shell, int i)
 		ft_fprintf(2, "minishell: %s: command not found\n",
 			shell->exec.commands[i][0]);
 		free_all_error(shell, NULL, 127);
+	}
+	if (stat(path, &statbuf) == 0 && S_ISDIR(statbuf.st_mode))
+	{
+		ft_fprintf(2, "minishell: %s: Is a directory\n", path);
+		free_all_error(shell, NULL, 126);
+	}
+	if (access(path, F_OK) != 0)
+	{
+		if (ft_strchr(shell->exec.commands[i][0], '/'))
+			ft_fprintf(2, "minishell: %s: No such file or directory\n", shell->exec.commands[i][0]);
+		else
+			ft_fprintf(2, "minishell: %s: command not found\n", shell->exec.commands[i][0]);
+		free_all_error(shell, NULL, 127);
+	}
+	if (access(path, X_OK) != 0)
+	{
+		ft_fprintf(2, "minishell: %s: Permission denied\n", path);
+		free_all_error(shell, NULL, 126);
 	}
 	if (execve(path, shell->exec.commands[i], shell->envp) == -1)
 		free_all_error(shell, &path, 126);

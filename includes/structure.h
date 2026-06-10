@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:20:50 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/10 13:26:21 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 # define STX_ERR "minishell: syntax error near unexpected token"
 
 // PIPE : |
-// REDIR_IN : >
-// REDIR_IN_WW : > + filename, ex: '<Makefile' (WW means "with word")
-// REDIR_OUT : <
-// REDIR_OUT_WW : < + filename, ex: '>outfile'
-// HEREDOC : >>
+// REDIR_IN : <
+// REDIR_IN_WW : < + filename, ex: '<Makefile' (WW means "with word")
+// REDIR_OUT : >
+// REDIR_OUT_WW : > + filename, ex: '>outfile'
+// HEREDOC : <<
 // REDIR_OUT_APP_MODE : >>
 // REDIR_OUT_APP_MODE_WW : >>
 typedef enum s_type
@@ -58,6 +58,7 @@ typedef struct s_redir
 	char			*fname_out;
 	int				fd_in;
 	int				fd_out;
+	char			*delimiter;
 }					t_redirs;
 
 typedef struct s_exec

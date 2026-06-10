@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:53:35 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:20:48 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/10 13:55:21 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h>
 # include <termios.h>
 # include <unistd.h>
+# include <sys/stat.h>
 
 /********LOCAL_INCLUDES*********/
 # include "functions.h"

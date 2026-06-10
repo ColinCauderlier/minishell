@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/08 14:42:52 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/10 13:26:58 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,26 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 				continue ;
 			}
 		}
+		else if (list->token_type == HEREDOC_WW)
+		{
+			if (redir[i].fd_in != -1)
+				close(redir[i].fd_in);
+			redir[i].delimiter = list->content + 1;
+			redir[i].fd_in = open(redir[i].fname_in, O_RDONLY);
+			if (redir[i].fd_in < 0)
+			{
+				while (list->next && list->token_type != PIPE)
+					list = list->next;
+				continue ;
+			}
+		}
+
+
+
+
+
+
+
 		list = list->next;
 	}
 	return (0);

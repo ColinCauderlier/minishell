@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:21:37 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/10 14:14:30 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,17 @@ char	*find_path(char *command, char **envp)
 {
 	char	**paths;
 	char	*full_path;
-	int		len;
+	char	*path_env;
 
-	if (access(command, X_OK) == 0)
-	{
-		len = ft_strlen(command);
-		full_path = malloc((len + 1) * sizeof(char));
-		ft_strlcpy(full_path, command, len + 1);
-		return (full_path);
-	}
-	paths = ft_split(get_path_from_envp(envp), ':');
+	if (ft_strchr(command, '/'))
+		return (ft_strdup(command));
+	path_env = get_path_from_envp(envp);
+	if (!path_env)
+		return (NULL);
+	paths = ft_split(path_env, ':');
 	if (!paths)
 		return (NULL);
 	full_path = find_path_loop(command, paths);
-	if (!full_path)
-		return (free_split(paths), NULL);
 	free_split(paths);
 	return (full_path);
 }
