@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 18:09:17 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/10 15:47:05 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,19 @@ void	free_envp(t_shell *shell)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*prompt;
-	t_shell	shell;
-	int		status;
+	char				*prompt;
+	t_shell				shell;
+	int					status;
+	struct sigaction	sa;
 
 	(void)argv;
 	(void)argc;
-	signal(SIGINT, sig_handler);
+	sa.sa_handler = sig_handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	if (sigaction(SIGINT, &sa, NULL) == -1 || signal(SIGQUIT,
+			SIG_IGN) == SIG_ERR)
+		return (perror("minishell: signal"), 1);
 	shell = (t_shell){0};
 	init_envp(&shell, envp);
 	prompt = "";
@@ -68,11 +74,15 @@ int	main(int argc, char **argv, char **envp)
 		*/
 		prompt = readline("Minishell > ");
 		if (!prompt)
+		{
+			write(STDOUT_FILENO, "exit\n", 5);
 			break ;
+		}
 		add_history(prompt);
 		status = tokenize(prompt, &shell);
 		if (status == 1)
-			return (free_all_tokens(&shell), 1);
+			return (free(prompt), free_all_tokens(&shell), free_envp(&shell),
+				1);
 		else if (status != 2)
 			exec(&shell);
 		free_all_tokens(&shell);

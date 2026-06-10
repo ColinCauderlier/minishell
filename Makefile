@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 11:38:44 by lucinguy          #+#    #+#              #
-#    Updated: 2026/06/04 17:15:38 by lucinguy         ###   ########.fr        #
+#    Updated: 2026/06/10 16:55:17 by lucinguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ LIBFT_DIR	:= libft
 SRCS_DIR	:= src
 OBJS_DIR	:= objs/minishell
 LIBFT_LIB	:= $(LIBFT_DIR)/libft.a
+
+.SILENT:
 
 SRCS		:= 	tokenizer/tokenize.c \
 			tokenizer/ft_isspace.c \
@@ -60,10 +62,11 @@ OBJS		:= $(SRCS_FILES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 all: $(LIBFT_LIB) $(NAME)
 
 $(LIBFT_LIB):
-	$(MAKE) -C $(LIBFT_DIR)
+	$(MAKE) -s -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS) $(LIBFT_LIB)
 	$(CC) $(CFLAGS) $(FLAGS) $(INCS) $(OBJS) $(LIBFT_LIB) -o $(NAME)
+	@echo "✓ $(NAME) compiled successfully!"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	mkdir -p $(@D)
@@ -71,12 +74,12 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 
 clean:
 	$(RM) $(OBJS_DIR)
-	$(MAKE) clean -C $(LIBFT_DIR)
+	$(MAKE) -s clean -C $(LIBFT_DIR)
 
 fclean: clean
 	$(RM) $(NAME)
-	$(MAKE) fclean -C $(LIBFT_DIR)
-	$(MAKE) fclean -C $(LIBFT_DIR)
+	$(MAKE) -s fclean -C $(LIBFT_DIR)
+	$(MAKE) -s fclean -C $(LIBFT_DIR)
 
 re: fclean all
 

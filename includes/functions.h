@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 18:08:35 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/10 16:03:06 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	free_envp(t_shell *shell);
 
 /*********SIGNALS**********/
 void	sig_handler(int sig);
+void	setup_child_signals(void);
+void	set_exit_status(t_shell *shell, int status);
 
 /********BUILT*IN**********/
 int		pwd(void);

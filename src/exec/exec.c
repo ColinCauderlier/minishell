@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/10 14:24:02 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/10 16:21:05 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ void	execute_command(t_shell *shell, int i)
 	if (access(path, F_OK) != 0)
 	{
 		if (ft_strchr(shell->exec.commands[i][0], '/'))
-			ft_fprintf(2, "minishell: %s: No such file or directory\n", shell->exec.commands[i][0]);
+			ft_fprintf(2, "minishell: %s: No such file or directory\n",
+				shell->exec.commands[i][0]);
 		else
-			ft_fprintf(2, "minishell: %s: command not found\n", shell->exec.commands[i][0]);
+			ft_fprintf(2, "minishell: %s: command not found\n",
+				shell->exec.commands[i][0]);
 		free_all_error(shell, NULL, 127);
 	}
 	if (access(path, X_OK) != 0)
@@ -64,7 +66,9 @@ static int	exec_one_command(t_shell *shell)
 		shell->last_exit = 0;
 		return (0);
 	}
-	if ((shell->exec.redirs[0].fname_in && shell->exec.redirs[0].fd_in == -1) || (shell->exec.redirs[0].fname_out && shell->exec.redirs[0].fd_out == -1))
+	if ((shell->exec.redirs[0].fname_in && shell->exec.redirs[0].fd_in == -1)
+		|| (shell->exec.redirs[0].fname_out && shell->exec.redirs[0].fd_out ==
+			-1))
 	{
 		if (shell->exec.redirs[0].fd_in == -1 && shell->exec.redirs[0].fname_in)
 			perror(shell->exec.redirs[0].fname_in);
@@ -100,19 +104,13 @@ static int	exec_one_command(t_shell *shell)
 			dup2(shell->exec.redirs[0].fd_in, STDIN_FILENO);
 		if (shell->exec.redirs[0].fd_out != -1)
 			dup2(shell->exec.redirs[0].fd_out, STDOUT_FILENO);
-		if (shell->exec.pids[0] == -1)
-			return (free_exec(shell), 1);
+		setup_child_signals();
 		if (shell->exec.pids[0] == 0)
 			execute_command(shell, 0);
 	}
 	waitpid(shell->exec.pids[0], &status, 0);
+	set_exit_status(shell, status);
 	free_exec(shell);
-	if (WIFEXITED(status))
-		shell->last_exit = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		shell->last_exit = 128 + WTERMSIG(status);
-	else
-		shell->last_exit = status;
 	return (status);
 }
 
@@ -124,12 +122,11 @@ static int	end_pipe_exec(t_shell *shell)
 	i = 0;
 	close_all_pipes(shell);
 	while (shell->exec.commands[i])
+	{
 		waitpid(shell->exec.pids[i++], &status, 0);
+		set_exit_status(shell, status);
+	}
 	free_exec(shell);
-	if (WIFEXITED(status))
-		shell->last_exit = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		shell->last_exit = 128 + WTERMSIG(status);
 	return (status);
 }
 
@@ -145,6 +142,7 @@ static int	pipe_exec(t_shell *shell, int nb_commands)
 			return (free_exec(shell), 1);
 		if (shell->exec.pids[i] == 0)
 		{
+			setup_child_signals();
 			if (i == 0)
 				first_cmd(shell);
 			else if (i == nb_commands - 1)
