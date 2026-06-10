@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/10 16:03:06 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/10 17:46:32 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	free_split(char **splitted);
 void	print_tokens(t_shell *shell);
 int		strip_token_quotes(t_token *list);
 char	*expand_raw_prompt(char *prompt, t_shell *shell);
+int		inside_loop_strip(t_parsing *prs, char **new);
+char	*append_word(t_parsing *prs, char **new);
 
 /**********EXEX***********/
 int		exec(t_shell *shell);

@@ -6,13 +6,13 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 15:39:11 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:22:04 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/10 17:46:10 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
-static char	*append_word(t_parsing *prs, char **new)
+char	*append_word(t_parsing *prs, char **new)
 {
 	char	*tmp;
 
@@ -49,7 +49,7 @@ static int	inside_loop_expand(t_parsing *prs, t_shell *shell, char **new)
 
 // I need 2 index, the start and the end of every str I will not expand
 // i[0] is the start, i[1] the end
-static int	inside_loop_strip(t_parsing *prs, char **new)
+int	inside_loop_strip(t_parsing *prs, char **new)
 {
 	if (change_state(prs->old[prs->i[1]], &(prs->state)))
 	{

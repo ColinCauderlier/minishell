@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:06:16 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:21:29 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/10 15:47:32 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	free_close_redirs(t_shell *shell)
 	{
 		if (shell->exec.redirs[i].fd_in > 0)
 			close(shell->exec.redirs[i].fd_in);
+		if (shell->exec.redirs[i].delimiter)
+			unlink(shell->exec.redirs[i].fname_in);
 		if (shell->exec.redirs[i].fd_out > 1)
 			close(shell->exec.redirs[i].fd_out);
 		i++;
