@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/10 14:16:20 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/10 14:24:02 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ void	execute_command(t_shell *shell, int i)
 		free_all_error(shell, NULL, 127);
 	}
 	if (access(path, X_OK) != 0)
-	{
-		ft_fprintf(2, "minishell: %s: Permission denied\n", path);
-		free_all_error(shell, NULL, 126);
-	}
+		free_all_error(shell, &path, 126);
 	if (execve(path, shell->exec.commands[i], shell->envp) == -1)
 		free_all_error(shell, &path, 126);
 }
