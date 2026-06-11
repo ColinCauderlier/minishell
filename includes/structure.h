@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/10 14:35:50 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/11 14:31:01 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_token
 {
 	t_type			token_type;
 	char			*content;
+	int				got_quotes;
 	struct s_token	*next;
 }					t_token;
 

@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 15:39:11 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/10 17:46:10 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/11 14:39:12 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ int	strip_token_quotes(t_token *list)
 	new = append_word(&prs, &new);
 	if (!new)
 		return (0);
+	if (ft_strlen(new) != ft_strlen(prs.old))
+		list->got_quotes = 1;
 	free(list->content);
 	list->content = new;
 	return (1);

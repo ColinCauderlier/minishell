@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/10 18:03:35 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/11 16:13:55 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 	t_redirs	*redir;
 	char		*line;
 	char		*temp;
-	int		bool_expand_heredoc;
 
 	redir = shell->exec.redirs;
 	i = 0;
@@ -172,17 +171,29 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 		}
 		else if (list->token_type == HEREDOC_WW || list->token_type == HEREDOC)
 		{
-			bool_expand_heredoc = 1;
 			if (redir[i].fd_in != -1)
 				close(redir[i].fd_in);
 			if (list->token_type == HEREDOC_WW)
 				redir[i].delimiter = list->content + 2;
 			else
 				redir[i].delimiter = list->next->content;
-			if (ft_strchr(redir[i].delimiter, '\"') || ft_strchr(redir[i].delimiter, '\''))
-				bool_expand_heredoc = 0;
+			if (!redir[i].delimiter)
+			{
+				while (list->next && list->token_type != PIPE)
+					list = list->next;
+				continue ;
+			}
 			redir[i].delimiter = strip_delimiter_quotes(redir[i].delimiter);
-			redir[i].fname_in = ft_strjoin( ".", ft_itoa(i + 1));
+			temp = ft_itoa(i + 1);
+			if (!temp)
+			{
+				ft_fprintf(2, "Minishell: a malloc has failed\n");
+				while (list->next && list->token_type != PIPE)
+					list = list->next;
+				continue ;
+			}
+			redir[i].fname_in = ft_strjoin( ".", temp);
+			free(temp);
 			if (!redir[i].fname_in)
 			{
 				ft_fprintf(2, "Minishell: a malloc has failed\n");
@@ -200,15 +211,10 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 			}
 			while (1)
 			{
-				line = readline(">");
+				line = readline("> ");
 				if (!line)
 					break ;
-				if (ft_strncmp(line, redir[i].delimiter, ft_strlen(redir[i].delimiter) + 1) == 0)
-				{
-					free(line);
-					break;
-				}		
-				if (bool_expand_heredoc)
+				if (!list->got_quotes)
 				{
 					temp = expand_raw_prompt(line, shell);
 					free(line);
@@ -216,10 +222,14 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 						break ;
 					line = temp;
 				}
+				if (ft_strncmp(line, redir[i].delimiter, ft_strlen(redir[i].delimiter) + 1) == 0)
+				{
+					free(line);
+					break;
+				}		
 				ft_fprintf(redir[i].fd_in, "%s\n",line);
 				free(line);
 			}
-			free(redir[i].delimiter);
 			close(redir[i].fd_in);
 			redir[i].fd_in = open(redir[i].fname_in, O_RDONLY);
 		}

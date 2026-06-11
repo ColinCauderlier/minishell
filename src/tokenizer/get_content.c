@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:21:58 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/11 14:34:02 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ t_token	*get_content(char *str)
 		if (!str)
 			return (free_res(res, pos_res), NULL);
 		res[pos_res].next = &res[pos_res + 1];
+		res[pos_res].got_quotes = 0;
 		pos_res++;
 	}
 	res[pos_res].content = NULL;
