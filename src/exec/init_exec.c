@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/11 16:13:55 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/11 19:31:10 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,15 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 			if (redir[i].fd_out != -1)
 				close(redir[i].fd_out);
 			if (list->token_type == REDIR_OUT_WW)
-				redir[i].fname_out = list->content + 1;
+				redir[i].fname_out = ft_strdup(list->content + 1);
 			else
-				redir[i].fname_out = list->content + 2;
+				redir[i].fname_out = ft_strdup(list->content + 2);
+			if (!redir[i].fname_out)
+			{
+				while (list->next && list->token_type != PIPE)
+					list = list->next;
+				continue ;
+			}
 			if (list->token_type == REDIR_OUT_WW)
 				redir[i].fd_out = open(redir[i].fname_out,
 						O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -129,7 +135,13 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 		{
 			if (redir[i].fd_out != -1)
 				close(redir[i].fd_out);
-			redir[i].fname_out = list->next->content;
+			redir[i].fname_out = ft_strdup(list->next->content);
+			if (!redir[i].fname_out)
+			{
+				while (list->next && list->token_type != PIPE)
+					list = list->next;
+				continue ;
+			}
 			if (list->token_type == REDIR_OUT)
 				redir[i].fd_out = open(redir[i].fname_out,
 						O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -147,7 +159,13 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 		{
 			if (redir[i].fd_in != -1)
 				close(redir[i].fd_in);
-			redir[i].fname_in = list->content + 1;
+			redir[i].fname_in = ft_strdup(list->content + 1);
+			if (!redir[i].fname_in)
+			{
+				while (list->next && list->token_type != PIPE)
+					list = list->next;
+				continue ;
+			}
 			redir[i].fd_in = open(redir[i].fname_in, O_RDONLY);
 			if (redir[i].fd_in < 0)
 			{
@@ -160,7 +178,13 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 		{
 			if (redir[i].fd_in != -1)
 				close(redir[i].fd_in);
-			redir[i].fname_in = list->next->content;
+			redir[i].fname_in = ft_strdup(list->next->content);
+			if (!redir[i].fname_in)
+			{
+				while (list->next && list->token_type != PIPE)
+					list = list->next;
+				continue ;
+			}
 			redir[i].fd_in = open(redir[i].fname_in, O_RDONLY);
 			if (redir[i].fd_in < 0)
 			{
@@ -202,7 +226,7 @@ static int	init_redirs(t_shell *shell, int nb_pipes)
 				continue ;
 			}
 			redir[i].fd_in = open(redir[i].fname_in,
-				O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				O_WRONLY | O_CREAT | O_TRUNC, 0600);
 			if (redir[i].fd_in < 0)
 			{
 				while (list->next && list->token_type != PIPE)
@@ -242,6 +266,8 @@ int	init_exec(t_shell *shell)
 {
 	int	nb_pipes;
 
+	shell->exec.fdin_save = -1;
+	shell->exec.fdout_save = -1;
 	nb_pipes = get_nb_pipes(shell);
 	shell->exec.commands = ft_calloc(nb_pipes + 2, sizeof(char **));
 	if (!shell->exec.commands)

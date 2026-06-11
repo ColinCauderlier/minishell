@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/10 17:46:32 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/11 18:56:21 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int		exec(t_shell *shell);
 int		init_exec(t_shell *shell);
 void	free_exec(t_shell *shell);
 void	free_all_error(t_shell *shell, char **path, int exit_code);
+void	free_all(t_shell *shell, char **path, int exit_code);
 int		is_redir_wo_word(t_token *tkn);
 char	*find_path(char *command, char **envp);
 int		check_syntax_shell(t_shell *shell);

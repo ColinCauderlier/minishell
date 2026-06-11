@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 17:14:39 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:21:41 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/11 20:16:40 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,19 @@ int	is_redir_wo_word(t_token *tkn)
 static int	with_word_case(t_token *list)
 {
 	size_t	i;
-	int		charac_bool;
 	char	mess[2];
 
 	i = 0;
-	charac_bool = 1;
-	while (list->content[i] && charac_bool)
-	{
-		if (!is_redir_symbol(list->content[i]))
-		{
-			i--;
-			charac_bool = 0;
-		}
+	while (list->content[i] && is_redir_symbol(list->content[i]))
 		i++;
-	}
-	if (i == ft_strlen(list->content))
+	if (i > 2)
 	{
 		mess[0] = list->content[0];
-		if (list->content[1] == mess[0])
-			mess[1] = list->content[1];
+		if (i > 1 && list->content[1] == mess[0])
+		{
+			mess[0] = list->content[1];
+			mess[1] = '\0';
+		}
 		else
 			mess[1] = '\0';
 		return (ft_fprintf(2, "%s `%s'\n", STX_ERR, mess), 2);
@@ -55,9 +49,9 @@ static int	check_syntax_redir(t_shell *shell)
 	t_token	*list;
 
 	list = shell->tokens;
-	while (list && list->next)
+	while (list->content)
 	{
-		if (list->token_type == REDIR_IN_WW || list->token_type == REDIR_OUT_WW)
+		if (list->token_type == REDIR_IN_WW || list->token_type == REDIR_OUT_WW || list->token_type == HEREDOC_WW || list->token_type == REDIR_OUT_APP_MODE_WW)
 		{
 			if (with_word_case(list) == 2)
 				return (2);

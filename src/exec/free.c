@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:06:16 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/11 16:12:51 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/11 20:27:13 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,13 @@
 void	free_commands(t_shell *shell)
 {
 	int	i;
-	int	nb_commands;
 
 	i = 0;
 	if (!shell->exec.commands)
 		return ;
-	nb_commands = get_nb_pipes(shell) + 1;
-	while (i < nb_commands)
+	while (shell->exec.commands[i])
 	{
-		if (shell->exec.commands[i])
-			free_split(shell->exec.commands[i]);
+		free_split(shell->exec.commands[i]);
 		i++;
 	}
 	free(shell->exec.commands);
@@ -34,13 +31,11 @@ void	free_commands(t_shell *shell)
 void	free_close_redirs(t_shell *shell)
 {
 	int	i;
-	int	nb_commands;
 
 	i = 0;
 	if (!shell->exec.redirs)
 		return ;
-	nb_commands = get_nb_pipes(shell) + 1;
-	while (i < nb_commands)
+	while (shell->exec.commands[i])
 	{
 		if (shell->exec.redirs[i].fd_in > 0)
 			close(shell->exec.redirs[i].fd_in);
@@ -65,9 +60,26 @@ void	free_exec(t_shell *shell)
 {
 	close_all_pipes(shell);
 	free_all_pipes(shell);
-	free_commands(shell);
 	free_close_redirs(shell);
 	free(shell->exec.pids);
+	if (shell->exec.fdin_save != -1)
+		close(shell->exec.fdin_save);
+	if (shell->exec.fdout_save != -1)
+		close(shell->exec.fdout_save);
+	free_commands(shell);
+}
+
+void	free_all(t_shell *shell, char **path, int exit_code)
+{
+	if (path)
+	{
+		perror(*path);
+		free(*path);
+	}
+	free_exec(shell);
+	free_envp(shell);
+	free_all_tokens(shell);
+	shell->last_exit = exit_code;
 }
 
 void	free_all_error(t_shell *shell, char **path, int exit_code)
@@ -80,5 +92,8 @@ void	free_all_error(t_shell *shell, char **path, int exit_code)
 	free_exec(shell);
 	free_envp(shell);
 	free_all_tokens(shell);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
 	exit(exit_code);
 }

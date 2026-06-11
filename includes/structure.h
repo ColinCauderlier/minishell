@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/11 14:31:01 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/11 19:30:13 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct s_exec
 	int				**pipes;
 	int				*pids;
 	t_redirs		*redirs;
+	int				fdin_save;
+	int				fdout_save;
 }					t_exec;
 
 typedef struct s_parsing

@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 14:03:00 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/10 16:21:05 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/11 20:13:29 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	execute_command(t_shell *shell, int i)
 	int			status;
 	struct stat	statbuf;
 
-	if (!shell->exec.commands[i][0] || shell->exec.commands[i][0][0] == '\0')
+	if (!shell->exec.commands[i][0])
 		free_all_error(shell, NULL, 127);
 	status = check_builtin(shell->exec.commands[i]);
 	if (status)
@@ -27,8 +27,10 @@ void	execute_command(t_shell *shell, int i)
 		free_all_error(shell, NULL, status);
 	}
 	path = find_path(shell->exec.commands[i][0], shell->envp);
-	if (!path)
+	if (!path || shell->exec.commands[i][0][0] == '\0')
 	{
+		if (path)
+			free(path);
 		ft_fprintf(2, "minishell: %s: command not found\n",
 			shell->exec.commands[i][0]);
 		free_all_error(shell, NULL, 127);
@@ -54,11 +56,9 @@ void	execute_command(t_shell *shell, int i)
 		free_all_error(shell, &path, 126);
 }
 
-static int	exec_one_command(t_shell *shell)
+static int	exec_single_command(t_shell *shell)
 {
 	int	status;
-	int	fdin_save;
-	int	fdout_save;
 
 	if (!shell->exec.commands[0] || !shell->exec.commands[0][0])
 	{
@@ -74,22 +74,26 @@ static int	exec_one_command(t_shell *shell)
 			perror(shell->exec.redirs[0].fname_in);
 		else
 			perror(shell->exec.redirs[0].fname_out);
-		free_all_error(shell, NULL, 1);
+		free_exec(shell);
+		shell->last_exit = 1;
+		return (1);
 	}
 	status = check_builtin(shell->exec.commands[0]);
 	if (status)
 	{
-		fdin_save = dup(STDIN_FILENO);
-		fdout_save = dup(STDOUT_FILENO);
+		shell->exec.fdin_save = dup(STDIN_FILENO);
+		shell->exec.fdout_save = dup(STDOUT_FILENO);
 		if (shell->exec.redirs[0].fd_in > 0)
 			dup2(shell->exec.redirs[0].fd_in, STDIN_FILENO);
 		if (shell->exec.redirs[0].fd_out > 0)
 			dup2(shell->exec.redirs[0].fd_out, STDOUT_FILENO);
 		status = exec_builtin(shell, shell->exec.commands[0], status);
-		dup2(fdin_save, STDIN_FILENO);
-		dup2(fdout_save, STDOUT_FILENO);
-		close(fdin_save);
-		close(fdout_save);
+		dup2(shell->exec.fdin_save, STDIN_FILENO);
+		dup2(shell->exec.fdout_save, STDOUT_FILENO);
+		close(shell->exec.fdin_save);
+		shell->exec.fdin_save = -1;
+		close(shell->exec.fdout_save);
+		shell->exec.fdout_save = -1;
 		free_exec(shell);
 		free_all_tokens(shell);
 		shell->last_exit = status;
@@ -98,16 +102,23 @@ static int	exec_one_command(t_shell *shell)
 	shell->exec.pids[0] = fork();
 	if (shell->exec.pids[0] == 0)
 	{
-		if (shell->exec.pids[0] == -1)
-			return (free_exec(shell), 1);
 		if (shell->exec.redirs[0].fd_in != -1)
+		{
 			dup2(shell->exec.redirs[0].fd_in, STDIN_FILENO);
+			close(shell->exec.redirs[0].fd_in);
+			shell->exec.redirs[0].fd_in = -1;
+		}
 		if (shell->exec.redirs[0].fd_out != -1)
+		{
 			dup2(shell->exec.redirs[0].fd_out, STDOUT_FILENO);
+			close(shell->exec.redirs[0].fd_out);
+			shell->exec.redirs[0].fd_out = -1;
+		}
 		setup_child_signals();
-		if (shell->exec.pids[0] == 0)
-			execute_command(shell, 0);
+		execute_command(shell, 0);
 	}
+	if (shell->exec.pids[0] == -1)
+		return (free_exec(shell), 1);
 	waitpid(shell->exec.pids[0], &status, 0);
 	set_exit_status(shell, status);
 	free_exec(shell);
@@ -172,7 +183,7 @@ int	exec(t_shell *shell)
 	if (nb_commands == -2)
 		return (free_exec(shell), 0);
 	else if (nb_commands == 1)
-		return (exec_one_command(shell));
+		return (exec_single_command(shell));
 	else
 		return (pipe_exec(shell, nb_commands));
 	return (shell->last_exit);

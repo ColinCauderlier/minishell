@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 18:40:40 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/06/03 14:20:41 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/11 19:53:17 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ static void	cleanup_before_exit(t_shell *shell)
 	free_exec(shell);
 	free_envp(shell);
 	free_all_tokens(shell);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
 }
 
 int	ft_exit(char **cmd, t_shell *shell)
