@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/12 15:05:21 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/12 17:07:52 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,3 @@ int	tokenize(char *prompt, t_shell *shell)
 	shell->nb_token = count_nb_token(shell->tokens);
 	return (0);
 }
-//	print_tokens(shell);

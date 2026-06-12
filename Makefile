@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 11:38:44 by lucinguy          #+#    #+#              #
-#    Updated: 2026/06/12 16:42:32 by ccauderl         ###   ########.fr        #
+#    Updated: 2026/06/12 17:08:36 by ccauderl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ SRCS		:= 	tokenizer/tokenize.c \
 			tokenizer/expander.c \
 			tokenizer/expander_utils.c \
 			tokenizer/get_new_content.c \
-			tokenizer/temp.c \
 			exec/exec.c \
 			exec/init_exec.c \
 			exec/init_redir.c \
