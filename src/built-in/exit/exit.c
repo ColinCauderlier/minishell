@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 18:40:40 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/06/11 19:53:17 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/12 12:46:23 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	ft_exit(char **cmd, t_shell *shell)
 {
 	int	status;
 
+	ft_fprintf(1, "exit\n", 1);
 	if (cmd[1] && cmd[2])
 		return (ft_fprintf(2, "minishell: exit: too many arguments\n"), 1);
 	if (!cmd[1])

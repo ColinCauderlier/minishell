@@ -6,11 +6,21 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 13:04:03 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/04 17:21:14 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/12 14:47:47 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
+
+static int	get_len_command(char **command)
+{
+	int	len_command;
+
+	len_command = 0;
+	while (command[len_command])
+		len_command++;
+	return (len_command);
+}
 
 // If the command is a builtin, return its id, return 0 otherwise
 int	check_builtin(char **command)
@@ -34,13 +44,24 @@ int	check_builtin(char **command)
 	return (0);
 }
 
+int	exec_builtin_2(t_shell *shell, char **command, int id)
+{
+	if (id == 4)
+		return (export(command, shell));
+	if (id == 5)
+		return (echo(command));
+	if (id == 6)
+		return (unset(command, shell));
+	if (id == 7)
+		return (ft_exit(command, shell));
+	return (0);
+}
+
 int	exec_builtin(t_shell *shell, char **command, int id)
 {
 	int	len_command;
 
-	len_command = 0;
-	while (command[len_command])
-		len_command++;
+	len_command = get_len_command(command);
 	if (id == 1)
 	{
 		if (len_command > 2)
@@ -55,13 +76,5 @@ int	exec_builtin(t_shell *shell, char **command, int id)
 			return (ft_fprintf(2, "minishell: env: too many arguments\n"), 1);
 		return (env(shell));
 	}
-	if (id == 4)
-		return (export(command, shell));
-	if (id == 5)
-		return (echo(command));
-	if (id == 6)
-		return (unset(command, shell));
-	if (id == 7)
-		return (ft_exit(command, shell));
-	return (0);
+	return (exec_builtin_2(shell, command, id));
 }

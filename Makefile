@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 11:38:44 by lucinguy          #+#    #+#              #
-#    Updated: 2026/06/11 19:04:29 by ccauderl         ###   ########.fr        #
+#    Updated: 2026/06/12 16:42:32 by ccauderl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,14 +28,19 @@ SRCS		:= 	tokenizer/tokenize.c \
 			tokenizer/get_content.c \
 			tokenizer/free_lst.c \
 			tokenizer/expander.c \
+			tokenizer/expander_utils.c \
 			tokenizer/get_new_content.c \
 			tokenizer/temp.c \
 			exec/exec.c \
 			exec/init_exec.c \
+			exec/init_redir.c \
+			exec/init_redirs_utils.c \
+			exec/heredoc.c \
 			exec/builtin_exec.c \
 			exec/path.c \
 			exec/free.c \
 			exec/free_pipes_and_pids.c \
+			exec/single_command.c \
 			exec/syntax.c \
 			exec/commands.c \
 			exec/get_commands.c \

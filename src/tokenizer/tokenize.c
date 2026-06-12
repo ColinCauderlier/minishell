@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:44:46 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/11 19:17:41 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/12 15:05:21 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,26 @@
 // Lexer, associe le type du token a ce dernier
 static void	get_all_types(t_token *lst)
 {
-	if (!lst)
-		return ;
 	while (lst && lst->content)
 	{
 		if (ft_strncmp(lst->content, "|", 2) == 0)
 			lst->token_type = PIPE;
 		else if (ft_strncmp(lst->content, "<<", 3) == 0)
 			lst->token_type = HEREDOC;
-		else if (ft_strncmp(lst->content, ">>", 3) == 0)
-			lst->token_type = REDIR_OUT_APP_MODE;
-		else if (ft_strncmp(lst->content, ">>", 2) == 0)
-			lst->token_type = REDIR_OUT_APP_MODE_WW;
 		else if (ft_strncmp(lst->content, "<<", 2) == 0)
 			lst->token_type = HEREDOC_WW;
+		else if (ft_strncmp(lst->content, ">>", 3) == 0)
+			lst->token_type = RED_OUT_APP_MODE;
+		else if (ft_strncmp(lst->content, ">>", 2) == 0)
+			lst->token_type = RED_OUT_APP_MODE_WW;
 		else if (ft_strncmp(lst->content, "<", 2) == 0)
-			lst->token_type = REDIR_IN;
+			lst->token_type = RED_IN;
 		else if (ft_strncmp(lst->content, "<", 1) == 0)
-			lst->token_type = REDIR_IN_WW;
+			lst->token_type = RED_IN_WW;
 		else if (ft_strncmp(lst->content, ">", 2) == 0)
-			lst->token_type = REDIR_OUT;
+			lst->token_type = RED_OUT;
 		else if (ft_strncmp(lst->content, ">", 1) == 0)
-			lst->token_type = REDIR_OUT_WW;
+			lst->token_type = RED_OUT_WW;
 		else
 			lst->token_type = WORD;
 		lst = lst->next;

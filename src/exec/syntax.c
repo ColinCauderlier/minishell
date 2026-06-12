@@ -6,20 +6,11 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 17:14:39 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/11 20:16:40 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/12 15:03:28 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
-
-int	is_redir_wo_word(t_token *tkn)
-{
-	if (tkn->token_type == REDIR_IN || tkn->token_type == REDIR_OUT)
-		return (1);
-	if (tkn->token_type == HEREDOC || tkn->token_type == REDIR_OUT_APP_MODE)
-		return (1);
-	return (0);
-}
 
 static int	with_word_case(t_token *list)
 {
@@ -51,7 +42,7 @@ static int	check_syntax_redir(t_shell *shell)
 	list = shell->tokens;
 	while (list->content)
 	{
-		if (list->token_type == REDIR_IN_WW || list->token_type == REDIR_OUT_WW || list->token_type == HEREDOC_WW || list->token_type == REDIR_OUT_APP_MODE_WW)
+		if (is_redir_ww(list))
 		{
 			if (with_word_case(list) == 2)
 				return (2);

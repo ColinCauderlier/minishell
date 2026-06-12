@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/11 18:56:21 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/12 16:59:39 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,22 @@ t_token	*get_content(char *s);
 int		ft_isspace(char c);
 int		ft_isquote(char c);
 int		is_redir_symbol(char c);
-int		is_expand_lim(char c);
 void	free_res(t_token *res, int pos_res);
 void	free_all_tokens(t_shell *shell);
-int		expand(t_parsing *prs, char **new, t_shell *shell);
 int		change_state(char c, t_state *state);
 void	free_split(char **splitted);
 void	print_tokens(t_shell *shell);
 int		strip_token_quotes(t_token *list);
-char	*expand_raw_prompt(char *prompt, t_shell *shell);
 int		inside_loop_strip(t_parsing *prs, char **new);
 char	*append_word(t_parsing *prs, char **new);
+
+/**********EXPANDER***********/
+int		expand(t_parsing *prs, char **new, t_shell *shell);
+int		is_expand_lim(char c);
+int		get_new_len(char *str);
+char	*expand_raw_prompt(char *prompt, t_shell *shell);
+char	*trim_spaces(char *str, int i, int j);
+char	*get_expand(char *str, char **envp);
 
 /**********EXEX***********/
 int		exec(t_shell *shell);
@@ -39,7 +44,6 @@ int		init_exec(t_shell *shell);
 void	free_exec(t_shell *shell);
 void	free_all_error(t_shell *shell, char **path, int exit_code);
 void	free_all(t_shell *shell, char **path, int exit_code);
-int		is_redir_wo_word(t_token *tkn);
 char	*find_path(char *command, char **envp);
 int		check_syntax_shell(t_shell *shell);
 void	close_all_pipes(t_shell *shell);
@@ -53,6 +57,15 @@ int		check_builtin(char **command);
 int		exec_builtin(t_shell *shell, char **command, int id);
 char	**get_commands(t_token *tokens);
 int		get_nb_pipes(t_shell *shell);
+int		exec_single_command(t_shell *shell);
+
+/**********REDIRECTIONS***********/
+int		get_redirs(t_shell *shell, int nb_pipes);
+t_token	*heredoc(t_redirs redir, t_shell *shell, t_token *list, int i);
+t_token	*goto_next_command(t_token *list, int bool_message);
+char	*strip_delimiter_quotes(char *del);
+int		is_redir_wo_word(t_token *tkn);
+int		is_redir_ww(t_token *tkn);
 
 /**********ENVP***********/
 void	init_envp(t_shell *shell, char **env);
