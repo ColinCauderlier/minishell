@@ -6,7 +6,7 @@
 /*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 13:12:03 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/15 15:25:13 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/15 16:27:37 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	heredoc_loop(t_shell *shell, t_token *list, t_redirs redir, char *line)
 void	free_previous_infile(t_redirs *redir)
 {
 	if (redir->fname_in)
-			free(redir->fname_in);
+		free(redir->fname_in);
 	if (redir->delimiter)
-			free(redir->delimiter);
+		free(redir->delimiter);
 }
 
 t_token	*heredoc(t_redirs *redir, t_shell *shell, t_token *list, int i)
