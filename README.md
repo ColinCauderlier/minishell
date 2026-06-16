@@ -2,7 +2,7 @@
 
 # Minishell
 
-_lucinguy & ccaudel_  
+_lucinguy & ccauderl_  
 _(piscine of september's 2025 - 42 PARIS)_ 
 
 ## Description
