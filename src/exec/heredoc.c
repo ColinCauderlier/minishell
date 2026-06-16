@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccauderl <ccauderl@learner.42.tech>        +#+  +:+       +#+        */
+/*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 13:12:03 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/15 16:27:37 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/16 19:55:04 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	heredoc_loop(t_shell *shell, t_token *list, t_redirs redir, char *line)
 				break ;
 			line = temp;
 		}
-		if (ft_strncmp(line, redir.delimiter,
-				ft_strlen(redir.delimiter) + 1) == 0)
+		if (ft_strncmp(line, redir.delimiter, ft_strlen(redir.delimiter)
+				+ 1) == 0 || setup_signal_heredoc())
 		{
 			free(line);
 			break ;

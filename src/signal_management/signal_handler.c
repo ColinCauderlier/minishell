@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:55:40 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/06/10 16:08:11 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/16 18:21:01 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,21 @@ void	set_exit_status(t_shell *shell, int status)
 	}
 	else
 		shell->last_exit = status;
+}
+
+int	setup_signal_heredoc(void)
+{
+	struct sigaction	sa;
+	int sig = 0;
+	sa.sa_handler = sig_heredoc;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	sig = sigaction(SIGINT, &sa, NULL);
+	sig = sigaction(SIGQUIT, &sa, NULL);
+	return sig;
+}
+
+void	sig_heredoc(int sig)
+{
+	(void)sig;
 }

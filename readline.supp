@@ -1,3 +1,5 @@
+//valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes ./minishell
+
 #https://github.com/Oswen1623/minishell/blob/644d37d187d9aa2a77aa0120aeadc6fcc7264190
 {
     leak readline
