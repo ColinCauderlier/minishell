@@ -2,9 +2,15 @@
 
 # Minishell
 
+_lucinguy & ccaudel_  
+_(piscine of september's 2025 - 42 PARIS)_ 
+
 ## Description
 
-The **Minishell** project is about writing our own shell, based on bash posix.
+The **Minishell** project is about writing our own shell, based on bash posix. A shell is a command language interpreter.
+
+### Instructions
+
 It must contain the following features :
 - Display of a prompt when waiting for a new command
 - Have a working history
@@ -27,12 +33,43 @@ It must contain the following features :
 	- env (with no argument)
 	- exit
 
+### Parts
+
+We divided the project into several sections :
+- Signal : handle the received signals and execute the right behaviour
+- Environment : manage the environment variables and recreate some if none are accessible
+- Tokenizer : expand environment variables, divide the received prompt into tokens, assign to each token a type (ex: WORD, PIPE, REDIRECTION, ...)
+- Execution : Execute the commands and the redirections
+- Built-in : the built-in functions, which are accessible even if there is no environment variable.
+
 ## Instructions
 
+***Usage***  
+1) make all
+2) ./minishell (no args)
+3) execute commands in our minishell
 
+***Examples***  
+*in minishell :*
+```bash
+> ls -la | grep "." | wc
+> < Makefile wc | cat > out
+> << EOF cat
+> echo "hi $USER, you're currently here : $PWD"
+> export NEWVAR=blabla (then again export to see the result)
+> unset NEWVAR
+> cd srcs/
+> echo -n hello >> out
+> echo $?
+> env
+> pwd
+```  
+
+***Check leaks***  
+valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 
 ## Resources
-A pretty precise description of Bash and Shell : Bash Reference Manual
+Bash Reference Manual :
 https://www.gnu.org/software/bash/manual/bash.html#What-is-Bash_003f
 
 A tutorial to start the tokenizer :
