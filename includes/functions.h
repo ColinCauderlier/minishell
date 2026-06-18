@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/18 15:19:46 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/18 17:13:49 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int			exec_single_command(t_shell *shell);
 /**********REDIRECTIONS***********/
 int			get_redirs(t_shell *shell, int nb_pipes);
 t_token		*heredoc(t_redirs *redir, t_shell *shell, t_token *list, int i);
+void		free_previous_infile(t_redirs *redir);
+void		get_delimiter(t_token *list, t_redirs *redir);
 t_token		*goto_next_command(t_token *list, int bool_message);
 char		*strip_delimiter_quotes(char *del);
 int			is_redir_wo_word(t_token *tkn);

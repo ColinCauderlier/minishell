@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 13:12:03 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/18 16:32:58 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/18 17:20:45 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,29 @@
 
 int			g_signal = 0;
 
-static void	get_delimiter(t_token *list, t_redirs *redir)
+void	heredoc_expand(t_shell *shell, char **line)
 {
-	if (list->token_type == HEREDOC_WW)
-		redir->delimiter = list->content + 2;
-	else
-		redir->delimiter = list->next->content;
-	redir->delimiter = strip_delimiter_quotes(redir->delimiter);
+	char	*temp;
+
+	temp = expand_raw_prompt(*line, shell);
+	free(*line);
+	*line = temp;
 }
 
 void	heredoc_loop(t_shell *shell, t_token *list, t_redirs redir, char *line)
 {
-	char	*temp;
-
-	temp = NULL;
-	setup_signal_heredoc();
 	while (1)
 	{
 		line = readline("> ");
-		if (g_signal == SIGINT || g_signal == SIGQUIT)
-			break ;
 		if (!line)
 		{
-			ft_fprintf(2,
-				"minishell: warning: here-document delimited by end-of-file\n");
+			ft_fprintf(2, HERE_ERR);
 			break ;
 		}
 		if (!list->got_quotes)
-		{
-			temp = expand_raw_prompt(line, shell);
-			free(line);
-			if (!temp)
-				break ;
-			line = temp;
-		}
+			heredoc_expand(shell, &line);
+		if (!line)
+			break ;
 		if (ft_strncmp(line, redir.delimiter, ft_strlen(redir.delimiter)
 				+ 1) == 0)
 		{
@@ -59,18 +48,22 @@ void	heredoc_loop(t_shell *shell, t_token *list, t_redirs redir, char *line)
 	}
 }
 
-void	free_previous_infile(t_redirs *redir)
+void	end_heredoc(t_shell *shell, t_token *list, t_redirs *redir)
 {
-	if (redir->fname_in)
-		free(redir->fname_in);
-	if (redir->delimiter)
-		free(redir->delimiter);
+	int		saved_stdin;
+
+	saved_stdin = dup(STDIN_FILENO);
+	setup_signal_heredoc();
+	heredoc_loop(shell, list, *redir, "");
+	dup2(saved_stdin, STDIN_FILENO);
+	close(saved_stdin);
+	close(redir->fd_in);
+	redir->fd_in = open(redir->fname_in, O_RDONLY);
 }
 
 t_token	*heredoc(t_redirs *redir, t_shell *shell, t_token *list, int i)
 {
 	char	*temp;
-	int		saved_stdin;
 
 	if (redir->fd_in != -1)
 		close(redir->fd_in);
@@ -88,20 +81,6 @@ t_token	*heredoc(t_redirs *redir, t_shell *shell, t_token *list, int i)
 	redir->fd_in = open(redir->fname_in, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (redir->fd_in < 0)
 		return (goto_next_command(list, 1));
-	saved_stdin = dup(STDIN_FILENO);
-	heredoc_loop(shell, list, *redir, "");
-	dup2(saved_stdin, STDIN_FILENO);
-	close(saved_stdin);
-	close(redir->fd_in);
-	redir->fd_in = open(redir->fname_in, O_RDONLY);
+	end_heredoc(shell, list, redir);
 	return (list);
-}
-void	setup_signal_heredoc(void)
-{
-	struct sigaction	sa;
-
-	sa.sa_handler = sig_heredoc;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
-	sigaction(SIGINT, &sa, NULL);
 }

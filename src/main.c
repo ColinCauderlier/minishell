@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/18 16:35:54 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/18 16:43:01 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	main_loop(t_shell *shell, int status)
 	prompt = "";
 	while (1)
 	{
-		// tcsetattr(STDIN_FILENO, TCSANOW, &(shell->term_ctl));
+		tcsetattr(STDIN_FILENO, TCSANOW, &(shell->term_ctl));
 		prompt = readline("Minishell > ");
 		if (!prompt)
 		{
@@ -85,8 +85,8 @@ int	main(int argc, char **argv, char **envp)
 	init_envp(&shell, envp);
 	shell.last_exit = 0;
 	status = 0;
-	// if (tcgetattr(STDIN_FILENO, &(shell.term_ctl)) == -1)
-	// 	return (perror("minishell: "), errno);
+	if (tcgetattr(STDIN_FILENO, &(shell.term_ctl)) == -1)
+		return (perror("minishell: "), errno);
 	if (main_loop(&shell, status))
 		return (1);
 	free_envp(&shell);

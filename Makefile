@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 11:38:44 by lucinguy          #+#    #+#              #
-#    Updated: 2026/06/12 17:08:36 by ccauderl         ###   ########.fr        #
+#    Updated: 2026/06/18 17:10:00 by ccauderl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS		:= 	tokenizer/tokenize.c \
 			exec/init_redir.c \
 			exec/init_redirs_utils.c \
 			exec/heredoc.c \
+			exec/heredoc_utils.c \
 			exec/builtin_exec.c \
 			exec/path.c \
 			exec/free.c \

@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:25:48 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/12 14:51:57 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/18 16:56:39 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define STRUCTURE_H
 
 # define STX_ERR "minishell: syntax error near unexpected token"
+# define HERE_ERR "minishell: warning: here-document delimited by end-of-file\n"
 
 // PIPE : |
 // REDIR_IN : <
