@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:36:08 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/18 16:43:01 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/18 20:07:13 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ void	free_envp(t_shell *shell)
 
 static int	main_loop(t_shell *shell, int status)
 {
-	char				*prompt;
+	char	*prompt;
 
 	prompt = "";
 	while (1)
 	{
+		setup_signal_inter();
 		tcsetattr(STDIN_FILENO, TCSANOW, &(shell->term_ctl));
 		prompt = readline("Minishell > ");
 		if (!prompt)
@@ -69,18 +70,11 @@ static int	main_loop(t_shell *shell, int status)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_shell				shell;
-	int					status;
-	struct sigaction	sa;
+	t_shell	shell;
+	int		status;
 
 	(void)argv;
 	(void)argc;
-	sa.sa_handler = sig_handler;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART;
-	if (sigaction(SIGINT, &sa, NULL) == -1 || signal(SIGQUIT,
-			SIG_IGN) == SIG_ERR)
-		return (perror("minishell: signal"), 1);
 	shell = (t_shell){0};
 	init_envp(&shell, envp);
 	shell.last_exit = 0;
@@ -90,5 +84,7 @@ int	main(int argc, char **argv, char **envp)
 	if (main_loop(&shell, status))
 		return (1);
 	free_envp(&shell);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
 	return (0);
 }

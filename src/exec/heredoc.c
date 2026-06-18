@@ -6,13 +6,13 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 13:12:03 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/18 17:44:26 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/18 20:02:21 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
 
-int			g_signal = 0;
+int		g_signal = 0;
 
 void	heredoc_expand(t_shell *shell, char **line)
 {
@@ -30,7 +30,7 @@ void	heredoc_loop(t_shell *shell, t_token *list, t_redirs redir, char *line)
 		line = readline("> ");
 		if (!line)
 		{
-			if (g_signal == SIGQUIT)
+			if (g_signal != SIGINT)
 				ft_fprintf(2, HERE_ERR);
 			break ;
 		}
@@ -51,7 +51,7 @@ void	heredoc_loop(t_shell *shell, t_token *list, t_redirs redir, char *line)
 
 void	end_heredoc(t_shell *shell, t_token *list, t_redirs *redir)
 {
-	int		saved_stdin;
+	int	saved_stdin;
 
 	saved_stdin = dup(STDIN_FILENO);
 	setup_signal_heredoc();
@@ -83,5 +83,6 @@ t_token	*heredoc(t_redirs *redir, t_shell *shell, t_token *list, int i)
 	if (redir->fd_in < 0)
 		return (goto_next_command(list, 1));
 	end_heredoc(shell, list, redir);
+	setup_signal_inter();
 	return (list);
 }

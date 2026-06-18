@@ -6,11 +6,27 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:55:40 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/06/18 16:25:12 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/06/18 20:02:56 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/includes.h"
+
+// Set up signals for interactive mode
+int	setup_signal_inter(void)
+{
+	struct sigaction	sa;
+
+	sa.sa_handler = sig_handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &sa, NULL);
+	g_signal = 0;
+	if (sigaction(SIGINT, &sa, NULL) == -1 || signal(SIGQUIT,
+			SIG_IGN) == SIG_ERR)
+		return (perror("minishell: signal"), 1);
+	return (0);
+}
 
 // Signals for interactive mode
 void	sig_handler(int sig)
@@ -18,12 +34,9 @@ void	sig_handler(int sig)
 	if (sig == SIGINT)
 	{
 		write(STDOUT_FILENO, "\n", 1);
-		if (rl_readline_state & RL_STATE_READCMD)
-		{
-			rl_on_new_line();
-			rl_replace_line("", 0);
-			rl_redisplay();
-		}
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 }
 
@@ -53,8 +66,8 @@ void	sig_heredoc(int sig)
 {
 	if (sig == SIGINT)
 	{
-		g_signal = sig;
+		write(1, "\n", 1);
 		close(STDIN_FILENO);
-		ft_fprintf(1, "\n");
 	}
+	g_signal = sig;
 }

@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:47:30 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/18 17:13:49 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/18 18:42:32 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void		ft_sort_strings(int num, char **s);
 void		free_envp(t_shell *shell);
 
 /*********SIGNALS**********/
+int			setup_signal_inter(void);
 void		sig_handler(int sig);
 void		setup_child_signals(void);
 void		set_exit_status(t_shell *shell, int status);
