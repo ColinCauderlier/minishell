@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 13:12:03 by ccauderl          #+#    #+#             */
-/*   Updated: 2026/06/18 17:20:45 by ccauderl         ###   ########.fr       */
+/*   Updated: 2026/06/18 17:44:26 by ccauderl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	heredoc_loop(t_shell *shell, t_token *list, t_redirs redir, char *line)
 		line = readline("> ");
 		if (!line)
 		{
-			ft_fprintf(2, HERE_ERR);
+			if (g_signal == SIGQUIT)
+				ft_fprintf(2, HERE_ERR);
 			break ;
 		}
 		if (!list->got_quotes)
