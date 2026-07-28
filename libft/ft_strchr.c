@@ -27,22 +27,3 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)s);
 	return (NULL);
 }
-
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	char	*haystack;
-	int		needle;
-	char	*res;
-
-	haystack = "Bonjour je m'appelle Oswen.\n";
-	needle = 'j';
-	res = ft_strchr(haystack, needle);
-	if (!res)
-		printf("Pas trouvee.\n");
-	else
-		printf("Occurrence trouvee : %s\n", res);
-}
-*/

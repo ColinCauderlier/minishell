@@ -24,24 +24,3 @@ int	ft_lstsize(t_list *lst)
 	}
 	return (i);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	t_list	*a;
-	t_list	*b;
-	t_list	*c;
-
-	a = ft_lstnew("Three");
-	b = ft_lstnew("Two");
-	c = ft_lstnew("One");
-	a->next = b;
-	b->next = c;
-	printf("size = %d\n", ft_lstsize(a));
-	free(c);
-	free(b);
-	free(a);
-	return (0);
-}
-*/

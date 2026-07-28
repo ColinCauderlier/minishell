@@ -38,31 +38,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	out[end - start] = '\0';
 	return (out);
 }
-
-// #include <stdio.h>
-// #include <stdlib.h>
-
-// int	main(void)
-// {
-// 	const char	*in[] = {"   Hello World   ", "\n\t 42 School \t\n",
-// 			"Pas d'espace", "      ", "", NULL};
-// 	size_t		i;
-// 	char		*out;
-
-// 	i = 0;
-// 	while (in[i])
-// 	{
-// 		out = ft_strtrim(in[i], " \n\t");
-// 		printf("Input : [%s]\n", in[i] ? in[i] : "(NULL)");
-// 		if (out)
-// 		{
-// 			printf("Output: [%s]\n", out);
-// 			free(out);
-// 		}
-// 		else
-// 			printf("Output: (NULL)\n");
-// 		printf("----------\n");
-// 		i++;
-// 	}
-// 	return (0);
-// }

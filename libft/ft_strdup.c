@@ -33,16 +33,3 @@ char	*ft_strdup(const char *s)
 	dup[len] = '\0';
 	return (dup);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	char	*copy;
-
-	copy = ft_strdup("Hello 42");
-	printf("Duplicate: %s\n", copy);
-	free(copy);
-	return (0);
-}
-*/

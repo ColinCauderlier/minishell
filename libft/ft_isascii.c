@@ -19,17 +19,3 @@ int	ft_isascii(int c)
 	else
 		return (0);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	int	c;
-
-	c = 128;
-	if (!ft_isascii(c))
-		printf("Ce n'est pas un ASCII.\n");
-	else
-		printf("C'est un ASCII.\n");
-}
-*/

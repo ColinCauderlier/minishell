@@ -38,18 +38,3 @@ char	*ft_strappend(char *s1, char *s2)
 	res[i] = '\0';
 	return (free(s1), free(s2), res);
 }
-
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	char	s1[] = "hello ";
-	char	s2[] = "world\n";
-	char	*s3;
-
-	s3 = ft_strjoin(s1, s2);
-	printf("%s", s3);
-	free(s3);
-}
-*/

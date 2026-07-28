@@ -12,16 +12,6 @@
 
 #include "libft.h"
 
-// size_t	ft_strlen(const char *s)
-// {
-// 	int	len;
-
-// 	len = 0;
-// 	while (s[len] != '\0')
-// 		len++;
-// 	return (len);
-// }
-
 void	ft_putstr_fd(char const *s, int fd)
 {
 	size_t	len;
@@ -31,8 +21,3 @@ void	ft_putstr_fd(char const *s, int fd)
 	len = ft_strlen(s);
 	write(fd, s, len);
 }
-
-// int	main(void)
-// {
-// 	ft_putstr_fd("oui\n", 1);
-// }

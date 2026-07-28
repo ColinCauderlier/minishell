@@ -25,20 +25,3 @@ t_list	*ft_lstlast(t_list *lst)
 	}
 	return (tmp);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	t_list	*a;
-	t_list	*b;
-
-	a = ft_lstnew("First");
-	b = ft_lstnew("Last");
-	a->next = b;
-	printf("%s\n", (char *)ft_lstlast(a)->content);
-	free(b);
-	free(a);
-	return (0);
-}
-*/

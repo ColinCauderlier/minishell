@@ -40,15 +40,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	out[i] = '\0';
 	return (out);
 }
-
-// #include <stdio.h>
-
-// int	main(void)
-// {
-// 	char string[] = "hello world?";
-// 	unsigned int start = 6;
-// 	size_t len = 5;
-// 	char *newstring = ft_substr(string, start, len);
-// 	printf("%s\n", newstring);
-// 	free(newstring);
-// }

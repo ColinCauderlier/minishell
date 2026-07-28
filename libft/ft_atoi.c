@@ -36,26 +36,3 @@ int	ft_atoi(const char *str)
 	}
 	return ((int)(result * sign));
 }
-
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	char	test1[] = "234";
-	char	test2[] = "+6543";
-	char	test3[] = "--1234";
-	char	test4[] = "9B123";
-	int		a;
-	int		b;
-	int		c;
-	int		d;
-
-	a = ft_atoi(test1);
-	b = ft_atoi(test2);
-	c = ft_atoi(test3);
-	d = ft_atoi(test4);
-	printf("%d, %d, %d, %d\n", a, b, c, d);
-	return (0);
-}
-*/

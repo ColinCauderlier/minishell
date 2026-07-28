@@ -25,22 +25,3 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 	}
 	*s++ = '\0';
 }
-/*
-#include <stdio.h>
-
-void	to_upper(unsigned int i, char *c)
-{
-	(void)i;
-	if (*c >= 'a' && *c <= 'z')
-		*c -= 32;
-}
-
-int	main(void)
-{
-	char	string[] = "hello\n";
-
-	printf("Before : %s", string);
-	ft_striteri(string, to_upper_even);
-	printf("After : %s", string);
-}
-*/

@@ -19,11 +19,3 @@ void	ft_putendl_fd(char *s, int fd)
 	write(fd, s, ft_strlen(s));
 	write(fd, "\n", 1);
 }
-/*
-int	main(int argc, char **argv)
-{
-	if (argc == 2)
-		ft_putendl_fd(argv[1], 1);
-	return (0);
-}
-*/

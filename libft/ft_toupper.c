@@ -18,19 +18,3 @@ int	ft_toupper(int c)
 		c -= 32;
 	return (c);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	int		c;
-	char	chav;
-	char	chap;
-
-	c = 'a';
-	chav = c;
-	printf("Avant : %c\n", chav);
-	chap = ft_toupper(c);
-	printf("Apres : %c\n", chap);
-}
-*/

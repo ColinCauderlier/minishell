@@ -34,24 +34,3 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	}
 	return (NULL);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	char	*s1;
-	char	*s2;
-	size_t	n;
-	char	*resultat;
-
-	s1 = "Bonjour";
-	s2 = "jour";
-	n = 7;
-	resultat = ft_strnstr(s1, s2, n);
-	if (resultat)
-		printf("Found: %s\n", resultat);
-	else
-		printf("Not found\n");
-	return (0);
-}
-*/

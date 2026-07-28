@@ -94,32 +94,3 @@ char	**ft_split(char const *s, char c)
 	arr[i] = NULL;
 	return (arr);
 }
-/*
-#include <stdio.h>
-
-int	main(int argc, char **argv)
-{
-	char	**res;
-	int		i;
-
-	if (argc != 3)
-	{
-		printf("Error : invalid arguments");
-	}
-	res = ft_split(argv[2], argv[1][0]);
-	if (!res)
-	{
-		printf("NULL\n");
-		return (2);
-	}
-	i = 0;
-	while (res[i])
-	{
-		printf("%s\n", res[i]);
-		free(res[i]);
-		i++;
-	}
-	free(res);
-	return (0);
-}
-*/

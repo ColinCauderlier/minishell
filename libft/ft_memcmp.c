@@ -23,18 +23,3 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 		return (*(unsigned char *)(s1 + i) - *(unsigned char *)(s2 + i));
 	return (0);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	const void	*s1 = "oui";
-	const void	*s2 = "oun";
-	size_t		n;
-	int			i;
-
-	n = 2;
-	i = ft_memcmp(s1, s2, n);
-	printf("%d", i);
-}
-*/

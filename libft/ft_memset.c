@@ -26,15 +26,3 @@ void	*ft_memset(void *b, int c, size_t len)
 	}
 	return (b);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	char	str[20] = "Hello";
-
-	ft_memset(str + 2, 'X', 3);
-	printf("Result: %s\n", str);
-	return (0);
-}
-*/

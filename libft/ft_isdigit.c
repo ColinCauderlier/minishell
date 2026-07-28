@@ -19,17 +19,3 @@ int	ft_isdigit(int c)
 	else
 		return (0);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	int	c;
-
-	c = 'a';
-	if (!ft_isdigit(c))
-		printf("Ce n'est pas un digit.\n");
-	else
-		printf("C'est un digit.\n");
-}
-*/

@@ -28,20 +28,3 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		last = last->next;
 	last->next = new;
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	t_list	*a;
-	t_list	*b;
-
-	a = ft_lstnew("First");
-	b = ft_lstnew("Second");
-	ft_lstadd_back(&a, b);
-	printf("%s\n", (char *)a->next->content);
-	free(b);
-	free(a);
-	return (0);
-}
-*/

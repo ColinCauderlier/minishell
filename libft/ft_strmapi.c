@@ -33,36 +33,3 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	newstring[i] = '\0';
 	return (newstring);
 }
-/*
-char	toggle_case_i(unsigned int i, char c)
-{
-	(void)i;
-	if (c >= 'a' && c <= 'z')
-		return (c - 32);
-	else if (c >= 'A' && c <= 'Z')
-		return (c + 32);
-	return (c);
-}
-#include <stdio.h>
-
-size_t	ft_strlen(const char *s)
-{
-	int	len;
-
-	len = 0;
-	while (s[len] != '\0')
-		len++;
-	return (len);
-}
-
-int	main(void)
-{
-	char	string[] = "BonJour";
-	char	*newstring;
-
-	printf("Before : %s\n", string);
-	newstring = ft_strmapi(string, toggle_case_i);
-	printf("After : %s\n", newstring);
-	free(newstring);
-}
-*/

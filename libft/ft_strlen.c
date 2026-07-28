@@ -23,12 +23,3 @@ size_t	ft_strlen(const char *s)
 		len++;
 	return (len);
 }
-/*
-#include <stdio.h>
-
-int	main(int argc, char **argv)
-{
-	if (argc == 2)
-		printf("Longueur de la chaine : %ld\n", ft_strlen(argv[1]));
-}
-*/

@@ -32,16 +32,3 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	}
 	return (dst);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	char	src[] = "World";
-	char	dst[10];
-
-	ft_memcpy(dst, src, 6);
-	printf("Copied: %s\n", dst);
-	return (0);
-}
-*/

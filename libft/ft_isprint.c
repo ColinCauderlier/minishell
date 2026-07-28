@@ -19,17 +19,3 @@ int	ft_isprint(int c)
 	else
 		return (0);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	int	c;
-
-	c = '\n';
-	if (!ft_isprint(c))
-		printf("Ce n'est pas imprimable.\n");
-	else
-		printf("C'est imprimable.\n");
-}
-*/

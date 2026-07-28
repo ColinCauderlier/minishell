@@ -29,22 +29,3 @@ char	*ft_strrchr(const char *s, int c)
 		return ((char *)&s[i]);
 	return (find);
 }
-
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	char	*haystack;
-	int		needle;
-	char	*res;
-
-	haystack = "Bonjour je m'appelle Oswen.\n";
-	needle = 'e';
-	res = ft_strrchr(haystack, needle);
-	if (!res)
-		printf("Pas trouvee.\n");
-	else
-		printf("Derniere occurrence trouvee : %s\n", res);
-}
-*/

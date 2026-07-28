@@ -22,25 +22,3 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 		lst = lst->next;
 	}
 }
-/*
-#include <stdio.h>
-
-void	print(void *p)
-{
-	printf("%s\n", (char *)p);
-}
-
-int	main(void)
-{
-	t_list	*a;
-	t_list	*b;
-
-	a = ft_lstnew("Hello");
-	b = ft_lstnew("World");
-	a->next = b;
-	ft_lstiter(a, print);
-	free(b);
-	free(a);
-	return (0);
-}
-*/

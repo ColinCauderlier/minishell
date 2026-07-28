@@ -51,15 +51,3 @@ char	*ft_itoa(int n)
 		str[0] = '0';
 	return (str);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	printf("Converted String: %s\n", ft_itoa(2147483647));
-	printf("Converted String: %s\n", ft_itoa(-2147483648));
-	printf("Converted String: %s\n", ft_itoa(0));
-	printf("Converted String: %s\n", ft_itoa(345678));
-	free(nbr);
-}
-*/

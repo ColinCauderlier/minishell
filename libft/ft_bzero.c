@@ -23,15 +23,3 @@ void	ft_bzero(void *s, size_t n)
 		i++;
 	}
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	char	str[10] = "abcdef";
-
-	ft_bzero(str + 2, 3);
-	printf("After bzero: %s\n", str);
-	return (0);
-}
-*/

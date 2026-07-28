@@ -1,17 +1,18 @@
-*This project has been created as part of the 42 curriculum by lucinguy, ccauderl.*
-
 # Minishell
 
 _lucinguy & ccauderl_  
 _(piscine of september's 2025 - 42 PARIS)_ 
 
+[![CodeFactor](https://www.codefactor.io/repository/github/colincauderlier/minishell/badge)](https://www.codefactor.io/repository/github/colincauderlier/minishell)
+
 ## Description
 
-The **Minishell** project is about writing our own shell, based on bash posix. A shell is a command language interpreter.
+The **Minishell** project is about writing our own shell, based on bash posix. We manage just some essential features, but a lot of special characters are not processed (like ; or &&). This project is part of the 42 curriculum.
+The libft library we use is the first project of the 42 curriculum. We have chosen Oswen's for practicality.
 
 ### Instructions
 
-It must contain the following features :
+Our minishel contains the following features, it can :
 - Display of a prompt when waiting for a new command
 - Have a working history
 - Search and launch the right executable (based on the PATH or using a relative/absolute path)

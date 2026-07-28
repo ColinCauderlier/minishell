@@ -24,29 +24,3 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	ft_bzero(ptr, nmemb * size);
 	return (ptr);
 }
-
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	int				*string;
-	unsigned int	i;
-	unsigned int	nb;
-
-	nb = 10;
-	i = 0;
-	string = ft_calloc(nb, sizeof(int));
-	if (!string)
-	{
-		printf("Oups, y'a un souci !");
-		return (1);
-	}
-	while (i < 10)
-	{
-		printf("%d ", string[i]);
-		i++;
-	}
-	free(string);
-}
-*/

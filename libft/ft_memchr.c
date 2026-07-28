@@ -25,23 +25,3 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	}
 	return (NULL);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	char	*haystack;
-	int		needle;
-	char	*res;
-	size_t	n;
-
-	n = 4;
-	haystack = "Bonjour je m'appelle Oswen.\n";
-	needle = 'j';
-	res = ft_memchr(haystack, needle, n);
-	if (!res)
-		printf("Pas trouvee.\n");
-	else
-		printf("Occurrence trouvee : %s\n", res);
-}
-*/

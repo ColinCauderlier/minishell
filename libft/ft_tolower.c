@@ -18,19 +18,3 @@ int	ft_tolower(int c)
 		c += 32;
 	return (c);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	int		c;
-	char	chav;
-	char	chap;
-
-	c = 'A';
-	chav = c;
-	printf("Avant : %c\n", chav);
-	chap = ft_tolower(c);
-	printf("Apres : %c\n", chap);
-}
-*/

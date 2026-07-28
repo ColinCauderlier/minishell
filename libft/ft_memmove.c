@@ -37,15 +37,3 @@ void	*ft_memmove(void *dst, const void *src, size_t n)
 	}
 	return (dst);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	char	str[20] = "HelloWorld";
-
-	ft_memmove(str + 2, str, 5);
-	printf("Result: %s\n", str);
-	return (0);
-}
-*/

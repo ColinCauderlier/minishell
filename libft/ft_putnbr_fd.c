@@ -35,18 +35,3 @@ void	ft_putnbr_fd(int n, int fd)
 	}
 	print_nb(nb, fd);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	ft_putnbr_fd(2147483647, 1);
-	printf("\n");
-	ft_putnbr_fd(-2147483648, 1);
-	printf("\n");
-	ft_putnbr_fd(0, 1);
-	printf("\n");
-	ft_putnbr_fd(345678, 1);
-	printf("\n");
-}
-*/
