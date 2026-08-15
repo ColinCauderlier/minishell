@@ -37,15 +37,11 @@ int	get_len_command(t_token *tokens)
 	list = tokens;
 	while (list && list->token_type != PIPE)
 	{
-		if (is_redir_wo_word(list))
-		{
-			if (list->next)
-				list = list->next;
-		}
-		if (list->token_type == WORD)
-			len_command++;
-		if (list->next)
+		if (is_redir_wo_word(list) && list->next)
 			list = list->next;
+		else if (list->token_type == WORD)
+			len_command++;
+		list = list->next;
 	}
 	return (len_command);
 }

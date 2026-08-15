@@ -43,19 +43,17 @@ char	*trim_spaces(char *str, int i, int j)
 {
 	char	*res;
 	int		in_word;
-	int		len;
 
 	in_word = 0;
-	len = get_new_len(str);
-	res = malloc(len * sizeof(char));
+	res = malloc(get_new_len(str) * sizeof(char));
 	if (!res)
 		return (NULL);
-	while (str[i] && j < len - 1)
+	while (str[i])
 	{
 		if (!ft_isspace(str[i]))
 		{
 			in_word = 1;
-			res[j] = str[i];
+			res[j] = str[i]; 
 			j++;
 		}
 		if (ft_isspace(str[i]) && in_word == 1)
