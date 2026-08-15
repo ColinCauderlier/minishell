@@ -68,6 +68,7 @@ static int	end_pipe_exec(t_shell *shell)
 	int	i;
 
 	i = 0;
+	status = 0;
 	close_all_pipes(shell);
 	while (shell->exec.commands[i])
 	{

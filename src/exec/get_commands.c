@@ -55,6 +55,7 @@ static t_token	*free_error_commands(char ***commands, int i)
 		i--;
 	}
 	free(*commands);
+	commands = NULL;
 	return (NULL);
 }
 
