@@ -50,7 +50,7 @@ char	*trim_spaces(char *str, int i, int j)
 	res = malloc(len * sizeof(char));
 	if (!res)
 		return (NULL);
-	while (str[i] && j < len)
+	while (str[i] && j < len - 1)
 	{
 		if (!ft_isspace(str[i]))
 		{

@@ -94,7 +94,7 @@ int			pwd(void);
 int			cd(char *path, t_shell *shell);
 int			perform_cd_update(t_shell *shell, char *target, int print_path);
 int			perform_cd_update(t_shell *shell, char *target, int print_path);
-char		*get_target_path(const char *path, t_shell *shell, int *print_path);
+char		*get_target_path(const char *path, const t_shell *shell, int *print_path);
 void		print_cd_error(const char *path);
 //
 int			env(t_shell *shell);

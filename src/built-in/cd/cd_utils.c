@@ -31,7 +31,7 @@ static char	*get_env_value(const t_shell *shell, const char *name)
 	return (NULL);
 }
 
-char	*get_target_path(const char *path, t_shell *shell, int *print_path)
+char	*get_target_path(const char *path, const t_shell *shell, int *print_path)
 {
 	const char	*home_or_old;
 
