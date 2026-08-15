@@ -31,6 +31,8 @@ char	*get_home(char *pwd)
 		len++;
 	}
 	home = malloc(len * sizeof(char) + 1);
+	if (!home)
+		return (NULL);
 	while (i < len)
 	{
 		home[i] = pwd[i];
