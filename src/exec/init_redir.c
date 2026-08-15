@@ -43,12 +43,12 @@ static t_token	*redir_out_ww(t_redirs *redir, t_token *list)
 	if (list->token_type == RED_OUT_WW)
 	{
 		redir->fd_out = open(redir->fname_out,
-				O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	}
 	else
 	{
 		redir->fd_out = open(redir->fname_out,
-				O_WRONLY | O_CREAT | O_APPEND, 0644);
+				O_WRONLY | O_CREAT | O_APPEND, 0600);
 	}
 	if (redir->fd_out < 0)
 		return (goto_next_command(list, 0));
@@ -64,10 +64,10 @@ static t_token	*redir_out(t_redirs *redir, t_token *list)
 		return (goto_next_command(list, 1));
 	if (list->token_type == RED_OUT)
 		redir->fd_out = open(redir->fname_out,
-				O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	else
 		redir->fd_out = open(redir->fname_out,
-				O_WRONLY | O_CREAT | O_APPEND, 0644);
+				O_WRONLY | O_CREAT | O_APPEND, 0600);
 	if (redir->fd_out < 0)
 		return (goto_next_command(list, 0));
 	return (list);
