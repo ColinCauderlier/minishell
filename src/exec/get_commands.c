@@ -89,6 +89,8 @@ char	**get_commands(t_token *tokens)
 		return (NULL);
 	while (list && list->token_type != PIPE)
 		list = get_commands_loop(list, commands, &i);
+	if (!commands)
+		return (NULL);
 	commands[i] = NULL;
 	return (commands);
 }
