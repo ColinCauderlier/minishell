@@ -12,7 +12,7 @@
 
 #include "ft_fprintf.h"
 
-int	ft_fprintf_checktype(char c, va_list args, int fd)
+int	ft_fprintf_checktype(char c, const va_list args, int fd)
 {
 	if (c == 'c')
 		return (ft_fprintf_putchar_fd_pf(va_arg(args, int), fd));

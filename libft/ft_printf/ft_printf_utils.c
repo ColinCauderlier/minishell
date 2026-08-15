@@ -18,7 +18,7 @@ size_t	ft_putchar_fd_pf(char c, int fd)
 	return (1);
 }
 
-size_t	ft_putstr_fd_pf(char *s, int fd)
+size_t	ft_putstr_fd_pf(const char *s, int fd)
 {
 	size_t	i;
 

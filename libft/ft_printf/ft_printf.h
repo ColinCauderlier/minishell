@@ -23,12 +23,12 @@ int		ft_printf(const char *format, ...);
 
 // Checktype
 
-int		checktype(char c, va_list args, int fd);
+int		checktype(char c, const va_list args, int fd);
 
 // Utils
 
 size_t	ft_putchar_fd_pf(char c, int fd);
-size_t	ft_putstr_fd_pf(char *s, int fd);
+size_t	ft_putstr_fd_pf(const char *s, int fd);
 
 // Conv
 

@@ -30,7 +30,7 @@ int	ft_putnbr_t_fd(long n, int fd)
 
 int	ft_putnbr_base_x(unsigned long n, int uppercase, int fd)
 {
-	char	*base;
+	const char	*base;
 	int		count;
 
 	count = 0;
