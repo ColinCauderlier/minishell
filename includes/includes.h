@@ -46,7 +46,7 @@
 /**********LIBFT***********/
 
 # include "../libft/ft_printf/ft_printf.h"
-# include "../libft/gnl/get_next_line.h"
+# include "../libft/gnl/get_next_line_bonus.h"
 # include "../libft/libft.h"
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "../../includes/includes.h"
 
-static int	with_word_case(t_token *list)
+static int	with_word_case(const t_token *list)
 {
 	size_t	i;
 	char	mess[2];

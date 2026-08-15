@@ -23,7 +23,7 @@ void	heredoc_expand(t_shell *shell, char **line)
 	*line = temp;
 }
 
-void	heredoc_loop(t_shell *shell, t_token *list, t_redirs redir, char *line)
+void	heredoc_loop(t_shell *shell, const t_token *list, t_redirs redir, char *line)
 {
 	while (1)
 	{
@@ -32,17 +32,17 @@ void	heredoc_loop(t_shell *shell, t_token *list, t_redirs redir, char *line)
 		{
 			if (g_signal != SIGINT)
 				ft_fprintf(2, HERE_ERR);
-			break ;
+			return ;
 		}
 		if (!list->got_quotes)
 			heredoc_expand(shell, &line);
 		if (!line)
-			break ;
+			return ;
 		if (ft_strncmp(line, redir.delimiter, ft_strlen(redir.delimiter)
 				+ 1) == 0)
 		{
 			free(line);
-			break ;
+			return ;
 		}
 		ft_fprintf(redir.fd_in, "%s\n", line);
 		free(line);

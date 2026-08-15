@@ -41,7 +41,7 @@ static char	*get_path_from_envp(char **envp)
 	return (NULL);
 }
 
-static char	*find_path_loop(char *command, char **paths)
+static char	*find_path_loop(const char *command, char **paths)
 {
 	int		i;
 	char	*path;
@@ -65,7 +65,7 @@ char	*find_path(char *command, char **envp)
 {
 	char	**paths;
 	char	*full_path;
-	char	*path_env;
+	const char	*path_env;
 
 	if (ft_strchr(command, '/'))
 		return (ft_strdup(command));
