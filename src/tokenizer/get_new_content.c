@@ -12,7 +12,7 @@
 
 #include "../../includes/includes.h"
 
-char	*append_word(t_parsing *prs, char **new)
+char	*append_word(const t_parsing *prs, char **new)
 {
 	char	*tmp;
 

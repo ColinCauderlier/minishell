@@ -12,6 +12,33 @@
 
 #include "../../includes/includes.h"
 
+static int	get_new_len(const char *str)
+{
+	int	i;
+	int	len;
+	int	in_word;
+
+	i = 0;
+	len = 0;
+	in_word = 0;
+	while (str[i])
+	{
+		if (ft_isspace(str[i]) && in_word == 1)
+		{
+			in_word = 0;
+			len++;
+		}
+		if (!ft_isspace(str[i]))
+		{
+			in_word = 1;
+			len++;
+		}
+		i++;
+	}
+	len++;
+	return (len);
+}
+
 char	*trim_spaces(char *str, int i, int j)
 {
 	char	*res;
@@ -39,33 +66,6 @@ char	*trim_spaces(char *str, int i, int j)
 	}
 	res[j] = '\0';
 	return (free(str), res);
-}
-
-int	get_new_len(char *str)
-{
-	int	i;
-	int	len;
-	int	in_word;
-
-	i = 0;
-	len = 0;
-	in_word = 0;
-	while (str[i])
-	{
-		if (ft_isspace(str[i]) && in_word == 1)
-		{
-			in_word = 0;
-			len++;
-		}
-		if (!ft_isspace(str[i]))
-		{
-			in_word = 1;
-			len++;
-		}
-		i++;
-	}
-	len++;
-	return (len);
 }
 
 // En cas d'erreur, l'expand n'est pas fait

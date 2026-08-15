@@ -42,7 +42,7 @@ char	*gnl_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*gnl_strjoin(char *s1, char *s2)
+char	*gnl_strjoin(char *s1, const char *s2)
 {
 	size_t	len1;
 	size_t	len2;
@@ -70,7 +70,7 @@ char	*gnl_strjoin(char *s1, char *s2)
 	return (res);
 }
 
-char	*gnl_substr(char *s, unsigned int start, size_t len)
+char	*gnl_substr(const char *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	size_t	slen;

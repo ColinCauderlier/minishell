@@ -53,7 +53,7 @@ static int	read_to_stash(int fd, char **stash)
 	return (1);
 }
 
-static char	*extract_line(char *stash)
+static char	*extract_line(const char *stash)
 {
 	size_t	i;
 	char	*line;

@@ -29,7 +29,7 @@ char	*get_next_line(int fd);
 
 size_t	gnl_strlen(const char *s);
 char	*gnl_strchr(const char *s, int c);
-char	*gnl_strjoin(char *s1, char *s2);
-char	*gnl_substr(char *s, unsigned int start, size_t len);
+char	*gnl_strjoin(char *s1, const char *s2);
+char	*gnl_substr(const char *s, unsigned int start, size_t len);
 
 #endif

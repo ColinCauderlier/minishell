@@ -31,12 +31,11 @@ void		free_split(char **splitted);
 void		print_tokens(t_shell *shell);
 int			strip_token_quotes(t_token *list);
 int			inside_loop_strip(t_parsing *prs, char **new);
-char		*append_word(t_parsing *prs, char **new);
+char		*append_word(const t_parsing *prs, char **new);
 
 /**********EXPANDER***********/
 int			expand(t_parsing *prs, char **new, t_shell *shell);
 int			is_expand_lim(char c);
-int			get_new_len(char *str);
 char		*expand_raw_prompt(char *prompt, t_shell *shell);
 char		*trim_spaces(char *str, int i, int j);
 char		*get_expand(char *str, char **envp);
@@ -89,13 +88,15 @@ void		setup_signal_heredoc(void);
 void		sig_heredoc(int sig);
 
 /********BUILT*IN**********/
+//pwd
 int			pwd(void);
+//cd
 int			cd(char *path, t_shell *shell);
 int			perform_cd_update(t_shell *shell, char *target, int print_path);
 int			perform_cd_update(t_shell *shell, char *target, int print_path);
-char		*get_target_path(char *path, t_shell *shell, int *print_path);
-char		*get_env_value(t_shell *shell, char *name);
-void		print_cd_error(char *path);
+char		*get_target_path(const char *path, t_shell *shell, int *print_path);
+void		print_cd_error(const char *path);
+//
 int			env(t_shell *shell);
 int			export(char **command, t_shell *shell);
 int			unset(char **command, t_shell *shell);

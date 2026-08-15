@@ -12,7 +12,7 @@
 
 #include "../includes/includes.h"
 
-char	*get_env_value(t_shell *shell, char *name)
+static char	*get_env_value(const t_shell *shell, const char *name)
 {
 	int	i;
 	int	len;
@@ -31,9 +31,9 @@ char	*get_env_value(t_shell *shell, char *name)
 	return (NULL);
 }
 
-char	*get_target_path(char *path, t_shell *shell, int *print_path)
+char	*get_target_path(const char *path, t_shell *shell, int *print_path)
 {
-	char	*home_or_old;
+	const char	*home_or_old;
 
 	if (print_path)
 		*print_path = 0;
@@ -60,7 +60,7 @@ char	*get_target_path(char *path, t_shell *shell, int *print_path)
 	return (ft_strdup(path));
 }
 
-void	print_cd_error(char *path)
+void	print_cd_error(const char *path)
 {
 	if (!path || ft_strcmp(path, "~") == 0 || (path[0] == '~'
 			&& path[1] == '/'))
