@@ -87,5 +87,4 @@ int	ft_exit(char **cmd, t_shell *shell)
 	}
 	cleanup_before_exit(shell);
 	exit(status);
-	return (status);
 }

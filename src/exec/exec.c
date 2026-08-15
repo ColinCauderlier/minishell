@@ -14,6 +14,7 @@
 
 void	exec_command_2(t_shell *shell, int i, char *path, struct stat statbuf)
 {
+
 	if (stat(path, &statbuf) == 0 && S_ISDIR(statbuf.st_mode))
 	{
 		ft_fprintf(2, "minishell: %s: Is a directory\n", path);
@@ -120,7 +121,5 @@ int	exec(t_shell *shell)
 		return (free_exec(shell), 0);
 	else if (nb_commands == 1)
 		return (exec_single_command(shell));
-	else
-		return (pipe_exec(shell, nb_commands));
-	return (shell->last_exit);
+	return (pipe_exec(shell, nb_commands));
 }

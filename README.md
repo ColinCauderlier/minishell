@@ -1,7 +1,6 @@
 # Minishell
 
-_lucinguy & ccauderl_  
-_(piscine of september's 2025 - 42 PARIS)_ 
+This project has been made by Colin Cauderlier and Oswen Nguyen.
 
 [![CodeFactor](https://www.codefactor.io/repository/github/colincauderlier/minishell/badge)](https://www.codefactor.io/repository/github/colincauderlier/minishell)
 [![Quality gate status](https://sonarcloud.io/api/project_badges/measure?project=ColinCauderlier_minishell&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ColinCauderlier_minishell)
