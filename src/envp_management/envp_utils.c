@@ -31,11 +31,11 @@ char	*get_home(char *pwd)
 		len++;
 	}
 	home = malloc(len * sizeof(char) + 1);
-	while (i <= len)
+	while (i < len)
 	{
 		home[i] = pwd[i];
 		i++;
 	}
-	home[++i] = '\0';
+	home[i] = '\0';
 	return (home);
 }
