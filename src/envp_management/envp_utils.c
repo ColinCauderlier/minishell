@@ -22,7 +22,7 @@ char	*get_home(char *pwd)
 	slash = 0;
 	i = 0;
 	len = 0;
-	while (pwd[len])
+	while (pwd[len] && len < 4096)
 	{
 		if (pwd[len + 1] == '/' && slash == 2)
 			break ;
